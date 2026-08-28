@@ -319,7 +319,8 @@
               },
               "moveType": "horizontal",
               "useCollisions": false,
-              "__collapse": true
+              "__collapse": true,
+              "collideWith": []
             },
             "id": "a24349cf-8c17-4bfe-8446-6b9a5b5cf7da"
           },
@@ -348,8 +349,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 1,
-              "frames": 20,
+              "time": {
+                "type": "number",
+                "value": 1
+              },
+              "frames": {
+                "type": "number",
+                "value": 20
+              },
               "__collapse": true,
               "units": "frames"
             },
@@ -372,8 +379,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 1,
-              "frames": 20,
+              "time": {
+                "type": "number",
+                "value": 1
+              },
+              "frames": {
+                "type": "number",
+                "value": 20
+              },
               "__collapse": true,
               "units": "frames"
             },
@@ -396,8 +409,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 1,
-              "frames": 40,
+              "time": {
+                "type": "number",
+                "value": 1
+              },
+              "frames": {
+                "type": "number",
+                "value": 40
+              },
               "__collapse": true,
               "units": "frames"
             },

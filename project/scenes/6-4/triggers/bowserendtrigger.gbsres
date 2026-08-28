@@ -39,8 +39,14 @@
     {
       "command": "EVENT_WAIT",
       "args": {
-        "time": 2,
-        "frames": 30
+        "time": {
+          "type": "number",
+          "value": 2
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        }
       },
       "id": "98b15d5e-eace-4819-bc0f-501c80b71e7d"
     },
@@ -56,8 +62,14 @@
     {
       "command": "EVENT_WAIT",
       "args": {
-        "time": 1,
-        "frames": 30
+        "time": {
+          "type": "number",
+          "value": 1
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        }
       },
       "id": "3aaa69a0-40a6-4621-a56b-bf4b83a2c347"
     },

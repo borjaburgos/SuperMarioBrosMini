@@ -129,8 +129,14 @@
     {
       "command": "EVENT_WAIT",
       "args": {
-        "time": 1,
-        "frames": 15,
+        "time": {
+          "type": "number",
+          "value": 1
+        },
+        "frames": {
+          "type": "number",
+          "value": 15
+        },
         "units": "frames",
         "__collapse": true
       },
@@ -168,8 +174,14 @@
     {
       "command": "EVENT_WAIT",
       "args": {
-        "time": 1,
-        "frames": 45,
+        "time": {
+          "type": "number",
+          "value": 1
+        },
+        "frames": {
+          "type": "number",
+          "value": 45
+        },
         "units": "frames",
         "__collapse": true
       },
@@ -213,7 +225,11 @@
               "moveType": "vertical",
               "useCollisions": true,
               "units": "pixels",
-              "__collapse": false
+              "__collapse": false,
+              "collideWith": [
+                "walls",
+                "actors"
+              ]
             },
             "id": "8a564ac5-dd48-433f-a856-154463704278"
           }
@@ -236,7 +252,11 @@
         "moveType": "vertical",
         "useCollisions": true,
         "units": "pixels",
-        "__collapse": false
+        "__collapse": false,
+        "collideWith": [
+          "walls",
+          "actors"
+        ]
       },
       "id": "22f09f63-a220-4a41-9f9e-03595d70d7dd"
     },
@@ -251,8 +271,14 @@
     {
       "command": "EVENT_WAIT",
       "args": {
-        "time": 0.5,
-        "frames": 60,
+        "time": {
+          "type": "number",
+          "value": 0.5
+        },
+        "frames": {
+          "type": "number",
+          "value": 60
+        },
         "units": "frames",
         "__collapse": true
       },
@@ -307,8 +333,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 4,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 4
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "18d5a72b-ac62-406f-95ec-262ff66a5884"

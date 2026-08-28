@@ -1,0 +1,46 @@
+--- src/core/camera.c
++++ src/core/camera.c
+@@ -16,6 +16,7 @@
+ BYTE camera_deadzone_x;
+ BYTE camera_deadzone_y;
+ UBYTE camera_settings;
++UBYTE scroll_lock;
+ 
+ void camera_init(void) BANKED {
+     camera_settings = CAMERA_LOCK_FLAG;
+@@ -34,7 +35,7 @@
+         UWORD target_max_pos = target_pos + tolerance;
+         UWORD new_cam_pos = camera_x;
+ 
+-        if (new_cam_pos < target_min_pos)
++        if ((scroll_lock & 1) && (new_cam_pos < target_min_pos))
+         {
+             new_cam_pos = target_min_pos;
+             if ((camera_settings & CAMERA_LOCK_X_MAX_FLAG) && new_cam_pos > camera_clamp_x)
+@@ -42,7 +43,7 @@
+                 new_cam_pos = camera_clamp_x;
+             }
+         }
+-        else if (new_cam_pos > target_max_pos)
++        else if ((scroll_lock & 2) && (new_cam_pos > target_max_pos))
+         {
+             new_cam_pos = target_max_pos;
+             if ((camera_settings & CAMERA_LOCK_X_MIN_FLAG) && new_cam_pos < camera_clamp_x)
+@@ -61,7 +62,7 @@
+         UWORD target_max_pos = target_pos + tolerance;
+         UWORD new_cam_pos = camera_y;
+ 
+-        if (new_cam_pos < target_min_pos)
++        if ((scroll_lock & 8) && (new_cam_pos < target_min_pos))
+         {
+             new_cam_pos = target_min_pos;
+             if ((camera_settings & CAMERA_LOCK_Y_MAX_FLAG) && new_cam_pos > camera_clamp_y)
+@@ -69,7 +70,7 @@
+                 new_cam_pos = camera_clamp_y;
+             }
+         }
+-        else if (new_cam_pos > target_max_pos)
++        else if ((scroll_lock & 4) && (new_cam_pos > target_max_pos))
+         {
+             new_cam_pos = target_max_pos;
+             if ((camera_settings & CAMERA_LOCK_Y_MIN_FLAG) && new_cam_pos < camera_clamp_y)

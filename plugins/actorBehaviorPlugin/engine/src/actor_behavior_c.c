@@ -24,7 +24,7 @@
 #include "data/game_globals.h"
 #include "ui.h"
 
-UWORD check_collision_c(UWORD start_x, UWORD start_y, bounding_box_t *bounds, col_check_dir_e check_dir) BANKED{    
+UWORD check_collision_c(UWORD start_x, UWORD start_y, rect16_t *bounds, col_check_dir_e check_dir) BANKED{
     switch (check_dir) {
         case CHECK_DIR_LEFT:  // Check left (bottom left)
             col_tx = (((start_x >> 4) + bounds->left) >> 3);
@@ -52,7 +52,7 @@ UWORD check_collision_c(UWORD start_x, UWORD start_y, bounding_box_t *bounds, co
             col_tx = (((start_x >> 4) + bounds->left) >> 3);
             if (tile_at(col_tx, col_ty) & COLLISION_TOP) {
                 return ((col_ty) << 7) - ((bounds->bottom + 1) << 4);
-            }			
+            }
 			col_tx = (((start_x >> 4) + bounds->right) >> 3);
 			if (tile_at(col_tx, col_ty) & COLLISION_TOP) {
                 return ((col_ty) << 7) - ((bounds->bottom + 1) << 4);
@@ -71,7 +71,7 @@ void apply_velocity_c(UBYTE actor_idx, actor_t * actor) BANKED {
 	//Apply velocity
 	new_actor_y =  actor->pos.y + actor_vel_y[actor_idx];
 	new_actor_x =  actor->pos.x + actor_vel_x[actor_idx];
-	if (actor->collision_enabled){
+	if (CHK_FLAG(actor->flags, ACTOR_FLAG_COLLISION)){
 		//Tile Collision
 		actor->pos.x = check_collision_c(new_actor_x, actor->pos.y, &actor->bounds, ((actor->pos.x > new_actor_x) ? CHECK_DIR_LEFT : CHECK_DIR_RIGHT));
 		if (actor->pos.x != new_actor_x){
@@ -85,25 +85,25 @@ void apply_velocity_c(UBYTE actor_idx, actor_t * actor) BANKED {
 }
 
 void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
-	switch(current_behavior){	
+	switch(current_behavior){
 		case 34://Totomesu
 		switch(actor_states[i]){
 			case 0: //Init
-				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ 
-					actor_states[i] = 1; 
+				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+					actor_states[i] = 1;
 					actor_counter_a[i] = 32;
 					actor_counter_b[i] = 0;
 					actor_vel_x[i] = 0;
-					actor_vel_y[i] = 0;					
+					actor_vel_y[i] = 0;
 				}
 				break;
 			case 1: //Main state
 				current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
-				if (current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){ 
-					actor_states[i] = 255; 
+				if (current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
+					actor_states[i] = 255;
 					break;
 				}
-				
+
 				apply_gravity_c(i);
 				apply_velocity_c(i, actor);
 				//Animation
@@ -113,16 +113,16 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 					actor_set_dir(actor, DIR_RIGHT, actor_counter_b[i]);
 				}
 				if (!(game_time & 1)){
-					if (!(actor_counter_a[i] & 63) && (PLAYER.pos.x < actor->pos.x)){	
-						actor_counter_a[i] = rand();	
+					if (!(actor_counter_a[i] & 63) && (PLAYER.pos.x < actor->pos.x)){
+						actor_counter_a[i] = rand();
 						if (actor_counter_a[i] < 64){
 							//jump
 							actor_states[i] = 2;
 							actor_vel_y[i] = -32;
 							actor_vel_x[i] = (rand() & 15) - 8;
-							actor->anim_noloop = 1;
+							SET_FLAG(actor->flags, ACTOR_FLAG_ANIM_NOLOOP);
 						} else {
-							//breath fire							
+							//breath fire
 							UBYTE attack_idx = actor_linked_actor_idx[i];
 							if (actor_states[attack_idx] != 0 && actor_states[attack_idx] != 255){
 								//breath fire
@@ -131,22 +131,22 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 									//breath fire
 									attack_idx = actor_linked_actor_idx[attack_idx];
 								}
-							}		
+							}
 							if (attack_idx != 0 && (actor_states[attack_idx] == 0 || actor_states[attack_idx] == 255)){
 								actor_t * attack_actor = (actors + attack_idx);
 								actor_states[attack_idx] = 0;
-								if (!attack_actor->active){
-									attack_actor->disabled = FALSE;
+								if (!CHK_FLAG(attack_actor->flags, ACTOR_FLAG_ACTIVE)){
+									CLR_FLAG(attack_actor->flags, ACTOR_FLAG_DISABLED);
 									activate_actor(attack_actor);
 								}
-								attack_actor->collision_enabled = true;
+								SET_FLAG(attack_actor->flags, ACTOR_FLAG_COLLISION);
 								attack_actor->pos.y = actor->pos.y - (actor_counter_a[i] - 128);
 								actor_counter_b[i] = 15;
-								actor_set_dir(attack_actor, DIR_LEFT, FALSE);	
-								attack_actor->pos.x = actor->pos.x - 128;	
-								actor_vel_x[attack_idx]	= -12;	
-							}								
-						}					
+								actor_set_dir(attack_actor, DIR_LEFT, FALSE);
+								attack_actor->pos.x = actor->pos.x - 128;
+								actor_vel_x[attack_idx]	= -12;
+							}
+						}
 					}
 					actor_counter_a[i]++;
 					if (actor_counter_b[i] > 0){
@@ -155,8 +155,8 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				}
 				break;
 			case 2: //Jump state
-				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) > BEHAVIOR_DEACTIVATION_THRESHOLD){ 
-					actor_states[i] = 255; 
+				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) > BEHAVIOR_DEACTIVATION_THRESHOLD){
+					actor_states[i] = 255;
 					break;
 				}
 				actor_vel_y[i] += (plat_grav >> 11);
@@ -164,7 +164,7 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				//Apply velocity
 				WORD new_y =  actor->pos.y + actor_vel_y[i];
 				WORD new_x =  actor->pos.x + actor_vel_x[i];
-				//Tile Collision				
+				//Tile Collision
 				actor->pos.x = check_collision_c(new_x, actor->pos.y, &actor->bounds, ((actor->pos.x > new_x) ? CHECK_DIR_LEFT : CHECK_DIR_RIGHT));
 				if (actor->pos.x != new_x){
 					actor_vel_x[i] = -actor_vel_x[i];
@@ -173,58 +173,58 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				if (actor->pos.y < new_y){
 					actor_vel_y[i] = 0;
 					actor_vel_x[i] = 0;
-					actor->anim_noloop = 0;
-					actor_states[i] = 1;						
+					CLR_FLAG(actor->flags, ACTOR_FLAG_ANIM_NOLOOP);
+					actor_states[i] = 1;
 				}
 				//Animation
-				if (PLAYER.pos.x < actor->pos.x) {					
+				if (PLAYER.pos.x < actor->pos.x) {
 					actor_set_anim(actor, ANIM_JUMP_LEFT);
 				} else {
 					actor_set_anim(actor, ANIM_JUMP_RIGHT);
 				}
 				break;
 			case 3: //death
-				if ((actor->pos.y >> 7) > (image_tile_height + 4)){ 
-					actor_states[i] = 255; 
+				if ((actor->pos.y >> 7) > (image_tile_height + 4)){
+					actor_states[i] = 255;
 					break;
 				}
 				actor_vel_y[i] += (plat_grav >> 10);
 				actor_vel_y[i] = MIN(actor_vel_y[i], plat_max_fall_vel >> 8);
 				//Apply velocity
 				actor->pos.y =  actor->pos.y + actor_vel_y[i];
-				actor->collision_enabled = false;
+				CLR_FLAG(actor->flags, ACTOR_FLAG_COLLISION);
 				break;
 			case 255: //Deactivate
 				deactivate_actor(actor);
 				break;
-		}		
-		break;	
+		}
+		break;
 		case 35://Dragonzamazu
 		switch(actor_states[i]){
 			case 0:
-					if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ 
-						actor_states[i] = 1; 
+					if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						actor_states[i] = 1;
 						actor_vel_y[i] = 8;
 						actor_vel_x[i] = 0;
 					}
 					break;
 			case 1: //Move up state
 				if (!(game_time & 3)){
-					actor_vel_y[i] = MAX(actor_vel_y[i]--, -8);						
+					actor_vel_y[i] = MAX(actor_vel_y[i]--, -8);
 					if (actor->pos.y < 1280){
 						actor_states[i] = 2;
 					}
-				}					
-				actor->pos.y = actor->pos.y + actor_vel_y[i];					
+				}
+				actor->pos.y = actor->pos.y + actor_vel_y[i];
 				goto dragonzamazu_mainstate;
 			case 2: //Move down state
 				if (!(game_time & 3)){
 					actor_vel_y[i] = MIN(actor_vel_y[i]++, 8);
 					if (actor->pos.y > 1536){
 						actor_states[i] = 1;
-					}	
-				}					
-				actor->pos.y = actor->pos.y + actor_vel_y[i];	
+					}
+				}
+				actor->pos.y = actor->pos.y + actor_vel_y[i];
 			dragonzamazu_mainstate: //Main state
 				//Animation
 				if (PLAYER.pos.x < actor->pos.x) {
@@ -233,10 +233,10 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 					actor_set_dir(actor, DIR_RIGHT, actor_counter_b[i]);
 				}
 				if (!(game_time & 1)){
-					if (!(actor_counter_a[i] & 63)){	
-						actor_counter_a[i] = rand();	
+					if (!(actor_counter_a[i] & 63)){
+						actor_counter_a[i] = rand();
 						if (actor_counter_a[i] < 128 && (PLAYER.pos.x < actor->pos.x)){
-							//bullet bill 1							
+							//bullet bill 1
 							UBYTE attack_idx = actor_linked_actor_idx[i];
 							if (actor_states[attack_idx] != 0 && actor_states[attack_idx] != 255){
 								//bullet bill 2
@@ -245,61 +245,61 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 									//bullet bill 3
 									attack_idx = actor_linked_actor_idx[attack_idx];
 								}
-							}		
+							}
 							if (attack_idx != 0 && (actor_states[attack_idx] == 0 || actor_states[attack_idx] == 255)){
 								actor_t * attack_actor = (actors + attack_idx);
 								actor_behavior_ids[attack_idx] = 6;
 								actor_states[attack_idx] = 0;
-								if (!attack_actor->active){
-									attack_actor->disabled = FALSE;
+								if (!CHK_FLAG(attack_actor->flags, ACTOR_FLAG_ACTIVE)){
+									CLR_FLAG(attack_actor->flags, ACTOR_FLAG_DISABLED);
 									activate_actor(attack_actor);
 								}
-								attack_actor->collision_enabled = true;
+								SET_FLAG(attack_actor->flags, ACTOR_FLAG_COLLISION);
 								attack_actor->pos.x = actor->pos.x;
 								attack_actor->pos.y = actor->pos.y - 256;
 								actor_counter_b[i] = 15;
-								actor_set_dir(attack_actor, DIR_LEFT, FALSE);	
-								actor_vel_x[attack_idx]	= -12;	
-							}								
-						}					
+								actor_set_dir(attack_actor, DIR_LEFT, FALSE);
+								actor_vel_x[attack_idx]	= -12;
+							}
+						}
 					}
 					actor_counter_a[i]++;
 					if (actor_counter_b[i] > 0){
 						actor_counter_b[i]--;
 					}
 				}
-				break;			
+				break;
 			case 3: //death
-				if ((actor->pos.y >> 7) > (image_tile_height + 4)){ 
-					actor_states[i] = 255; 
+				if ((actor->pos.y >> 7) > (image_tile_height + 4)){
+					actor_states[i] = 255;
 					break;
 				}
 				actor_vel_y[i] += (plat_grav >> 10);
 				actor_vel_y[i] = MIN(actor_vel_y[i], plat_max_fall_vel >> 8);
 				//Apply velocity
 				actor->pos.y =  actor->pos.y + actor_vel_y[i];
-				actor->collision_enabled = false;
+				CLR_FLAG(actor->flags, ACTOR_FLAG_COLLISION);
 				break;
 			case 255: //Deactivate
 				deactivate_actor(actor);
 				break;
-		}		
-		break;	
+		}
+		break;
 		case 36://Hiyoihoi
 		switch(actor_states[i]){
 			case 0:
-					if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ 
-						actor_states[i] = 1; 
+					if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						actor_states[i] = 1;
 					}
 					break;
 			case 1: //Main state
-				//Animation				
+				//Animation
 				if (!(game_time & 1)){
 					actor_set_dir(actor, DIR_LEFT, actor_counter_b[i]);
-					if (actor_counter_a[i] > 64){	
-						actor_counter_a[i] = (rand() & 31);	
+					if (actor_counter_a[i] > 64){
+						actor_counter_a[i] = (rand() & 31);
 						if (PLAYER.pos.x < actor->pos.x){
-							//boulder 1							
+							//boulder 1
 							UBYTE attack_idx = actor_linked_actor_idx[i];
 							if (actor_states[attack_idx] != 0 && actor_states[attack_idx] != 255){
 								//boulder 2
@@ -308,45 +308,45 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 									//boulder 3
 									attack_idx = actor_linked_actor_idx[attack_idx];
 								}
-							}		
+							}
 							if (attack_idx != 0 && (actor_states[attack_idx] == 0 || actor_states[attack_idx] == 255)){
 								actor_t * attack_actor = (actors + attack_idx);
 								actor_states[attack_idx] = 0;
-								if (!attack_actor->active){
-									attack_actor->disabled = FALSE;
+								if (!CHK_FLAG(attack_actor->flags, ACTOR_FLAG_ACTIVE)){
+									CLR_FLAG(attack_actor->flags, ACTOR_FLAG_DISABLED);
 									activate_actor(attack_actor);
 								}
-								attack_actor->collision_enabled = true;
+								SET_FLAG(attack_actor->flags, ACTOR_FLAG_COLLISION);
 								attack_actor->pos.x = actor->pos.x;
 								attack_actor->pos.y = actor->pos.y - 256;
 								actor_counter_b[i] = 15;
-								actor_set_dir(attack_actor, DIR_LEFT, TRUE);	
-								actor_vel_x[attack_idx]	= (rand() & 7) - 12;	
+								actor_set_dir(attack_actor, DIR_LEFT, TRUE);
+								actor_vel_x[attack_idx]	= (rand() & 7) - 12;
 								actor_vel_y[attack_idx]	= (rand() & 15) - 30;
-							}								
-						}					
+							}
+						}
 					}
 					actor_counter_a[i]++;
 					if (actor_counter_b[i] > 0){
 						actor_counter_b[i]--;
 					}
 				}
-				break;			
+				break;
 			case 3: //death
-				if ((actor->pos.y >> 7) > (image_tile_height + 4)){ 
-					actor_states[i] = 255; 
+				if ((actor->pos.y >> 7) > (image_tile_height + 4)){
+					actor_states[i] = 255;
 					break;
 				}
 				actor_vel_y[i] += (plat_grav >> 10);
 				actor_vel_y[i] = MIN(actor_vel_y[i], plat_max_fall_vel >> 8);
 				//Apply velocity
 				actor->pos.y =  actor->pos.y + actor_vel_y[i];
-				actor->collision_enabled = false;
+				CLR_FLAG(actor->flags, ACTOR_FLAG_COLLISION);
 				break;
 			case 255: //Deactivate
 				deactivate_actor(actor);
 				break;
-		}		
+		}
 		break;
 		case 37://Boulder
 		switch(actor_states[i]){
@@ -355,8 +355,8 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				break;
 			case 1: //Main state
 				current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
-				if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD || (actor->pos.y >> 7) > image_tile_height){ 
-					actor_states[i] = 255; 
+				if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD || (actor->pos.y >> 7) > image_tile_height){
+					actor_states[i] = 255;
 					break;
 				}
 				actor_vel_y[i] += (plat_grav >> 11);
@@ -390,17 +390,17 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 			case 255: //Deactivate
 				deactivate_actor(actor);
 				break;
-		}		
-		break;	
+		}
+		break;
 		case 38://Alt projectile Lakitu
 		switch(actor_states[i]){
 			case 0: //Init
-				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ 
-					actor_states[i] = 1; 
+				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+					actor_states[i] = 1;
 					actor->frame = actor->frame_start;
 				}
 				break;
-			case 1: //Main state	
+			case 1: //Main state
 				if (!(game_time & 3)){
 					if (actor->pos.x > PLAYER.pos.x){
 						actor_set_dir(actor, DIR_LEFT, TRUE);
@@ -416,20 +416,20 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				}
 				//Apply velocity
 				actor->pos.x =  actor->pos.x + actor_vel_x[i];
-				if (!(game_time & 1)){					
-					if (!(actor_counter_a[i] & 63)){	
-						actor_counter_a[i] = rand();	
+				if (!(game_time & 1)){
+					if (!(actor_counter_a[i] & 63)){
+						actor_counter_a[i] = rand();
 						if (actor_counter_a[i] < 128){
 							actor->frame = actor->frame_start + 1;
 							actor_counter_b[i] = 32;
-						}				
+						}
 					}
 					actor_counter_a[i]++;
 					if (actor_counter_b[i] != 0){
 						actor_counter_b[i]--;
 						if (actor_counter_b[i] == 0){
 							actor->frame = actor->frame_start;
-							//throw item 1							
+							//throw item 1
 							UBYTE item_idx = actor_linked_actor_idx[i];
 							if (actor_states[item_idx] != 0 && actor_states[item_idx] != 255){
 								//throw item 2
@@ -438,21 +438,21 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 									//throw item 3
 									item_idx = actor_linked_actor_idx[item_idx];
 								}
-							}							
+							}
 							if (item_idx != 0 && (actor_states[item_idx] == 0 || actor_states[item_idx] == 255)){
 								actor_t * item_actor = (actors + item_idx);
 								actor_states[item_idx] = 0;
-								if (!item_actor->active){
-									item_actor->disabled = FALSE;
+								if (!CHK_FLAG(item_actor->flags, ACTOR_FLAG_ACTIVE)){
+									CLR_FLAG(item_actor->flags, ACTOR_FLAG_DISABLED);
 									activate_actor(item_actor);
 								}
-								item_actor->collision_enabled = true;
+								SET_FLAG(item_actor->flags, ACTOR_FLAG_COLLISION);
 								item_actor->pos.y = actor->pos.y;
-								item_actor->pos.x = actor->pos.x;	
+								item_actor->pos.x = actor->pos.x;
 								actor_vel_y[item_idx] = -24;
 								if ((PLAYER.pos.x - 256) < actor->pos.x) {
-									actor_set_dir(item_actor, DIR_LEFT, FALSE);									
-									actor_vel_x[item_idx]	= (pl_vel_x >> 8) - 8;							
+									actor_set_dir(item_actor, DIR_LEFT, FALSE);
+									actor_vel_x[item_idx]	= (pl_vel_x >> 8) - 8;
 								} else {
 									actor_set_dir(item_actor, DIR_RIGHT, FALSE);
 									actor_vel_x[item_idx]	= (pl_vel_x >> 8) + 8;
@@ -465,34 +465,34 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 			case 255: //Deactivate
 				deactivate_actor(actor);
 				break;
-		}		
+		}
 		break;
 		case 39://Tatanga
 		switch(actor_states[i]){
 			case 0:
-					if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ 
-						actor_states[i] = 1; 
+					if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						actor_states[i] = 1;
 						actor_vel_y[i] = 8;
 						actor_vel_x[i] = 0;
 					}
 					break;
 			case 1: //Move up state
 				if (!(game_time & 3)){
-					actor_vel_y[i] = MAX(actor_vel_y[i]--, -8);						
+					actor_vel_y[i] = MAX(actor_vel_y[i]--, -8);
 					if (actor->pos.y < 1280){
 						actor_states[i] = 2;
 					}
-				}					
-				actor->pos.y = actor->pos.y + actor_vel_y[i];					
+				}
+				actor->pos.y = actor->pos.y + actor_vel_y[i];
 				goto tatanga_mainstate;
 			case 2: //Move down state
 				if (!(game_time & 3)){
 					actor_vel_y[i] = MIN(actor_vel_y[i]++, 8);
 					if (actor->pos.y > 1536){
 						actor_states[i] = 1;
-					}	
-				}					
-				actor->pos.y = actor->pos.y + actor_vel_y[i];	
+					}
+				}
+				actor->pos.y = actor->pos.y + actor_vel_y[i];
 			tatanga_mainstate: //Main state
 				//Animation
 				if (!(game_time & 3)){
@@ -518,56 +518,56 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 					actor_vel_x[i] = 24;
 				}
 				actor->pos.x =  actor->pos.x + actor_vel_x[i];
-				
+
 				if (!(game_time & 1)){
-					if (!(actor_counter_a[i] & 63)){	
-						actor_counter_a[i] = rand();	
+					if (!(actor_counter_a[i] & 63)){
+						actor_counter_a[i] = rand();
 						if (actor_counter_a[i] < 128 && (PLAYER.pos.x < actor->pos.x)){
-							//Attack 1							
+							//Attack 1
 							UBYTE attack_idx = actor_linked_actor_idx[i];
 							if (actor_states[attack_idx] != 0 && actor_states[attack_idx] != 255 || rand() > 128){
 								//Attack 2
-								attack_idx = actor_linked_actor_idx[attack_idx];								
-							}		
+								attack_idx = actor_linked_actor_idx[attack_idx];
+							}
 							if (attack_idx != 0 && (actor_states[attack_idx] == 0 || actor_states[attack_idx] == 255)){
 								actor_t * attack_actor = (actors + attack_idx);
 								actor_states[attack_idx] = 0;
-								if (!attack_actor->active){
-									attack_actor->disabled = FALSE;
+								if (!CHK_FLAG(attack_actor->flags, ACTOR_FLAG_ACTIVE)){
+									CLR_FLAG(attack_actor->flags, ACTOR_FLAG_DISABLED);
 									activate_actor(attack_actor);
 								}
-								attack_actor->collision_enabled = true;
+								SET_FLAG(attack_actor->flags, ACTOR_FLAG_COLLISION);
 								attack_actor->pos.x = actor->pos.x;
 								attack_actor->pos.y = actor->pos.y;
-								actor_set_dir(attack_actor, DIR_LEFT, FALSE);	
-								actor_vel_x[attack_idx]	= 0;	
-							}								
-						}					
+								actor_set_dir(attack_actor, DIR_LEFT, FALSE);
+								actor_vel_x[attack_idx]	= 0;
+							}
+						}
 					}
 					actor_counter_a[i]++;
 				}
-				break;			
+				break;
 			case 3: //death
-				if ((actor->pos.y >> 7) > (image_tile_height + 4)){ 
-					actor_states[i] = 255; 
+				if ((actor->pos.y >> 7) > (image_tile_height + 4)){
+					actor_states[i] = 255;
 					break;
 				}
 				actor_vel_y[i] += (plat_grav >> 10);
 				actor_vel_y[i] = MIN(actor_vel_y[i], plat_max_fall_vel >> 8);
 				//Apply velocity
 				actor->pos.y =  actor->pos.y + actor_vel_y[i];
-				actor->collision_enabled = false;
+				CLR_FLAG(actor->flags, ACTOR_FLAG_COLLISION);
 				break;
 			case 255: //Deactivate
 				deactivate_actor(actor);
 				break;
-		}		
+		}
 		break;
 		case 40: //Wario
 		switch(actor_states[i]){
 			case 0:
-				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ 
-					actor_states[i] = 1; 
+				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+					actor_states[i] = 1;
 					actor_vel_y[i] = 0;
 					actor_vel_x[i] = 0;
 					actor_counter_a[i] = rand();
@@ -575,7 +575,7 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				break;
 			case 1: //Grounded
 				actor_vel_y[i] += (plat_grav >> 8);
-				actor_vel_y[i] = MIN(actor_vel_y[i], (plat_max_fall_vel >> 8));	
+				actor_vel_y[i] = MIN(actor_vel_y[i], (plat_max_fall_vel >> 8));
 				actor_states[i] = 4;
 				//animation
 				if (actor_vel_x[i] > 0){
@@ -586,7 +586,7 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 					actor_set_dir(actor, DIR_RIGHT, FALSE);
 				} else {
 					actor_set_dir(actor, DIR_LEFT, FALSE);
-				}			
+				}
 				if (!(game_time & 3) && script_memory[VAR_BOWSER_COUNTER] == 2){
 					if (!(actor_counter_a[i] & 31)){
 						if (rand() < 200){
@@ -601,7 +601,7 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				}
 				goto wario_mainstate;
 			case 2: //init jump
-				actor->anim_noloop = TRUE;
+				SET_FLAG(actor->flags, ACTOR_FLAG_ANIM_NOLOOP);
 				actor_vel_y[i] = -30;
 				actor_counter_a[i] = 10;
 				actor_states[i] = 3;
@@ -610,14 +610,14 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				} else {
 					actor_set_anim(actor, ANIM_JUMP_LEFT);
 				}
-			case 3: //Jump				
+			case 3: //Jump
 				if (actor_counter_a[i] !=0){
 					actor_vel_y[i] -= 1;
 					actor_counter_a[i] -=1;
 				} else if (actor_vel_y[i] < 0){
 					actor_vel_y[i] += (plat_hold_grav >> 8);
 				} else if (actor_vel_y[i] >= 0){
-					actor->anim_noloop = FALSE;
+					CLR_FLAG(actor->flags, ACTOR_FLAG_ANIM_NOLOOP);
 					actor_states[i] = 4;
 					actor_counter_a[i] = 0;
 					actor_vel_y[i] += (plat_grav >> 8);
@@ -627,8 +627,8 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				goto wario_mainstate;
 			case 4: //Falling
 				actor_vel_y[i] += (plat_grav >> 8);
-				actor_vel_y[i] = MIN(actor_vel_y[i], (plat_max_fall_vel >> 8));	
-			wario_mainstate: //Main state				
+				actor_vel_y[i] = MIN(actor_vel_y[i], (plat_max_fall_vel >> 8));
+			wario_mainstate: //Main state
 				//Apply velocity
 				WORD new_y =  actor->pos.y + actor_vel_y[i];
 				WORD new_x =  actor->pos.x + actor_vel_x[i];
@@ -643,15 +643,15 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 					actor_counter_a[i] = rand();
 				} else if (actor->pos.y > new_y){
 					actor_vel_y[i] = 0;
-					UBYTE tile_id = sram_map_data[VRAM_OFFSET(col_tx, col_ty)];	
+					UBYTE tile_id = sram_map_data[VRAM_OFFSET(col_tx, col_ty)];
 					switch(tile_id){
 						case 5://coin block
-						case 7://brick	
+						case 7://brick
 						case 152://multi coin brick
 						case 153://powerup brick
 						case 154://star brick
 						case 155://1up brick
-						case 156://powerup block	
+						case 156://powerup block
 						case 157://beanstalk block
 						case 158://star block
 						case 159://1up block
@@ -678,53 +678,53 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				break;
 			case 6: //hurt init
 				actor_counter_a[i] = (rand() & 15) + 15;
-				actor_states[i] = 7; 
-			case 7: //hurt				
+				actor_states[i] = 7;
+			case 7: //hurt
 				if (!(game_time & 3)){
-					actor_counter_a[i]--;					
+					actor_counter_a[i]--;
 					if (actor_counter_a[i] <= 0){
 						actor_states[i] = 1;
-						load_animations(actor->sprite.ptr, actor->sprite.bank, STATE_DEFAULT, actor->animations);				
-					}				
-				}				
+						load_animations(actor->sprite.ptr, actor->sprite.bank, STATE_DEFAULT, actor->animations);
+					}
+				}
 				break;
 			case 8: //death
-				if ((actor->pos.y >> 7) > (image_tile_height + 4)){ 
-					actor_states[i] = 255; 
+				if ((actor->pos.y >> 7) > (image_tile_height + 4)){
+					actor_states[i] = 255;
 					break;
 				}
 				actor_vel_y[i] += (plat_grav >> 10);
 				actor_vel_y[i] = MIN(actor_vel_y[i], plat_max_fall_vel >> 8);
 				//Apply velocity
 				actor->pos.y =  actor->pos.y + actor_vel_y[i];
-				actor->collision_enabled = false;
+				CLR_FLAG(actor->flags, ACTOR_FLAG_COLLISION);
 				break;
 			case 255: //Deactivate
 				deactivate_actor(actor);
 				break;
-		}		
-		break;			
+		}
+		break;
 		case 41://DonkeyKong
 		switch(actor_states[i]){
 			case 0:
-					if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ 
-						actor_states[i] = 1; 
+					if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						actor_states[i] = 1;
 						actor_counter_b[i] = 0;
 						actor_counter_a[i] = 0;
 					}
 					break;
 			case 1: //Main state
-				//Animation				
+				//Animation
 				if (!(game_time & 1)){
 					if (actor_counter_b[i]){
 						actor_set_dir(actor, actor->dir, actor_counter_b[i]);
 					} else {
 						actor_set_dir(actor, DIR_DOWN, FALSE);
 					}
-					if (!(actor_counter_a[i] & 127)){	
-						actor_counter_a[i] = rand() & 63;	
+					if (!(actor_counter_a[i] & 127)){
+						actor_counter_a[i] = rand() & 63;
 						if (actor_counter_a[i] < 48){
-							//barrel 1							
+							//barrel 1
 							UBYTE attack_idx = actor_linked_actor_idx[i];
 							if (actor_states[attack_idx] != 0 && actor_states[attack_idx] != 255){
 								//barrel 2
@@ -741,32 +741,32 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 										}
 									}
 								}
-							}		
+							}
 							if (attack_idx != 0 && (actor_states[attack_idx] == 0 || actor_states[attack_idx] == 255)){
 								actor_t * attack_actor = (actors + attack_idx);
 								actor_behavior_ids[attack_idx] = 42;
 								actor_states[attack_idx] = 0;
 								load_animations(attack_actor->sprite.ptr, attack_actor->sprite.bank, STATE_DEFAULT, attack_actor->animations);
-								if (!attack_actor->active){
-									attack_actor->disabled = FALSE;
+								if (!CHK_FLAG(attack_actor->flags, ACTOR_FLAG_ACTIVE)){
+									CLR_FLAG(attack_actor->flags, ACTOR_FLAG_DISABLED);
 									activate_actor(attack_actor);
 								}
-								attack_actor->collision_enabled = true;
+								SET_FLAG(attack_actor->flags, ACTOR_FLAG_COLLISION);
 								attack_actor->pos.y = actor->pos.y;
 								if (PLAYER.pos.x < actor->pos.x) {
 									actor_set_dir(actor, DIR_LEFT, TRUE);
 									actor_set_dir(attack_actor, DIR_LEFT, TRUE);
-									attack_actor->pos.x = ((actor->pos.x >> 7) - 1) << 7;	
-									actor_vel_x[attack_idx]	= -16;							
+									attack_actor->pos.x = ((actor->pos.x >> 7) - 1) << 7;
+									actor_vel_x[attack_idx]	= -16;
 								} else {
 									actor_set_dir(actor, DIR_RIGHT, TRUE);
 									actor_set_dir(attack_actor, DIR_RIGHT, TRUE);
-									attack_actor->pos.x = ((actor->pos.x >> 7) + 1) << 7;	
+									attack_actor->pos.x = ((actor->pos.x >> 7) + 1) << 7;
 									actor_vel_x[attack_idx]	= 16;
 								}
 								actor_counter_b[i] = 15;
-							}								
-						}					
+							}
+						}
 					}
 					actor_counter_a[i]++;
 					if (actor_counter_b[i] > 0){
@@ -774,37 +774,37 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 					}
 				}
 				break;
-			case 2: //static	
+			case 2: //static
 				break;
 			case 3: //death
-				if ((actor->pos.y >> 7) > (image_tile_height + 4)){ 
-					actor_states[i] = 255; 
+				if ((actor->pos.y >> 7) > (image_tile_height + 4)){
+					actor_states[i] = 255;
 					break;
 				}
 				actor_vel_y[i] += (plat_grav >> 10);
 				actor_vel_y[i] = MIN(actor_vel_y[i], plat_max_fall_vel >> 8);
 				//Apply velocity
 				actor->pos.y =  actor->pos.y + actor_vel_y[i];
-				actor->collision_enabled = false;
+				CLR_FLAG(actor->flags, ACTOR_FLAG_COLLISION);
 				break;
 			case 255: //Deactivate
 				deactivate_actor(actor);
 				break;
-		}		
+		}
 		break;
 		case 42: //Barrel
 		switch(actor_states[i]){
 			case 0: //Init
-				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ 
-					actor_states[i] = 1; 
+				if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+					actor_states[i] = 1;
 					actor_counter_a[i] = 0;
 					actor_counter_b[i] = 0;
 				}
 				break;
-			case 1: //Main state					
+			case 1: //Main state
 				if (!(actor_counter_b[i] & 1)){
-					if ((actor->pos.y >> 4) > (draw_scroll_y + 144)){ 
-						actor_states[i] = 255; 
+					if ((actor->pos.y >> 4) > (draw_scroll_y + 144)){
+						actor_states[i] = 255;
 						break;
 					}
 					actor_vel_y[i] += (plat_grav >> 11);
@@ -839,11 +839,11 @@ void actor_behavior_update_c(UBYTE i, actor_t * actor) BANKED {
 				actor_counter_b[i]++;
 				break;
 			case 255: //Deactivate
-				actor->collision_enabled = true;
+				SET_FLAG(actor->flags, ACTOR_FLAG_COLLISION);
 				actor_counter_a[i] = 0;
 				deactivate_actor(actor);
 				break;
-		}		
-		break;	
-	}			
+		}
+		break;
+	}
 }

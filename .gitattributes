@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Unified-diff context markers are significant, including on blank lines.
+*.patch -whitespace

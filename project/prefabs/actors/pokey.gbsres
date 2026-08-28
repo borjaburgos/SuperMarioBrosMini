@@ -374,10 +374,22 @@
                   "command": "EVENT_ACTOR_SET_COLLISION_BOX",
                   "args": {
                     "actorId": "$self$",
-                    "x": 4,
-                    "y": 0,
-                    "width": 8,
-                    "height": 6,
+                    "x": {
+                      "type": "number",
+                      "value": 4
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 2
+                    },
+                    "width": {
+                      "type": "number",
+                      "value": 8
+                    },
+                    "height": {
+                      "type": "number",
+                      "value": 6
+                    },
                     "__collapse": true
                   },
                   "id": "a6b9abcf-758d-4f71-b570-88f5536beade",
@@ -400,10 +412,22 @@
                   "command": "EVENT_ACTOR_SET_COLLISION_BOX",
                   "args": {
                     "actorId": "$self$",
-                    "x": 4,
-                    "y": 0,
-                    "width": 8,
-                    "height": 12,
+                    "x": {
+                      "type": "number",
+                      "value": 4
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": -4
+                    },
+                    "width": {
+                      "type": "number",
+                      "value": 8
+                    },
+                    "height": {
+                      "type": "number",
+                      "value": 12
+                    },
                     "__collapse": true
                   },
                   "id": "4e69bb87-4467-4db6-8d47-5cb0ffd9d778",
@@ -426,10 +450,22 @@
                   "command": "EVENT_ACTOR_SET_COLLISION_BOX",
                   "args": {
                     "actorId": "$self$",
-                    "x": 4,
-                    "y": 0,
-                    "width": 8,
-                    "height": 18,
+                    "x": {
+                      "type": "number",
+                      "value": 4
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": -10
+                    },
+                    "width": {
+                      "type": "number",
+                      "value": 8
+                    },
+                    "height": {
+                      "type": "number",
+                      "value": 18
+                    },
                     "__collapse": true
                   },
                   "id": "e85a6248-81a9-45ad-a6f9-46e7b5afbe8f",
@@ -653,10 +689,22 @@
                   "command": "EVENT_ACTOR_SET_COLLISION_BOX",
                   "args": {
                     "actorId": "$self$",
-                    "x": 4,
-                    "y": 0,
-                    "width": 8,
-                    "height": 6,
+                    "x": {
+                      "type": "number",
+                      "value": 4
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 2
+                    },
+                    "width": {
+                      "type": "number",
+                      "value": 8
+                    },
+                    "height": {
+                      "type": "number",
+                      "value": 6
+                    },
                     "__collapse": true
                   },
                   "id": "b666bba2-5562-436a-9cff-788eae995aa0",
@@ -679,10 +727,22 @@
                   "command": "EVENT_ACTOR_SET_COLLISION_BOX",
                   "args": {
                     "actorId": "$self$",
-                    "x": 4,
-                    "y": 0,
-                    "width": 8,
-                    "height": 12,
+                    "x": {
+                      "type": "number",
+                      "value": 4
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": -4
+                    },
+                    "width": {
+                      "type": "number",
+                      "value": 8
+                    },
+                    "height": {
+                      "type": "number",
+                      "value": 12
+                    },
                     "__collapse": true
                   },
                   "id": "eedfc8e0-9a41-41d7-a7e4-7995d288968d",
@@ -705,10 +765,22 @@
                   "command": "EVENT_ACTOR_SET_COLLISION_BOX",
                   "args": {
                     "actorId": "$self$",
-                    "x": 4,
-                    "y": 0,
-                    "width": 8,
-                    "height": 18,
+                    "x": {
+                      "type": "number",
+                      "value": 4
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": -10
+                    },
+                    "width": {
+                      "type": "number",
+                      "value": 8
+                    },
+                    "height": {
+                      "type": "number",
+                      "value": 18
+                    },
                     "__collapse": true
                   },
                   "id": "b62617fc-2675-4ea3-85e0-6ab22d8ab77f",

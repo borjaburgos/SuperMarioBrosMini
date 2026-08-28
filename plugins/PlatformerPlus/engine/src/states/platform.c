@@ -10,6 +10,7 @@
 #include "game_time.h"
 #include "input.h"
 #include "math.h"
+#include "macro.h"
 #include "scroll.h"
 #include "trigger.h"
 #include "vm.h"
@@ -49,6 +50,46 @@ WORD plat_grav;
 WORD plat_hold_grav;
 WORD plat_max_fall_vel;
 
+// Compatibility storage for GB Studio 4.3's built-in platformer VM API.
+// This project uses the custom state machine below, but the current engine
+// still exports native helpers that reference these standard symbols.
+UBYTE plat_drop_through_active;
+WORD plat_jump_hold_vel;
+UBYTE plat_jump_hold_frames;
+UBYTE plat_extra_jumps;
+UBYTE plat_coyote_frames;
+UBYTE plat_jump_buffer_frames;
+UBYTE plat_wall_jump_max;
+UBYTE plat_wall_slide;
+WORD plat_wall_slide_vel;
+WORD plat_wall_kick;
+UBYTE plat_float_active;
+WORD plat_float_vel;
+UBYTE plat_air_control;
+UBYTE plat_dash_active;
+UBYTE plat_dash_from;
+UBYTE plat_dash_jump_from;
+UBYTE plat_dash_mask;
+WORD plat_dash_dist;
+UBYTE plat_dash_frames;
+UBYTE plat_dash_ready_frames;
+UBYTE plat_dash_deadzone;
+WORD plat_knockback_vel_x;
+WORD plat_knockback_vel_y;
+UBYTE plat_knockback_frames;
+WORD plat_blank_grav;
+
+WORD plat_vel_x;
+WORD plat_vel_y;
+UBYTE plat_extra_jumps_counter;
+UBYTE plat_wall_jump_counter;
+UBYTE plat_is_actor_attached;
+UBYTE plat_grounded;
+BYTE plat_run_stage;
+UBYTE plat_jump_type;
+BYTE plat_wall_col;
+pStates plat_next_state;
+
 //PLATFORMER PLUS ENGINE VARIABLES
 //All engine fields are prefixed with plat_
 BYTE plat_camera_deadzone_x; // Camera deadzone
@@ -79,7 +120,7 @@ UBYTE jb_val;               //Jump Buffer Variable
 UBYTE dj_val;               //Current double jump
 UBYTE hold_jump_val;        //Jump input hold variable
 
-//WALL variables 
+//WALL variables
 BYTE last_wall;             //tracks the last wall the player touched
 BYTE col;
 
@@ -111,16 +152,16 @@ WORD mod_image_left;
 WORD temp_counter;
 
 
-UBYTE previous_top_tile;
-UBYTE previous_left_tile;
-UBYTE previous_bottom_tile;
-UBYTE previous_right_tile;
+UBYTE game_previous_top_tile;
+UBYTE game_previous_left_tile;
+UBYTE game_previous_bottom_tile;
+UBYTE game_previous_right_tile;
 
-UBYTE current_left_tile; 
-UBYTE current_top_tile;	
-UBYTE current_right_tile; 
-UBYTE current_bottom_tile;
-	
+UBYTE game_current_left_tile;
+UBYTE game_current_top_tile;
+UBYTE game_current_right_tile;
+UBYTE game_current_bottom_tile;
+
 UBYTE actors_collisionx_cache[4];
 UBYTE actors_collisiony_cache[4];
 
@@ -138,12 +179,12 @@ void platform_init(void) BANKED {
     camera_deadzone_x = plat_camera_deadzone_x;
     camera_deadzone_y = PLATFORM_CAMERA_DEADZONE_Y;
     if ((camera_settings & CAMERA_LOCK_X_FLAG)){
-        camera_x = (PLAYER.pos.x >> 4) + 8;
+        camera_x = PLAYER.pos.x + PX_TO_SUBPX(8);
     } else{
         camera_x = 0;
     }
     if ((camera_settings & CAMERA_LOCK_Y_FLAG)){
-        camera_y = (PLAYER.pos.y >> 4) + 8;
+        camera_y = PLAYER.pos.y + PX_TO_SUBPX(8);
     } else{
         camera_y = 0;
     }
@@ -164,7 +205,7 @@ void platform_init(void) BANKED {
     else{
         edge_right = &image_width;
     }
-    
+
     //Make sure jumping doesn't overflow variables
     //First, check for jumping based on Frames and Initial Jump Min
     while (32000 - (plat_jump_vel/MIN(15,plat_hold_jump_max)) - plat_jump_min < 0){
@@ -172,7 +213,7 @@ void platform_init(void) BANKED {
     }
 
     //This ensures that, by itself, the plat run boost active on any single frame cannot overflow a WORD.
-    //It is complemented by another check in the jump itself that works with the actual velocity. 
+    //It is complemented by another check in the jump itself that works with the actual velocity.
     if (plat_run_boost != 0){
         while((32000/plat_run_boost) < ((plat_run_vel>>8)/plat_hold_jump_max)){
             plat_run_boost--;
@@ -187,7 +228,7 @@ void platform_init(void) BANKED {
     //Initialize State
 	plat_state = FALL_INIT;
 	que_state = FALL_INIT;
-	
+
     actor_attached = FALSE;
     nocollide = 0;
     if (PLAYER.dir == DIR_UP || PLAYER.dir == DIR_DOWN || PLAYER.dir == DIR_NONE) {
@@ -225,7 +266,7 @@ void platform_update(void) BANKED {
             que_state = GROUND_STATE;
 			load_animations(PLAYER.sprite.ptr, PLAYER.sprite.bank, (que_attacking != 0) ? STATE_ATTACK: STATE_DEFAULT, PLAYER.animations);
             //pl_vel_y = 256;
-            ct_val = plat_coyote_max; 
+            ct_val = plat_coyote_max;
 			dj_val = 1;
             jump_reduction_val = 0;
 			enemy_bounce = 0;
@@ -251,7 +292,7 @@ void platform_update(void) BANKED {
         case JUMP_INIT:
             que_state = JUMP_STATE;
 			load_animations(PLAYER.sprite.ptr, PLAYER.sprite.bank, (que_attacking != 0) ? STATE_ATTACK: STATE_DEFAULT, PLAYER.animations);
-            hold_jump_val = plat_hold_jump_max; 
+            hold_jump_val = plat_hold_jump_max;
             actor_attached = FALSE;
             pl_vel_y = -plat_jump_min;
             jb_val = 0;
@@ -264,10 +305,10 @@ void platform_update(void) BANKED {
 			que_state = CLIMB_STATE;
 			load_animations(PLAYER.sprite.ptr, PLAYER.sprite.bank, STATE_CLIMB, PLAYER.animations);
 			pl_vel_y = 0;
-			pl_vel_x = 0;	
+			pl_vel_x = 0;
 		case CLIMB_STATE:
 			climb_state();
-			break;	
+			break;
         case BLANK_INIT:
             que_state = BLANK_STATE;
             pl_vel_x = 0;
@@ -291,18 +332,18 @@ void platform_update(void) BANKED {
 		script_memory[VAR_PLAYER_IFRAMES]--;
 	}
 	if (script_memory[VAR_HASYOSHI] && que_attacking){
-		point16_t tongue_offset;
-		bounding_box_t yoshi_tongue_boundingbox;
+		upoint16_t tongue_offset;
+		rect16_t yoshi_tongue_boundingbox;
 		tongue_offset.y = PLAYER.pos.y + ((crouched)? 32: -64);
 		tongue_offset.x = PLAYER.pos.x + ((PLAYER.dir == DIR_LEFT)? -320: 64);
 		yoshi_tongue_boundingbox.right = 23;
 		yoshi_tongue_boundingbox.left = 0;
 		yoshi_tongue_boundingbox.top = 0;
-		yoshi_tongue_boundingbox.bottom = 7;	
-		
+		yoshi_tongue_boundingbox.bottom = 7;
+
 		for (UBYTE i = 1; i < MAX_ACTORS; i++){
 			actor_t * hit_actor = (actors + i);
-			if (!hit_actor->active || !hit_actor->collision_enabled){
+			if (!CHK_FLAG(hit_actor->flags, ACTOR_FLAG_ACTIVE) || !CHK_FLAG(hit_actor->flags, ACTOR_FLAG_COLLISION)){
 				continue;
 			}
 			if (bb_intersects(&yoshi_tongue_boundingbox, &tongue_offset, &hit_actor->bounds, &hit_actor->pos)) {
@@ -312,121 +353,121 @@ void platform_update(void) BANKED {
 			}
 		}
 	}
-	check_player_metatiles_entered();
+	game_check_player_metatiles_entered();
 	if(script_memory[VAR_FRAMECOINS] && specific_events[COIN_COLLECTED_EVENT].script_addr != 0){
         script_execute(specific_events[COIN_COLLECTED_EVENT].script_bank, specific_events[COIN_COLLECTED_EVENT].script_addr, 0, 0);
     }
 }
 
 
-inline void on_metatile_enter(UBYTE tile_x, UBYTE tile_y) {
+inline void game_on_metatile_enter(UBYTE tile_x, UBYTE tile_y) {
 	UBYTE tile_id = sram_map_data[VRAM_OFFSET(tile_x, tile_y)];
 	switch(tile_id){
 		case 4://coin
-			replace_meta_tile(tile_x, tile_y, 0);
+			replace_meta_tile(tile_x, tile_y, 0, TRUE);
 			script_memory[VAR_FRAMECOINS]++;
 			break;
 		case 1://underwater coin
-			replace_meta_tile(tile_x, tile_y, 2);
+			replace_meta_tile(tile_x, tile_y, 2, TRUE);
 			script_memory[VAR_FRAMECOINS]++;
 			break;
 		case 202://big coin (top left)
-			replace_meta_tile(tile_x, tile_y, 0);
-			replace_meta_tile(tile_x + 1, tile_y + 1, 0);
-			replace_meta_tile(tile_x + 1, tile_y, 0);
-			replace_meta_tile(tile_x, tile_y + 1, 0);
-			script_memory[VAR_FRAMECOINS] += 4;			
+			replace_meta_tile(tile_x, tile_y, 0, TRUE);
+			replace_meta_tile(tile_x + 1, tile_y + 1, 0, TRUE);
+			replace_meta_tile(tile_x + 1, tile_y, 0, TRUE);
+			replace_meta_tile(tile_x, tile_y + 1, 0, TRUE);
+			script_memory[VAR_FRAMECOINS] += 4;
 			break;
 		case 203://big coin (top right)
-			replace_meta_tile(tile_x, tile_y, 0);
-			replace_meta_tile(tile_x - 1, tile_y + 1, 0);
-			replace_meta_tile(tile_x - 1, tile_y, 0);
-			replace_meta_tile(tile_x, tile_y + 1, 0);
-			script_memory[VAR_FRAMECOINS] += 4;			
+			replace_meta_tile(tile_x, tile_y, 0, TRUE);
+			replace_meta_tile(tile_x - 1, tile_y + 1, 0, TRUE);
+			replace_meta_tile(tile_x - 1, tile_y, 0, TRUE);
+			replace_meta_tile(tile_x, tile_y + 1, 0, TRUE);
+			script_memory[VAR_FRAMECOINS] += 4;
 			break;
 		case 204://big coin (bottom left)
-			replace_meta_tile(tile_x, tile_y, 0);
-			replace_meta_tile(tile_x + 1, tile_y - 1, 0);
-			replace_meta_tile(tile_x + 1, tile_y, 0);
-			replace_meta_tile(tile_x, tile_y - 1, 0);
-			script_memory[VAR_FRAMECOINS] += 4;			
+			replace_meta_tile(tile_x, tile_y, 0, TRUE);
+			replace_meta_tile(tile_x + 1, tile_y - 1, 0, TRUE);
+			replace_meta_tile(tile_x + 1, tile_y, 0, TRUE);
+			replace_meta_tile(tile_x, tile_y - 1, 0, TRUE);
+			script_memory[VAR_FRAMECOINS] += 4;
 			break;
 		case 205://big coin (bottom right)
-			replace_meta_tile(tile_x, tile_y, 0);
-			replace_meta_tile(tile_x - 1, tile_y - 1, 0);
-			replace_meta_tile(tile_x - 1, tile_y, 0);
-			replace_meta_tile(tile_x, tile_y - 1, 0);
-			script_memory[VAR_FRAMECOINS] += 4;			
+			replace_meta_tile(tile_x, tile_y, 0, TRUE);
+			replace_meta_tile(tile_x - 1, tile_y - 1, 0, TRUE);
+			replace_meta_tile(tile_x - 1, tile_y, 0, TRUE);
+			replace_meta_tile(tile_x, tile_y - 1, 0, TRUE);
+			script_memory[VAR_FRAMECOINS] += 4;
 			break;
 	}
 }
 
-void check_player_metatiles_entered(void) BANKED {
-	
-    current_left_tile = ((PLAYER.pos.x >> 4) + PLAYER.bounds.left) >> 3; 
-    current_top_tile = ((PLAYER.pos.y >> 4) + PLAYER.bounds.top) >> 3;	
-	current_right_tile = ((PLAYER.pos.x >> 4) + PLAYER.bounds.right) >> 3; 
-    current_bottom_tile = ((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3;	
-		
+void game_check_player_metatiles_entered(void) BANKED {
+
+    game_current_left_tile = ((PLAYER.pos.x >> 4) + PLAYER.bounds.left) >> 3;
+    game_current_top_tile = ((PLAYER.pos.y >> 4) + PLAYER.bounds.top) >> 3;
+	game_current_right_tile = ((PLAYER.pos.x >> 4) + PLAYER.bounds.right) >> 3;
+    game_current_bottom_tile = ((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3;
+
 	UBYTE tmp_tile = 0;
 	UBYTE left_side_checked = 0;
 	UBYTE right_side_checked = 0;
 	UBYTE max_counter = 0;
-	
+
 	//check left
-	if (current_left_tile < previous_left_tile){
-		tmp_tile = current_top_tile;
-		while (max_counter < MAX_METATILE_CHANGE_CHECKS && tmp_tile <= current_bottom_tile){
-			on_metatile_enter(current_left_tile, tmp_tile);			
+	if (game_current_left_tile < game_previous_left_tile){
+		tmp_tile = game_current_top_tile;
+		while (max_counter < MAX_METATILE_CHANGE_CHECKS && tmp_tile <= game_current_bottom_tile){
+			game_on_metatile_enter(game_current_left_tile, tmp_tile);
 			tmp_tile++;
 			max_counter++;
 		}
 		max_counter = 0;
 		left_side_checked = 1;
 	}
-	//check right	
-	if (current_left_tile != current_right_tile && (current_right_tile > previous_right_tile)){
-		tmp_tile = current_top_tile;
-		while (max_counter < MAX_METATILE_CHANGE_CHECKS && tmp_tile <= current_bottom_tile){
-			on_metatile_enter(current_right_tile, tmp_tile);
+	//check right
+	if (game_current_left_tile != game_current_right_tile && (game_current_right_tile > game_previous_right_tile)){
+		tmp_tile = game_current_top_tile;
+		while (max_counter < MAX_METATILE_CHANGE_CHECKS && tmp_tile <= game_current_bottom_tile){
+			game_on_metatile_enter(game_current_right_tile, tmp_tile);
 			tmp_tile++;
 			max_counter++;
 		}
 		max_counter = 0;
 		right_side_checked = 1;
 	}
-	
+
 	//Check top
-	if (current_top_tile < previous_top_tile){
-		tmp_tile = current_left_tile + left_side_checked;
-		while (max_counter < MAX_METATILE_CHANGE_CHECKS && tmp_tile <= (current_right_tile - right_side_checked)){
-			on_metatile_enter(tmp_tile, current_top_tile);			
-			tmp_tile++;
-			max_counter++;
-		}
-		max_counter = 0;
-	}	
-	
-	//Check bottom
-	if (current_top_tile != current_bottom_tile && (current_bottom_tile > previous_bottom_tile)){
-		tmp_tile = current_left_tile + left_side_checked;
-		while (max_counter < MAX_METATILE_CHANGE_CHECKS && tmp_tile <= (current_right_tile - right_side_checked)){
-			on_metatile_enter(tmp_tile, current_bottom_tile);			
+	if (game_current_top_tile < game_previous_top_tile){
+		tmp_tile = game_current_left_tile + left_side_checked;
+		while (max_counter < MAX_METATILE_CHANGE_CHECKS && tmp_tile <= (game_current_right_tile - right_side_checked)){
+			game_on_metatile_enter(tmp_tile, game_current_top_tile);
 			tmp_tile++;
 			max_counter++;
 		}
 		max_counter = 0;
 	}
-	
-	previous_left_tile = current_left_tile;
-	previous_top_tile = current_top_tile;
-	previous_right_tile = current_right_tile;
-	previous_bottom_tile = current_bottom_tile;
-	
+
+	//Check bottom
+	if (game_current_top_tile != game_current_bottom_tile && (game_current_bottom_tile > game_previous_bottom_tile)){
+		tmp_tile = game_current_left_tile + left_side_checked;
+		while (max_counter < MAX_METATILE_CHANGE_CHECKS && tmp_tile <= (game_current_right_tile - right_side_checked)){
+			game_on_metatile_enter(tmp_tile, game_current_bottom_tile);
+			tmp_tile++;
+			max_counter++;
+		}
+		max_counter = 0;
+	}
+
+	game_previous_left_tile = game_current_left_tile;
+	game_previous_top_tile = game_current_top_tile;
+	game_previous_right_tile = game_current_right_tile;
+	game_previous_bottom_tile = game_current_bottom_tile;
+
 }
 
-void on_player_metatile_collision(UBYTE tile_x, UBYTE tile_y, UBYTE direction) BANKED{	
-	
+void game_on_player_metatile_collision(UBYTE tile_x, UBYTE tile_y, UBYTE direction) BANKED{
+
 	if (actors_collisionx_cache[direction] != tile_x || actors_collisiony_cache[direction] != tile_y) {
 		actors_collisionx_cache[direction] = tile_x;
 		actors_collisiony_cache[direction] = tile_y;
@@ -435,19 +476,19 @@ void on_player_metatile_collision(UBYTE tile_x, UBYTE tile_y, UBYTE direction) B
 				UBYTE tile_id = sram_map_data[VRAM_OFFSET(tile_x, tile_y)];
 				switch(tile_id){
 					case 5://coin block
-					case 7://brick	
+					case 7://brick
 					case 152://multi coin brick
 					case 153://powerup brick
 					case 154://star brick
 					case 155://1up brick
-					case 156://powerup block	
+					case 156://powerup block
 					case 157://beanstalk block
 					case 158://star block
 					case 159://1up block
 					case 160://invis coin block
 					case 161://invis powerup block
 					case 162://invis star block
-					case 163://invis 1up block	
+					case 163://invis 1up block
 					case 169://beanstalk brick
 					case 171://egg brick
 					case 172://egg block
@@ -471,9 +512,9 @@ void on_player_metatile_collision(UBYTE tile_x, UBYTE tile_y, UBYTE direction) B
 	}
 }
 
-void reset_collision_cache(UBYTE direction) BANKED {	
+void reset_collision_cache(UBYTE direction) BANKED {
 	actors_collisionx_cache[direction] = 0;
-	actors_collisiony_cache[direction] = 0;	
+	actors_collisiony_cache[direction] = 0;
 }
 
 
@@ -481,7 +522,7 @@ void fall_state(void) BANKED {
     //INITIALIZE VARS
     WORD temp_y = 0;
     UBYTE p_half_width = (PLAYER.bounds.right - PLAYER.bounds.left) >> 1;
-    UBYTE tile_x_mid = ((PLAYER.pos.x >> 4) + PLAYER.bounds.left + p_half_width) >> 3; 
+    UBYTE tile_x_mid = ((PLAYER.pos.x >> 4) + PLAYER.bounds.left + p_half_width) >> 3;
     UBYTE tile_y = ((PLAYER.pos.y >> 4) + PLAYER.bounds.top + 1) >> 3;
     col = 0;
     //A. INPUT CHECK=================================================================================================
@@ -497,7 +538,7 @@ void fall_state(void) BANKED {
 		}
 		crouched = 0;
 	} else if (que_attacking != stat_attacking){
-		stat_attacking = que_attacking;		
+		stat_attacking = que_attacking;
 		load_animations(PLAYER.sprite.ptr, PLAYER.sprite.bank, (que_attacking != 0) ? STATE_ATTACK : STATE_DEFAULT, PLAYER.animations);
 	}
 
@@ -508,7 +549,7 @@ void fall_state(void) BANKED {
         pl_vel_y = plat_float_grav;
     } else if (nocollide != 0){
         //magic number, rough minimum for actually having the player descend through a platform
-        pl_vel_y = 7000; 
+        pl_vel_y = 7000;
     } else if (INPUT_PLATFORM_JUMP && pl_vel_y < 0) {
         //Gravity while holding jump
         pl_vel_y += plat_hold_grav;
@@ -522,7 +563,7 @@ void fall_state(void) BANKED {
     //Collision ---------------------------------------------------------------------------------------------------
     //Vertical Collision Checks
     deltaY += pl_vel_y >> 8;
-    temp_y = PLAYER.pos.y;    
+    temp_y = PLAYER.pos.y;
 
     //Horizontal Movement----------------------------------------------------------------------------------------
     //C. ACCELERATION
@@ -547,7 +588,7 @@ void fall_state(void) BANKED {
             } else {
                 run_stage = 0;
                 pl_vel_x += plat_walk_acc;
-                pl_vel_x = CLAMP(pl_vel_x, plat_min_vel, plat_walk_vel); 
+                pl_vel_x = CLAMP(pl_vel_x, plat_min_vel, plat_walk_vel);
             }
             pl_vel_x *= dir;
             deltaX += pl_vel_x >> 8;
@@ -561,7 +602,7 @@ void fall_state(void) BANKED {
                 pl_vel_x = 0;
             }
         } else if (pl_vel_x > 0) {
-            pl_vel_x -= plat_air_dec; 
+            pl_vel_x -= plat_air_dec;
             if (pl_vel_x < 0) {
                 pl_vel_x = 0;
             }
@@ -576,12 +617,12 @@ void fall_state(void) BANKED {
     {
         deltaX = CLAMP(deltaX, -127, 127);
         UBYTE tile_start = (((PLAYER.pos.y >> 4) + PLAYER.bounds.top)    >> 3);
-        UBYTE tile_end   = (((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3) + 1;       
+        UBYTE tile_end   = (((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3) + 1;
         UWORD new_x = PLAYER.pos.x + deltaX;
-        
+
         UBYTE tile_x = 0;
         UBYTE col_mid = 0;
-        
+
         //Edge Locking
         //If the player is past the right edge (camera or screen)
         if (new_x > (*edge_right + SCREEN_WIDTH - 16) <<4){
@@ -602,27 +643,27 @@ void fall_state(void) BANKED {
                 new_x = PLAYER.pos.x + MIN(((*edge_left+8)<<4)-PLAYER.pos.x, 16);
             }
         }
-		
+
         //Step-Check for collisions one tile left or right for each avatar height tile
         if (new_x > PLAYER.pos.x) {
             tile_x = ((new_x >> 4) + PLAYER.bounds.right) >> 3;
 			switch(sram_map_data[VRAM_OFFSET(tile_x, tile_start)]){
 				case 151: //beanstalk tile
-					que_state = CLIMB_INIT; 
+					que_state = CLIMB_INIT;
 					current_vine_tile_x = tile_x;
 					actor_set_dir(&PLAYER, DIR_LEFT, FALSE);
 					break;
 			}
-            
+
             while (tile_start < tile_end) {
-               
+
                 col = tile_at(tile_x, tile_start);
-                if (col & COLLISION_LEFT) {				
+                if (col & COLLISION_LEFT) {
 					new_x = (((tile_x << 3) - PLAYER.bounds.right) << 4) - 1;
 					pl_vel_x = 0;
 					col = 1;
-					last_wall = 1;	
-					on_player_metatile_collision(tile_x, tile_start, DIR_RIGHT); 					
+					last_wall = 1;
+					game_on_player_metatile_collision(tile_x, tile_start, DIR_RIGHT);
 					break;
                 } else {
 					reset_collision_cache(DIR_RIGHT);
@@ -633,20 +674,20 @@ void fall_state(void) BANKED {
             tile_x = ((new_x >> 4) + PLAYER.bounds.left) >> 3;
             switch(sram_map_data[VRAM_OFFSET(tile_x, tile_start)]){
 				case 151: //beanstalk tile
-					que_state = CLIMB_INIT; 
+					que_state = CLIMB_INIT;
 					current_vine_tile_x = tile_x;
 					actor_set_dir(&PLAYER, DIR_RIGHT, FALSE);
 					break;
 			}
             while (tile_start < tile_end) {
                 col = tile_at(tile_x, tile_start);
-                if (col & COLLISION_RIGHT) {					
-                    
+                if (col & COLLISION_RIGHT) {
+
                     new_x = ((((tile_x + 1) << 3) - PLAYER.bounds.left) << 4) + 1;
                     pl_vel_x = 0;
                     col = -1;
-                    last_wall = -1;		
-					on_player_metatile_collision(tile_x, tile_start, DIR_LEFT); 					
+                    last_wall = -1;
+					game_on_player_metatile_collision(tile_x, tile_start, DIR_LEFT);
                     break;
                 } else {
 					reset_collision_cache(DIR_LEFT);
@@ -677,18 +718,18 @@ void fall_state(void) BANKED {
             if (nocollide == 0){
                 //Check collisions from left to right with the bottom of the player
                 while (tile_start < tile_end) {
-                    if (tile_at(tile_start, tile_y) & COLLISION_TOP) {						
-                        
+                    if (tile_at(tile_start, tile_y) & COLLISION_TOP) {
+
                         new_y = ((((tile_y) << 3) - PLAYER.bounds.bottom) << 4) - 1;
                         actor_attached = FALSE; //Detach when MP moves through a solid tile.
                         //The distinction here is used so that we can check the velocity when the player hits the ground.
                         if(plat_state == GROUND_STATE){
-                            que_state = GROUND_STATE; 
+                            que_state = GROUND_STATE;
                             pl_vel_y = 0;
                         } else if(plat_state == GROUND_INIT){
                             que_state = GROUND_STATE;
-                        } else {que_state = GROUND_INIT;}		
-						on_player_metatile_collision(tile_start, tile_y, DIR_DOWN);						
+                        } else {que_state = GROUND_INIT;}
+						game_on_player_metatile_collision(tile_start, tile_y, DIR_DOWN);
                         break;
                     } else {
 						reset_collision_cache(DIR_DOWN);
@@ -702,10 +743,10 @@ void fall_state(void) BANKED {
         } else if (deltaY < 0) {
             //Moving Upward
             WORD new_y = PLAYER.pos.y + deltaY;
-						
+
             UBYTE tile_y = (((new_y >> 4) + PLAYER.bounds.top) >> 3);
             while (tile_start < tile_end) {
-                if (tile_at(tile_start, tile_y) & COLLISION_BOTTOM) {					
+                if (tile_at(tile_start, tile_y) & COLLISION_BOTTOM) {
                     new_y = ((((UBYTE)(tile_y + 1) << 3) - PLAYER.bounds.top) << 4) + 1;
                     pl_vel_y = 0;
                     //MP Test: Attempting stuff to stop the player from continuing upward
@@ -717,8 +758,8 @@ void fall_state(void) BANKED {
                         new_y = temp_y;
                     }
                     ct_val = 0;
-                    que_state = FALL_INIT; 
-					on_player_metatile_collision(tile_start, tile_y, DIR_UP);
+                    que_state = FALL_INIT;
+					game_on_player_metatile_collision(tile_start, tile_y, DIR_UP);
                     break;
                 } else {
 					reset_collision_cache(DIR_UP);
@@ -737,11 +778,11 @@ void fall_state(void) BANKED {
         deltaY = 0;
 		actor_t *hit_actor = PLAYER.prev;
 		while (hit_actor) {
-			if (!hit_actor->collision_enabled || (actor_attached && last_actor == hit_actor) || hit_actor->collision_group == 0) {
+			if (!CHK_FLAG(hit_actor->flags, ACTOR_FLAG_COLLISION) || (actor_attached && last_actor == hit_actor) || hit_actor->collision_group == 0) {
 				hit_actor = hit_actor->prev;
 				continue;
-			};		
-			if (bb_intersects(&PLAYER.bounds, &PLAYER.pos, &hit_actor->bounds, &hit_actor->pos)) {				
+			};
+			if (bb_intersects(&PLAYER.bounds, &PLAYER.pos, &hit_actor->bounds, &hit_actor->pos)) {
 				if (hit_actor->collision_group == plat_mp_group){
 					//Platform Actors
 					if(!actor_attached || hit_actor != last_actor){
@@ -753,22 +794,22 @@ void fall_state(void) BANKED {
 							PLAYER.pos.y = hit_actor->pos.y + (hit_actor->bounds.top << 4) - (PLAYER.bounds.bottom << 4) - 4;
 							//Other cleanup
 							pl_vel_y = 0;
-							actor_attached = TRUE;                        
+							actor_attached = TRUE;
 							que_state = GROUND_INIT;
 						}
 					}
 				}
 				//All Other Collisions
 				player_register_collision_with(hit_actor);
-				break;				
-			}		
+				break;
+			}
 			hit_actor = hit_actor->prev;
 		}
     }
-    
+
     //ANIMATION--------------------------------------------------------------------------------------------------
     //This animation is currently shared by jumping, dashing, and falling. Dashing doesn't need this complexity though.
-    //Here velocity overrides direction. Whereas on the ground it is the reverse. 
+    //Here velocity overrides direction. Whereas on the ground it is the reverse.
     if(plat_turn_control){
         if (INPUT_LEFT){
             PLAYER.dir = DIR_LEFT;
@@ -790,13 +831,13 @@ void fall_state(void) BANKED {
 
     //STATE CHANGE------------------------------------------------------------------------------------------------
     //Above: FALL -> GROUND in basic_y_col()
-	
+
 	//FALL -> SWIM check
 	if (script_memory[VAR_CANSWIM] != 0 && PLAYER.pos.y > 768){
 		que_state = SWIM_INIT;
 	}
-    
-    //FALL -> JUMP check 
+
+    //FALL -> JUMP check
     if (INPUT_PRESSED(INPUT_PLATFORM_JUMP)){
         if (ct_val != 0){
         //Coyote Time Jump
@@ -808,12 +849,12 @@ void fall_state(void) BANKED {
             que_state = JUMP_INIT;
         } else {
         // Setting the Jump Buffer when jump is pressed while not on the ground
-        jb_val = plat_buffer_max; 
+        jb_val = plat_buffer_max;
         }
-    } 
-		
+    }
+
 	//Pit check
-	if (specific_events[FELL_IN_PIT_EVENT].script_addr != 0 && (PLAYER.pos.y >> 4) > (scroll_y + 160)){		
+	if (specific_events[FELL_IN_PIT_EVENT].script_addr != 0 && (PLAYER.pos.y >> 4) > (scroll_y + 160)){
 		script_execute(specific_events[FELL_IN_PIT_EVENT].script_bank, specific_events[FELL_IN_PIT_EVENT].script_addr, 0, 0);
 		que_state = BLANK_INIT;
 	}
@@ -822,7 +863,7 @@ void fall_state(void) BANKED {
     if (que_state != FALL_STATE){
         plat_state = FALL_END;
     }
-    
+
     //COUNTERS
     // Counting down Jump Buffer Window
     // Set in Fall and checked in Ground state
@@ -862,12 +903,12 @@ void swim_state(void) BANKED {
     UBYTE tile_y = ((PLAYER.pos.y >> 4) + PLAYER.bounds.top + 1) >> 3;
     col = 0;
 	WORD temp_y = PLAYER.pos.y;
-	
+
 	if (que_attacking != stat_attacking){
 		stat_attacking = que_attacking;
 		load_animations(PLAYER.sprite.ptr, PLAYER.sprite.bank, (que_attacking != 0) ? STATE_ATTACK: STATE_SWIM, PLAYER.animations);
 	}
-	
+
 	//Vertical Movement-------------------------------------------------------------------------------------------
     //Add jump force during each jump frame
     if (hold_jump_val !=0){
@@ -888,10 +929,10 @@ void swim_state(void) BANKED {
 	} else {
 		pl_vel_y = MIN(pl_vel_y,plat_max_fall_vel  >> 2);
 	}
-	
+
 	if (actor_attached){
         //If the platform has been disabled, detach the player
-        if(last_actor->disabled == TRUE){
+        if(CHK_FLAG(last_actor->flags, ACTOR_FLAG_DISABLED) == TRUE){
             actor_attached = FALSE;
         //If the player is off the platform to the right, detach from the platform
         } else if (PLAYER.pos.x + (PLAYER.bounds.left << 4) > last_actor->pos.x + 16 + (last_actor->bounds.right<< 4)) {
@@ -907,7 +948,7 @@ void swim_state(void) BANKED {
 
         //If we're on a platform, zero out any other motion from gravity or other sources
         pl_vel_y = 0;
-        
+
         //Add any change from the platform we're standing on
         deltaY += last_actor->pos.y - mp_last_y;
 
@@ -916,11 +957,11 @@ void swim_state(void) BANKED {
         mp_last_y = last_actor->pos.y;
         temp_y = last_actor->pos.y;
     }
-    
+
     //Collision ---------------------------------------------------------------------------------------------------
     //Vertical Collision Checks
     deltaY += pl_vel_y >> 8;
-        
+
 
     //Horizontal Movement----------------------------------------------------------------------------------------
 
@@ -936,7 +977,7 @@ void swim_state(void) BANKED {
 		} else {
 			pl_vel_x = CLAMP(pl_vel_x + plat_run_acc, plat_min_vel >> 1, plat_run_vel >> 1);
 		}
-		
+
         pl_vel_x *= dir;
         deltaX += pl_vel_x >> 8;
         run_stage = 1;
@@ -948,7 +989,7 @@ void swim_state(void) BANKED {
                 pl_vel_x = 0;
             }
         } else if (pl_vel_x > 0) {
-            pl_vel_x -= plat_air_dec; 
+            pl_vel_x -= plat_air_dec;
             if (pl_vel_x < 0) {
                 pl_vel_x = 0;
             }
@@ -963,12 +1004,12 @@ void swim_state(void) BANKED {
     {
         deltaX = CLAMP(deltaX, -127, 127);
         UBYTE tile_start = (((PLAYER.pos.y >> 4) + PLAYER.bounds.top)    >> 3);
-        UBYTE tile_end   = (((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3) + 1;       
+        UBYTE tile_end   = (((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3) + 1;
         UWORD new_x = PLAYER.pos.x + deltaX;
-        
+
         UBYTE tile_x = 0;
         UBYTE col_mid = 0;
-        
+
         //Edge Locking
         //If the player is past the right edge (camera or screen)
         if (new_x > (*edge_right + SCREEN_WIDTH - 16) <<4){
@@ -995,21 +1036,21 @@ void swim_state(void) BANKED {
             tile_x = ((new_x >> 4) + PLAYER.bounds.right) >> 3;
 			switch(sram_map_data[VRAM_OFFSET(tile_x, tile_start)]){
 				case 151: //beanstalk tile
-					que_state = CLIMB_INIT; 
+					que_state = CLIMB_INIT;
 					current_vine_tile_x = tile_x;
 					actor_set_dir(&PLAYER, DIR_LEFT, FALSE);
 					break;
 			}
-            
+
             while (tile_start < tile_end) {
-               
+
                 col = tile_at(tile_x, tile_start);
-                if (col & COLLISION_LEFT) {				
+                if (col & COLLISION_LEFT) {
 					new_x = (((tile_x << 3) - PLAYER.bounds.right) << 4) - 1;
 					pl_vel_x = 0;
 					col = 1;
 					last_wall = 1;
-					if (grounded){					
+					if (grounded){
 						switch(sram_map_data[VRAM_OFFSET(tile_x, tile_start)]){
 							case 61: //top part of right pipe
 							case 62: //bottom part of right pipe
@@ -1019,7 +1060,7 @@ void swim_state(void) BANKED {
 								break;
 						}
 					}
-					on_player_metatile_collision(tile_x, tile_start, DIR_RIGHT); 					
+					game_on_player_metatile_collision(tile_x, tile_start, DIR_RIGHT);
 					break;
                 } else {
 					reset_collision_cache(DIR_RIGHT);
@@ -1030,20 +1071,20 @@ void swim_state(void) BANKED {
             tile_x = ((new_x >> 4) + PLAYER.bounds.left) >> 3;
             switch(sram_map_data[VRAM_OFFSET(tile_x, tile_start)]){
 				case 151: //beanstalk tile
-					que_state = CLIMB_INIT; 
+					que_state = CLIMB_INIT;
 					current_vine_tile_x = tile_x;
 					actor_set_dir(&PLAYER, DIR_RIGHT, FALSE);
 					break;
 			}
             while (tile_start < tile_end) {
                 col = tile_at(tile_x, tile_start);
-                if (col & COLLISION_RIGHT) {					
-                    
+                if (col & COLLISION_RIGHT) {
+
                     new_x = ((((tile_x + 1) << 3) - PLAYER.bounds.left) << 4) + 1;
                     pl_vel_x = 0;
                     col = -1;
-                    last_wall = -1;		
-					if (grounded){					
+                    last_wall = -1;
+					if (grounded){
 						switch(sram_map_data[VRAM_OFFSET(tile_x, tile_start)]){
 							case 61: //top part of LEFT pipe
 							case 62: //bottom part of LEFT pipe
@@ -1053,7 +1094,7 @@ void swim_state(void) BANKED {
 								break;
 						}
 					}
-					on_player_metatile_collision(tile_x, tile_start, DIR_LEFT); 					
+					game_on_player_metatile_collision(tile_x, tile_start, DIR_LEFT);
                     break;
                 } else {
 					reset_collision_cache(DIR_LEFT);
@@ -1085,18 +1126,18 @@ void swim_state(void) BANKED {
             if (nocollide == 0){
                 //Check collisions from left to right with the bottom of the player
                 while (tile_start < tile_end) {
-                    if (tile_at(tile_start, tile_y) & COLLISION_TOP) {	
-                        new_y = ((((tile_y) << 3) - PLAYER.bounds.bottom) << 4) - 1;	
-						grounded = true;						
-						
+                    if (tile_at(tile_start, tile_y) & COLLISION_TOP) {
+                        new_y = ((((tile_y) << 3) - PLAYER.bounds.bottom) << 4) - 1;
+						grounded = true;
+
 						if (is_leftmost == 1 && INPUT_DOWN){//check only mario's left leg for left pipe part
 							UBYTE tile_id = sram_map_data[VRAM_OFFSET(tile_start, tile_y)];
 							if ((tile_id == 57 || tile_id == 233) && specific_events[ENTER_DOWN_PIPE_EVENT].script_addr != 0){
 								script_execute(specific_events[ENTER_DOWN_PIPE_EVENT].script_bank, specific_events[ENTER_DOWN_PIPE_EVENT].script_addr, 0, 0);
 							}
 						}
-						
-						on_player_metatile_collision(tile_start, tile_y, DIR_DOWN);						
+
+						game_on_player_metatile_collision(tile_start, tile_y, DIR_DOWN);
                         break;
                     } else {
 						reset_collision_cache(DIR_DOWN);
@@ -1111,10 +1152,10 @@ void swim_state(void) BANKED {
         } else if (deltaY < 0) {
             //Moving Upward
             WORD new_y = PLAYER.pos.y + deltaY;
-			
+
             UBYTE tile_y = (((new_y >> 4) + PLAYER.bounds.top) >> 3);
             while (tile_start < tile_end) {
-                if (tile_at(tile_start, tile_y) & COLLISION_BOTTOM) {					
+                if (tile_at(tile_start, tile_y) & COLLISION_BOTTOM) {
                     new_y = ((((UBYTE)(tile_y + 1) << 3) - PLAYER.bounds.top) << 4) + 1;
                     pl_vel_y = 0;
                     //MP Test: Attempting stuff to stop the player from continuing upward
@@ -1125,8 +1166,8 @@ void swim_state(void) BANKED {
                         }
                         new_y = temp_y;
                     }
-                    ct_val = 0; 
-					on_player_metatile_collision(tile_start, tile_y, DIR_UP);
+                    ct_val = 0;
+					game_on_player_metatile_collision(tile_start, tile_y, DIR_UP);
                     break;
                 } else {
 					reset_collision_cache(DIR_UP);
@@ -1145,10 +1186,10 @@ void swim_state(void) BANKED {
         deltaY = 0;
         actor_t *hit_actor = PLAYER.prev;
 		while (hit_actor) {
-			if (!hit_actor->collision_enabled || (actor_attached && last_actor == hit_actor) || hit_actor->collision_group == 0) {
+			if (!CHK_FLAG(hit_actor->flags, ACTOR_FLAG_COLLISION) || (actor_attached && last_actor == hit_actor) || hit_actor->collision_group == 0) {
 				hit_actor = hit_actor->prev;
 				continue;
-			};		
+			};
 			if (bb_intersects(&PLAYER.bounds, &PLAYER.pos, &hit_actor->bounds, &hit_actor->pos)) {
 				if (hit_actor->collision_group == plat_mp_group){
 					//Platform Actors
@@ -1161,24 +1202,24 @@ void swim_state(void) BANKED {
 							PLAYER.pos.y = hit_actor->pos.y + (hit_actor->bounds.top << 4) - (PLAYER.bounds.bottom << 4) - 4;
 							//Other cleanup
 							pl_vel_y = 0;
-							actor_attached = TRUE;    
+							actor_attached = TRUE;
 						}
 					}
 				}
 				//All Other Collisions
 				player_register_collision_with(hit_actor);
 				break;
-			}		
+			}
 			hit_actor = hit_actor->prev;
-		}        
+		}
     }
-    
+
     //ANIMATION--------------------------------------------------------------------------------------------------
     //This animation is currently shared by jumping, dashing, and falling. Dashing doesn't need this complexity though.
-    //Here velocity overrides direction. Whereas on the ground it is the reverse. 
+    //Here velocity overrides direction. Whereas on the ground it is the reverse.
 
 	if (INPUT_PRESSED(INPUT_LEFT)){
-		actor_set_dir(&PLAYER, DIR_LEFT, (pl_vel_x != 0)?TRUE:FALSE);		
+		actor_set_dir(&PLAYER, DIR_LEFT, (pl_vel_x != 0)?TRUE:FALSE);
     } else if (INPUT_PRESSED(INPUT_RIGHT)){
 		actor_set_dir(&PLAYER, DIR_RIGHT, (pl_vel_x != 0)?TRUE:FALSE);
     } else if (pl_vel_x != 0) {
@@ -1186,7 +1227,7 @@ void swim_state(void) BANKED {
     } else {
 		actor_set_anim_idle(&PLAYER);
 	}
-	
+
 	if (pl_vel_y < 0){
 		PLAYER.anim_tick = 3;
 	} else {
@@ -1194,15 +1235,15 @@ void swim_state(void) BANKED {
 	}
 
     //STATE CHANGE------------------------------------------------------------------------------------------------
-    	
-	
-    //SWIM up check 
-    if (INPUT_PRESSED(INPUT_PLATFORM_JUMP) && PLAYER.pos.y > 768){		
+
+
+    //SWIM up check
+    if (INPUT_PRESSED(INPUT_PLATFORM_JUMP) && PLAYER.pos.y > 768){
 		que_state = SWIM_INIT;
-		hold_jump_val = plat_hold_jump_max; 
+		hold_jump_val = plat_hold_jump_max;
 		pl_vel_x = ((INPUT_LEFT)? -4096: (INPUT_RIGHT)? 4096: pl_vel_x);
-    } 
-	
+    }
+
 	//Swim out check
 	if (script_memory[VAR_CANSWIM] == 0){
 		if (INPUT_PLATFORM_JUMP){
@@ -1211,9 +1252,9 @@ void swim_state(void) BANKED {
 			que_state = FALL_INIT;
 		}
 	}
-	
+
 	//Pit check
-	if (specific_events[FELL_IN_PIT_EVENT].script_addr != 0 && (PLAYER.pos.y >> 4) > (scroll_y + 160)){ 
+	if (specific_events[FELL_IN_PIT_EVENT].script_addr != 0 && (PLAYER.pos.y >> 4) > (scroll_y + 160)){
 		script_execute(specific_events[FELL_IN_PIT_EVENT].script_bank, specific_events[FELL_IN_PIT_EVENT].script_addr, 0, 0);
 		que_state = BLANK_INIT;
 	}
@@ -1222,9 +1263,9 @@ void swim_state(void) BANKED {
     if (que_state != SWIM_STATE){
         plat_state = SWIM_END;
     }
-    
+
     //COUNTERS
-    
+
     // Counting down the drop-through floor frames
     // XX Checked in Fall, Wall, Ground, and basic_y_col, set in basic_y_col
     if (nocollide != 0){

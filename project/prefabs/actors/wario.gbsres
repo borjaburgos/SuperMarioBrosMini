@@ -295,8 +295,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.5,
-                                "frames": 30,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.5
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 30
+                                },
                                 "units": "frames",
                                 "__collapse": true
                               },
@@ -396,8 +402,14 @@
                                         {
                                           "command": "EVENT_WAIT",
                                           "args": {
-                                            "time": 7,
-                                            "frames": 30
+                                            "time": {
+                                              "type": "number",
+                                              "value": 7
+                                            },
+                                            "frames": {
+                                              "type": "number",
+                                              "value": 30
+                                            }
                                           },
                                           "id": "768094c8-3da9-49a8-bb07-af93ee0f7cfd",
                                           "children": {}
@@ -441,8 +453,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 10,
-                                      "frames": 30
+                                      "time": {
+                                        "type": "number",
+                                        "value": 10
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 30
+                                      }
                                     },
                                     "id": "153addbb-9374-4d84-a8e1-edbe40f2bf2e",
                                     "children": {}
@@ -711,8 +729,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "units": "frames",
               "__collapse": true
             },
@@ -812,8 +836,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 7,
-                          "frames": 30
+                          "time": {
+                            "type": "number",
+                            "value": 7
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          }
                         },
                         "id": "86bbc14a-2285-4abd-9d69-ba05d0b13bc1",
                         "children": {}
@@ -857,8 +887,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 10,
-                    "frames": 30
+                    "time": {
+                      "type": "number",
+                      "value": 10
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    }
                   },
                   "id": "8a7aae40-3a15-43dc-ab1d-218201c72a68",
                   "children": {}
@@ -1028,8 +1064,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "units": "frames",
               "__collapse": true
             },
@@ -1129,8 +1171,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 7,
-                          "frames": 30
+                          "time": {
+                            "type": "number",
+                            "value": 7
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          }
                         },
                         "id": "9740003c-1882-4039-b189-90c5f0149714",
                         "children": {}
@@ -1174,8 +1222,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 10,
-                    "frames": 30
+                    "time": {
+                      "type": "number",
+                      "value": 10
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    }
                   },
                   "id": "d8487143-51a9-4eed-be98-0519896bc39f",
                   "children": {}
