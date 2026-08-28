@@ -61,7 +61,8 @@ Index: include/collision.h
   * @param bb Pointer to bounding box
 @@ -61,10 +93,19 @@
   * @param ty Top tile
-  * @return Tile value, 0 if no collisions, COLLISION_ALL if out of bounds
+- * @return Tile value, 0 if no collisions, COLLISION_ALL if out of bounds
++ * @return Tile value, or 0 when empty or out of bounds
   */
  inline UBYTE tile_at(UBYTE tx, UBYTE ty) {
 -    if ((tx < image_tile_width) && (ty < image_tile_height))
@@ -77,7 +78,8 @@ Index: include/collision.h
 +            return ReadBankedUBYTE(collision_ptr + (ty * (UINT16)image_tile_width) + tx, collision_bank);
 +        }
 +    }
-     return COLLISION_ALL;
+-    return COLLISION_ALL;
++    return 0; // Preserve Dynamic Map's legacy empty out-of-bounds behavior.
  }
  
  /**

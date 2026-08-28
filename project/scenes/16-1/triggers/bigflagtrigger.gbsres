@@ -253,7 +253,7 @@
               },
               "y": {
                 "type": "expression",
-                "value": "1792"
+                "value": "112"
               },
               "moveType": "vertical",
               "useCollisions": true,
@@ -281,7 +281,7 @@
         },
         "y": {
           "type": "expression",
-          "value": "1792"
+          "value": "112"
         },
         "moveType": "vertical",
         "useCollisions": true,
