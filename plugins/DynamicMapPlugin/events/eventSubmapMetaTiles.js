@@ -80,7 +80,7 @@ export const fields = [
     key: "commit",
     label: "Commit render",
     type: "checkbox",
-    defaultValue: false,
+    defaultValue: true,
   },
   {
     key: "relative_to_scroll",
@@ -149,7 +149,9 @@ export const compile = (input, helpers) => {
 
   _stackPushConst(`_${scene.symbol}`);
   _stackPushConst(`___bank_${scene.symbol}`);
-  _stackPushConst((input.commit)? 1: 0);
+  // Legacy submap events always rendered immediately and therefore have no
+  // stored commit value. Preserve that behaviour unless false is explicit.
+  _stackPushConst(input.commit !== false ? 1 : 0);
   _stackPush(tmp2);
   _stackPush(tmp1);
   _stackPush(tmp0);

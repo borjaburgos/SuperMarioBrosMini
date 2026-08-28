@@ -40,7 +40,7 @@ export const fields = [
     key: "commit",
     label: "Commit render",
     type: "checkbox",
-    defaultValue: false,
+    defaultValue: true,
   },
 ];
 
@@ -50,7 +50,10 @@ export const compile = (input, helpers) => {
 
   _addComment("Replace metatile");
 
-  _stackPushConst((input.commit)? 1: 0);
+  // This option did not exist in the original event, which always rendered
+  // immediately. Treat a missing value as enabled so upgraded projects keep
+  // their original behaviour; only an explicit false skips the VRAM update.
+  _stackPushConst(input.commit !== false ? 1 : 0);
   _stackPushScriptValue(input.metatile_id);
   _stackPushScriptValue(input.y);
   _stackPushScriptValue(input.x);
