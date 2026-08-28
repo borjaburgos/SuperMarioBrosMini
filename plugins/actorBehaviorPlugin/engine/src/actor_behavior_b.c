@@ -100,7 +100,8 @@ void actor_behavior_update_b(UBYTE i, actor_t * actor) BANKED {
 				}
 				break;
 			case 1: //Not moving state
-				if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
+				current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
+				if (current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 					actor_states[i] = 255;
 					break;
 				}
