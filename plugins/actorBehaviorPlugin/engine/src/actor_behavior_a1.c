@@ -31,7 +31,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 				case 1: //Goomba
 				switch(actor_states[i]){
 					case 0: //Init
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
 							actor_states[i] = 1;
 							actor_counter_a[i] = 0;
 							actor_counter_b[i] = 0;
@@ -41,7 +41,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 						break;
 					case 1: //Main state
 						if (!(actor_counter_b[i] & 3)){
-							current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+							current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 							if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 								actor_states[i] = 255;
 								break;
@@ -76,7 +76,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 						}
 						break;
 					case 3: //Falling
-						current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+						current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 						if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
@@ -106,7 +106,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 				case 2: //Green Koopa
 				switch(actor_states[i]){
 					case 0:
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
 							actor_states[i] = 1;
 							actor_vel_y[i] = 0;
 							actor_vel_x[i] = -16;
@@ -114,7 +114,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 						break;
 					case 1: //Main state
 						if (!(actor_counter_b[i] & 3)){
-							current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+							current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 							if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 								actor_states[i] = 255;
 								break;
@@ -137,7 +137,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 						actor_counter_b[i]++;
 						break;
 					case 2: //Falling
-						current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+						current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 						if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
@@ -165,7 +165,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 				case 3: //Red Koopa
 				switch(actor_states[i]){
 					case 0:
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
 							actor_states[i] = 1;
 							actor_vel_y[i] = 0;
 							actor_vel_x[i] = -16;
@@ -173,7 +173,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 						break;
 					case 1: //Main state
 						if (!(actor_counter_b[i] & 3)){
-							current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+							current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 							if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 								actor_states[i] = 255;
 								break;
@@ -199,7 +199,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 				case 4: //Koopa shell
 				switch(actor_states[i]){
 					case 0:
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
 							actor_counter_a[i] = 0;
 							actor_vel_y[i] = 0;
 							actor_vel_x[i] = 0;
@@ -207,7 +207,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 						}
 						break;
 					case 1: //tucked state
-						current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+						current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 						if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
@@ -226,15 +226,15 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 							actor_counter_a[i]++;
 						}
 					case 4: //kicked state
-						current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+						current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 						if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
 						}
 						apply_gravity(i);
 						//Apply velocity
-						WORD new_y =  actor->pos.y + actor_vel_y[i];
-						WORD new_x =  actor->pos.x + actor_vel_x[i];
+						UWORD new_y =  actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
+						UWORD new_x =  actor->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[i]);
 						if (CHK_FLAG(actor->flags, ACTOR_FLAG_COLLISION)){
 							//Tile Collision
 							actor->pos.x = check_collision(new_x, actor->pos.y, &actor->bounds, ((actor->pos.x > new_x) ? CHECK_DIR_LEFT : CHECK_DIR_RIGHT));
@@ -299,7 +299,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 				case 6://Horizontal projectile (Bowser fire, bullet bill, tatanga attack 1)
 				switch(actor_states[i]){
 					case 0: //Init
-						if ((((actor->pos.x >> 4)) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x))) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
 							actor_states[i] = 1;
 							if (actor_vel_x[i] == 0){
 								actor_vel_x[i] = -12;
@@ -310,12 +310,12 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 						}
 						break;
 					case 1: //Main state
-						current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+						current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 						if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
 						}
-						actor->pos.x =  actor->pos.x + actor_vel_x[i];
+						actor->pos.x =  actor->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[i]);
 						break;
 					case 255: //Deactivate
 						deactivate_actor(actor);
@@ -325,23 +325,23 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 				case 7://Pyrahna Plant
 				switch(actor_states[i]){
 					case 0: //Init
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
 							actor_states[i] = 1;
 							actor_counter_a[i] = 30;
 							actor_vel_y[i] = 0;
 						}
 						break;
 					case 1: //Main state
-						current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+						current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 						if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
 						}
 						if (actor_vel_y[i] > 0){
-							actor->pos.y += 16;
+							actor->pos.y += LEGACY_DELTA_TO_SUBPX(16);
 							actor_vel_y[i]--;
 						}
-						else if (((actor->pos.y >> 7) - 2) != PLAYER.pos.y >> 7){ //dont pop out if player is on top
+						else if (((SUBPX_TO_TILE(actor->pos.y)) - 2) != SUBPX_TO_TILE(PLAYER.pos.y)){ //dont pop out if player is on top
 							actor_counter_a[i]--;
 							if (actor_counter_a[i] <= 0){
 								actor_counter_a[i] = 120;
@@ -351,12 +351,12 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 						}
 						break;
 					case 2: //Out state
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) > BEHAVIOR_DEACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) > BEHAVIOR_DEACTIVATION_THRESHOLD){
 							actor_states[i] = 255;
 							break;
 						}
 						if (actor_vel_y[i] > 0){
-							actor->pos.y -= 16;
+							actor->pos.y -= LEGACY_DELTA_TO_SUBPX(16);
 							actor_vel_y[i]--;
 						}
 						actor_counter_a[i]--;
@@ -374,14 +374,14 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 				case 8: //Up-down moving actor (Flying Red Koopa, platforms)
 				switch(actor_states[i]){
 					case 0:
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){
 							actor_states[i] = 1;
 							actor_vel_y[i] = 8;
 							actor_counter_a[i] = 0;
 						}
 						break;
 					case 1: //Move up state
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) > BEHAVIOR_DEACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) > BEHAVIOR_DEACTIVATION_THRESHOLD){
 							actor_states[i] = 255;
 							break;
 						}
@@ -393,10 +393,10 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 								actor_states[i] = 2;
 							}
 						}
-						actor->pos.y = actor->pos.y + actor_vel_y[i];
+						actor->pos.y = actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
 						break;
 					case 2: //Move down state
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) > BEHAVIOR_DEACTIVATION_THRESHOLD){
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) > BEHAVIOR_DEACTIVATION_THRESHOLD){
 							actor_states[i] = 255;
 							break;
 						}
@@ -408,7 +408,7 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 								actor_states[i] = 1;
 							}
 						}
-						actor->pos.y = actor->pos.y + actor_vel_y[i];
+						actor->pos.y = actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
 						break;
 					case 255:
 						deactivate_actor(actor);
@@ -418,10 +418,10 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 				case 9://Fire bar
 				switch(actor_states[i]){
 					case 0: //Init
-						if ((((actor->pos.x >> 4) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ actor_states[i] = 1; }
+						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ actor_states[i] = 1; }
 						break;
 					case 1: //Main state
-						current_actor_x = ((actor->pos.x >> 4) + 8) - draw_scroll_x;
+						current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 						if (current_actor_x > BEHAVIOR_DEACTIVATION_THRESHOLD || current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
@@ -430,15 +430,15 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 							actor_counter_a[i] = (actor_counter_a[i] + 1) & 15;
 							actor->frame = actor->frame_start + actor_counter_a[i];
 						}
-						tmp_point.x = (actor->pos.x >> 4) + 4;
-						tmp_point.y = (actor->pos.y >> 4) - 28;
+						tmp_point.x = actor->pos.x + PX_TO_SUBPX(4);
+						tmp_point.y = actor->pos.y - PX_TO_SUBPX(28);
 						for (UBYTE j = 0; j < 4; j++){
 							if (bb_contains(&PLAYER.bounds, &PLAYER.pos, &tmp_point)){
 								script_execute(actor->script.bank, actor->script.ptr, 0, 1, 0);
 								break;
 							}
-							tmp_point.x += firebar_incx_lookup[actor_counter_a[i]];
-							tmp_point.y += firebar_incy_lookup[actor_counter_a[i]];
+							tmp_point.x += PX_TO_SUBPX(firebar_incx_lookup[actor_counter_a[i]]);
+							tmp_point.y += PX_TO_SUBPX(firebar_incy_lookup[actor_counter_a[i]]);
 						}
 						break;
 					case 255: //Deactivate

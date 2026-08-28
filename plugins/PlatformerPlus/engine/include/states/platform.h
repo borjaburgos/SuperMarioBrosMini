@@ -3,6 +3,14 @@
 
 #include <gb/gb.h>
 
+// Platformer Plus velocities were authored for GB Studio's former 1/16 px
+// actor coordinates. GB Studio 4.3 stores actor positions at 1/32 px, while
+// retaining the same 8.8 velocity field values.
+#define LEGACY_VEL_TO_SUBPX(v) ((v) >> 7)
+#ifndef LEGACY_DELTA_TO_SUBPX
+#define LEGACY_DELTA_TO_SUBPX(v) ((v) << 1)
+#endif
+
 void platform_init(void) BANKED;
 void platform_update(void) BANKED;
 

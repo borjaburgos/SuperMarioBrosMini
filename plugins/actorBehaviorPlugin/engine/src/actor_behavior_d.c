@@ -50,7 +50,7 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 		switch(actor_states[i]){
 			case 0:
 				actor_states[i] = 1;
-				ui_set_pos((actor->pos.x >> 4) - 24, (actor->pos.y >> 4) - 32);
+				ui_set_pos((SUBPX_TO_PX(actor->pos.x)) - 24, (SUBPX_TO_PX(actor->pos.y)) - 32);
 				set_bowser_frame(3);
 				actor_counter_a[i] = 0;
 				actor_counter_b[i] = 0;
@@ -70,7 +70,7 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 				break;
 			case 1: //Intro
 				if (!(game_time & 1)){
-					if (actor->pos.y > 1408){
+					if (actor->pos.y > PX_TO_SUBPX(88)){
 						actor_vel_y[i] = -8;
 					} else {
 						actor_states[i] = 2;
@@ -86,28 +86,28 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 						right_bowser_hand->frame = right_bowser_hand->frame_start;
 						left_bowser_hand->frame = left_bowser_hand->frame_start;
 					}
-					actor->pos.y =  actor->pos.y + actor_vel_y[i];
-					right_bowser_hand->pos.y =  right_bowser_hand->pos.y + actor_vel_y[i];
-					left_bowser_hand->pos.y =  left_bowser_hand->pos.y + actor_vel_y[i];
+					actor->pos.y =  actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
+					right_bowser_hand->pos.y =  right_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
+					left_bowser_hand->pos.y =  left_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
 
-					ui_set_pos((actor->pos.x >> 4) - 24, (actor->pos.y >> 4) - 32);
+					ui_set_pos((SUBPX_TO_PX(actor->pos.x)) - 24, (SUBPX_TO_PX(actor->pos.y)) - 32);
 				}
 				break;
 			case 2: //Idle
 				if (!(game_time & 1)){
 
 					//Head
-					if (actor->pos.y < 1088){
+					if (actor->pos.y < PX_TO_SUBPX(68)){
 						actor_counter_b[i] = 1;
-					} else if (actor->pos.y >= 1216){
+					} else if (actor->pos.y >= PX_TO_SUBPX(76)){
 						actor_counter_b[i] = 0;
 					}
 					if (!(game_time & 3)){
-						if (actor->pos.x < 2048 && actor->pos.x < PLAYER.pos.x){
+						if (actor->pos.x < PX_TO_SUBPX(128) && actor->pos.x < PLAYER.pos.x){
 							if (actor_vel_x[i] < 8){
 								actor_vel_x[i]++;
 							}
-						} else if (actor->pos.x > 512 && actor->pos.x >= PLAYER.pos.x + 256){
+						} else if (actor->pos.x > PX_TO_SUBPX(32) && actor->pos.x >= PLAYER.pos.x + PX_TO_SUBPX(16)){
 							if (actor_vel_x[i] > -8){
 								actor_vel_x[i]--;
 							}
@@ -124,21 +124,21 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 							actor_vel_y[i]--;
 						}
 					}
-					actor->pos.x =  actor->pos.x + actor_vel_x[i];
-					actor->pos.y =  actor->pos.y + actor_vel_y[i];
-					ui_set_pos((actor->pos.x >> 4) - 24, (actor->pos.y >> 4) - 32);
+					actor->pos.x =  actor->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[i]);
+					actor->pos.y =  actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
+					ui_set_pos((SUBPX_TO_PX(actor->pos.x)) - 24, (SUBPX_TO_PX(actor->pos.y)) - 32);
 
 					//Right hand
-					if (right_bowser_hand->pos.y < 1408){
+					if (right_bowser_hand->pos.y < PX_TO_SUBPX(88)){
 						actor_counter_b[right_bowser_hand_idx] = 1;
-					} else if (right_bowser_hand->pos.y >= 1536){
+					} else if (right_bowser_hand->pos.y >= PX_TO_SUBPX(96)){
 						actor_counter_b[right_bowser_hand_idx] = 0;
 					}
-					if (right_bowser_hand->pos.x < actor->pos.x + 512){
+					if (right_bowser_hand->pos.x < actor->pos.x + PX_TO_SUBPX(32)){
 						if (actor_vel_x[right_bowser_hand_idx] < 8){
 							actor_vel_x[right_bowser_hand_idx]++;
 						}
-					} else if (right_bowser_hand->pos.x >= actor->pos.x + 520){
+					} else if (right_bowser_hand->pos.x >= actor->pos.x + LEGACY_DELTA_TO_SUBPX(520)){
 						if (actor_vel_x[right_bowser_hand_idx] > -8){
 							actor_vel_x[right_bowser_hand_idx]--;
 						}
@@ -154,20 +154,20 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 							actor_vel_y[right_bowser_hand_idx]--;
 						}
 					}
-					right_bowser_hand->pos.x =  right_bowser_hand->pos.x + actor_vel_x[right_bowser_hand_idx];
-					right_bowser_hand->pos.y =  right_bowser_hand->pos.y + actor_vel_y[right_bowser_hand_idx];
+					right_bowser_hand->pos.x =  right_bowser_hand->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[right_bowser_hand_idx]);
+					right_bowser_hand->pos.y =  right_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[right_bowser_hand_idx]);
 
 					//Left hand
-					if (left_bowser_hand->pos.y < 1408){
+					if (left_bowser_hand->pos.y < PX_TO_SUBPX(88)){
 						actor_counter_b[left_bowser_hand_idx] = 1;
-					} else if (left_bowser_hand->pos.y >= 1536){
+					} else if (left_bowser_hand->pos.y >= PX_TO_SUBPX(96)){
 						actor_counter_b[left_bowser_hand_idx] = 0;
 					}
-					if (left_bowser_hand->pos.x < actor->pos.x - 512){
+					if (left_bowser_hand->pos.x < actor->pos.x - PX_TO_SUBPX(32)){
 						if (actor_vel_x[left_bowser_hand_idx] < 8){
 							actor_vel_x[left_bowser_hand_idx]++;
 						}
-					} else if (left_bowser_hand->pos.x >= actor->pos.x - 504){
+					} else if (left_bowser_hand->pos.x >= actor->pos.x - LEGACY_DELTA_TO_SUBPX(504)){
 						if (actor_vel_x[left_bowser_hand_idx] > -8){
 							actor_vel_x[left_bowser_hand_idx]--;
 						}
@@ -183,14 +183,14 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 							actor_vel_y[left_bowser_hand_idx]--;
 						}
 					}
-					left_bowser_hand->pos.x =  left_bowser_hand->pos.x + actor_vel_x[left_bowser_hand_idx];
-					left_bowser_hand->pos.y =  left_bowser_hand->pos.y + actor_vel_y[left_bowser_hand_idx];
+					left_bowser_hand->pos.x =  left_bowser_hand->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[left_bowser_hand_idx]);
+					left_bowser_hand->pos.y =  left_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[left_bowser_hand_idx]);
 
 
 					if (actor_counter_a[i] > 96){
 						actor_counter_a[i] = rand();
 						if (actor_counter_a[i] < 128){
-							if (actor->pos.x < 1280){
+							if (actor->pos.x < PX_TO_SUBPX(80)){
 								actor_counter_a[i] = 0;
 								actor_counter_b[i] = 0;
 								actor_states[i] = 6;
@@ -237,15 +237,15 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 						left_bowser_hand->frame = left_bowser_hand->frame_start;
 					}
 				}
-				actor->pos.y =  actor->pos.y + actor_vel_y[i];
-				ui_set_pos((actor->pos.x >> 4) - 24, (actor->pos.y >> 4) - 32);
+				actor->pos.y =  actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
+				ui_set_pos((SUBPX_TO_PX(actor->pos.x)) - 24, (SUBPX_TO_PX(actor->pos.y)) - 32);
 				break;
 			case 5: //Left swipe attack
 			case 6: //Right swipe attack
 				if (!(game_time & 15)){
-					if (actor->pos.y < 1280){
+					if (actor->pos.y < PX_TO_SUBPX(80)){
 						actor_counter_b[i] = 1;
-					} else if (actor->pos.y >= 1408){
+					} else if (actor->pos.y >= PX_TO_SUBPX(88)){
 						actor_counter_b[i] = 0;
 					}
 					if (actor_counter_b[i]){
@@ -271,26 +271,26 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 						left_bowser_hand->frame = left_bowser_hand->frame_start;
 					}
 				}
-				actor->pos.y =  actor->pos.y + actor_vel_y[i];
-				actor->pos.x =  actor->pos.x + actor_vel_x[i];
-				ui_set_pos((actor->pos.x >> 4) - 24, (actor->pos.y >> 4) - 32);
+				actor->pos.y =  actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
+				actor->pos.x =  actor->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[i]);
+				ui_set_pos((SUBPX_TO_PX(actor->pos.x)) - 24, (SUBPX_TO_PX(actor->pos.y)) - 32);
 				if (actor_states[i] == 6){
-					right_bowser_hand->pos.x =  right_bowser_hand->pos.x + actor_vel_x[right_bowser_hand_idx];
-					right_bowser_hand->pos.y =  right_bowser_hand->pos.y + actor_vel_y[right_bowser_hand_idx];
+					right_bowser_hand->pos.x =  right_bowser_hand->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[right_bowser_hand_idx]);
+					right_bowser_hand->pos.y =  right_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[right_bowser_hand_idx]);
 				} else {
-					left_bowser_hand->pos.x =  left_bowser_hand->pos.x + actor_vel_x[left_bowser_hand_idx];
-					left_bowser_hand->pos.y =  left_bowser_hand->pos.y + actor_vel_y[left_bowser_hand_idx];
+					left_bowser_hand->pos.x =  left_bowser_hand->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[left_bowser_hand_idx]);
+					left_bowser_hand->pos.y =  left_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[left_bowser_hand_idx]);
 				}
 				break;
 			case 7: //Slam attack
-				if (right_bowser_hand->pos.y < 1280 && left_bowser_hand->pos.y < 1280){
+				if (right_bowser_hand->pos.y < PX_TO_SUBPX(80) && left_bowser_hand->pos.y < PX_TO_SUBPX(80)){
 					actor_counter_b[i] = 1;
 				}
 				if (actor_counter_b[i]){
 					if (actor_vel_y[i] < 64){
 						actor_vel_y[i]++;
 					}
-					if (right_bowser_hand->pos.y > 2048 && left_bowser_hand->pos.y > 2048){
+					if (right_bowser_hand->pos.y > PX_TO_SUBPX(128) && left_bowser_hand->pos.y > PX_TO_SUBPX(128)){
 						actor_states[i] = 8;
 						actor_vel_y[i] = 0;
 						actor_counter_b[i] = 0;
@@ -299,21 +299,21 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 						}
 						break;
 					}
-					if (right_bowser_hand->pos.y <= 2048){
-						right_bowser_hand->pos.y =  right_bowser_hand->pos.y + actor_vel_y[i];
+					if (right_bowser_hand->pos.y <= PX_TO_SUBPX(128)){
+						right_bowser_hand->pos.y =  right_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
 					}
-					if (left_bowser_hand->pos.y <= 2048){
-						left_bowser_hand->pos.y =  left_bowser_hand->pos.y + actor_vel_y[i];
+					if (left_bowser_hand->pos.y <= PX_TO_SUBPX(128)){
+						left_bowser_hand->pos.y =  left_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
 					}
 				} else {
 					if (actor_vel_y[i] > -4){
 						actor_vel_y[i]--;
 					}
-					if (right_bowser_hand->pos.y >= 1280){
-						right_bowser_hand->pos.y =  right_bowser_hand->pos.y + actor_vel_y[i];
+					if (right_bowser_hand->pos.y >= PX_TO_SUBPX(80)){
+						right_bowser_hand->pos.y =  right_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
 					}
-					if (left_bowser_hand->pos.y >= 1280){
-						left_bowser_hand->pos.y =  left_bowser_hand->pos.y + actor_vel_y[i];
+					if (left_bowser_hand->pos.y >= PX_TO_SUBPX(80)){
+						left_bowser_hand->pos.y =  left_bowser_hand->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
 					}
 				}
 				break;
@@ -341,11 +341,11 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 						activate_actor(debris_actor);
 					}
 					SET_FLAG(debris_actor->flags, ACTOR_FLAG_COLLISION);
-					debris_actor->pos.x = actor->pos.x + (((rand() & 127) - 64) << 4);
+					debris_actor->pos.x = actor->pos.x + PX_TO_SUBPX((rand() & 127) - 64);
 					debris_actor->pos.y = 0;
 					actor_vel_x[debris_idx] = 0;
 					actor_vel_y[debris_idx] = 0;
-					if ((((debris_actor->pos.x >> 4) + 8) - draw_scroll_x) < 80){
+					if ((((SUBPX_TO_PX(debris_actor->pos.x)) + 8) - draw_scroll_x) < 80){
 						actor_set_dir(debris_actor, DIR_RIGHT, TRUE);
 					} else {
 						actor_set_dir(debris_actor, DIR_LEFT, TRUE);
@@ -377,13 +377,13 @@ void actor_behavior_update_d(UBYTE i, actor_t * actor) BANKED {
 				left_bowser_hand->frame = left_bowser_hand->frame_start + 1;
 				actor_states[i] = 10;
 			case 10: //Dead
-				if (actor->pos.y > 2560){
+				if (actor->pos.y > PX_TO_SUBPX(160)){
 					actor_states[i] = 255;
 				} else {
-					actor->pos.y =  actor->pos.y + 4;
-					right_bowser_hand->pos.y =  right_bowser_hand->pos.y + 4;
-					left_bowser_hand->pos.y =  left_bowser_hand->pos.y + 4;
-					ui_set_pos((actor->pos.x >> 4) - 24, (actor->pos.y >> 4) - 32);
+					actor->pos.y += LEGACY_DELTA_TO_SUBPX(4);
+					right_bowser_hand->pos.y += LEGACY_DELTA_TO_SUBPX(4);
+					left_bowser_hand->pos.y += LEGACY_DELTA_TO_SUBPX(4);
+					ui_set_pos((SUBPX_TO_PX(actor->pos.x)) - 24, (SUBPX_TO_PX(actor->pos.y)) - 32);
 				}
 			break;
 			case 255: //Deactivate

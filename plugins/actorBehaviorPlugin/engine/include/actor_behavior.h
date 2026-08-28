@@ -9,6 +9,11 @@
 #include "actor.h"
 #include "macro.h"
 
+// Actor behavior speeds are stored in the plug-in's former 1/16 px units.
+#ifndef LEGACY_DELTA_TO_SUBPX
+#define LEGACY_DELTA_TO_SUBPX(v) ((v) << 1)
+#endif
+
 void actor_behavior_init(void) BANKED;
 void actor_behavior_update(void) BANKED;
 void actor_behavior_update_a1(UBYTE actor_idx, actor_t *actor) BANKED;
@@ -30,8 +35,8 @@ extern UBYTE actor_linked_actor_idx[MAX_ACTORS];
 
 extern UBYTE current_behavior;
 extern WORD current_actor_x;
-extern WORD new_actor_x;
-extern WORD new_actor_y;
+extern UWORD new_actor_x;
+extern UWORD new_actor_y;
 extern WORD col_tx;
 extern WORD col_ty;
 extern upoint16_t tmp_point;

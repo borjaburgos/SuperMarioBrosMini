@@ -33,8 +33,8 @@ UBYTE actor_counter_b[MAX_ACTORS];
 UBYTE actor_linked_actor_idx[MAX_ACTORS];
 
 UBYTE current_behavior;
-WORD new_actor_x;
-WORD new_actor_y;
+UWORD new_actor_x;
+UWORD new_actor_y;
 WORD col_tx;
 WORD col_ty;
 WORD current_actor_x;
@@ -56,35 +56,35 @@ void actor_behavior_init(void) BANKED {
 UWORD check_collision(UWORD start_x, UWORD start_y, rect16_t *bounds, col_check_dir_e check_dir) BANKED{
     switch (check_dir) {
         case CHECK_DIR_LEFT:  // Check left (bottom left)
-            col_tx = (((start_x >> 4) + bounds->left) >> 3);
-            col_ty = (((start_y >> 4) + bounds->bottom) >> 3);
+            col_tx = SUBPX_TO_TILE(start_x + bounds->left);
+            col_ty = SUBPX_TO_TILE(start_y + bounds->bottom);
             if (tile_at(col_tx, col_ty) & COLLISION_RIGHT) {
-                return ((col_tx + 1) << 7) - (bounds->left << 4);
+                return TILE_TO_SUBPX(col_tx + 1) - bounds->left;
             }
             return start_x;
         case CHECK_DIR_RIGHT:  // Check right (bottom right)
-            col_tx = (((start_x >> 4) + bounds->right) >> 3);
-            col_ty = (((start_y >> 4) + bounds->bottom) >> 3);
+            col_tx = SUBPX_TO_TILE(start_x + bounds->right);
+            col_ty = SUBPX_TO_TILE(start_y + bounds->bottom);
             if (tile_at(col_tx, col_ty) & COLLISION_LEFT) {
-                return (col_tx << 7) - ((bounds->right + 1) << 4);
+                return TILE_TO_SUBPX(col_tx) - EXCLUSIVE_OFFSET(bounds->right);
             }
             return start_x;
         case CHECK_DIR_UP:  // Check up (middle up)
-            col_ty = (((start_y >> 4) + bounds->top) >> 3);
-            col_tx = (((start_x >> 4) + ((bounds->left + bounds->right) >> 1)) >> 3);
+            col_ty = SUBPX_TO_TILE(start_y + bounds->top);
+            col_tx = SUBPX_TO_TILE(start_x + ((bounds->left + bounds->right) >> 1));
             if (tile_at(col_tx, col_ty) & COLLISION_BOTTOM) {
-                return ((col_ty + 1) << 7) - ((bounds->top) << 4);
+                return TILE_TO_SUBPX(col_ty + 1) - bounds->top;
             }
             return start_y;
         case CHECK_DIR_DOWN:  // Check down (right bottom and left bottom)
-            col_ty = (((start_y >> 4) + bounds->bottom) >> 3);
-            col_tx = (((start_x >> 4) + bounds->left) >> 3);
+            col_ty = SUBPX_TO_TILE(start_y + bounds->bottom);
+            col_tx = SUBPX_TO_TILE(start_x + bounds->left);
             if (tile_at(col_tx, col_ty) & COLLISION_TOP) {
-                return ((col_ty) << 7) - ((bounds->bottom + 1) << 4);
+                return TILE_TO_SUBPX(col_ty) - EXCLUSIVE_OFFSET(bounds->bottom);
             }
-			col_tx = (((start_x >> 4) + bounds->right) >> 3);
+			col_tx = SUBPX_TO_TILE(start_x + bounds->right);
 			if (tile_at(col_tx, col_ty) & COLLISION_TOP) {
-                return ((col_ty) << 7) - ((bounds->bottom + 1) << 4);
+                return TILE_TO_SUBPX(col_ty) - EXCLUSIVE_OFFSET(bounds->bottom);
             }
             return start_y;
     }
@@ -95,17 +95,17 @@ UWORD check_pit(UWORD start_x, UWORD start_y, rect16_t *bounds, col_check_dir_e 
      WORD tx, ty;
     switch (check_dir) {
         case CHECK_DIR_LEFT:  // Check left (bottom left)
-            tx = (((start_x >> 4) + bounds->left) >> 3);
-            ty = (((start_y >> 4) + bounds->bottom) >> 3) + 1;
+            tx = SUBPX_TO_TILE(start_x + bounds->left);
+            ty = SUBPX_TO_TILE(start_y + bounds->bottom) + 1;
             if (!(tile_at(tx, ty) & COLLISION_TOP)) {
-                return ((tx + 1) << 7) - (bounds->left << 4);
+                return TILE_TO_SUBPX(tx + 1) - bounds->left;
             }
             return start_x;
         case CHECK_DIR_RIGHT:  // Check right (bottom right)
-            tx = (((start_x >> 4) + bounds->right) >> 3);
-            ty = (((start_y >> 4) + bounds->bottom) >> 3) + 1;
+            tx = SUBPX_TO_TILE(start_x + bounds->right);
+            ty = SUBPX_TO_TILE(start_y + bounds->bottom) + 1;
             if (!(tile_at(tx, ty) & COLLISION_TOP)) {
-                return (tx << 7) - ((bounds->right + 1) << 4);
+                return TILE_TO_SUBPX(tx) - EXCLUSIVE_OFFSET(bounds->right);
             }
             return start_x;
     }
@@ -119,8 +119,8 @@ void apply_gravity(UBYTE actor_idx) BANKED {
 
 void apply_velocity(UBYTE actor_idx, actor_t * actor) BANKED {
 	//Apply velocity
-	new_actor_y =  actor->pos.y + actor_vel_y[actor_idx];
-	new_actor_x =  actor->pos.x + actor_vel_x[actor_idx];
+	new_actor_y = actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[actor_idx]);
+	new_actor_x = actor->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[actor_idx]);
 	if (CHK_FLAG(actor->flags, ACTOR_FLAG_COLLISION)){
 		//Tile Collision
 		actor->pos.x = check_collision(new_actor_x, actor->pos.y, &actor->bounds, ((actor->pos.x > new_actor_x) ? CHECK_DIR_LEFT : CHECK_DIR_RIGHT));
@@ -136,8 +136,8 @@ void apply_velocity(UBYTE actor_idx, actor_t * actor) BANKED {
 
 void apply_velocity_avoid_fall(UBYTE actor_idx, actor_t * actor) BANKED {
 	//Apply velocity
-	new_actor_y =  actor->pos.y + actor_vel_y[actor_idx];
-	new_actor_x =  actor->pos.x + actor_vel_x[actor_idx];
+	new_actor_y = actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[actor_idx]);
+	new_actor_x = actor->pos.x + LEGACY_DELTA_TO_SUBPX(actor_vel_x[actor_idx]);
 	if (CHK_FLAG(actor->flags, ACTOR_FLAG_COLLISION)){
 		//Tile Collision
 		actor->pos.y = check_collision(actor->pos.x, new_actor_y, &actor->bounds, ((actor->pos.y > new_actor_y) ? CHECK_DIR_UP : CHECK_DIR_DOWN));

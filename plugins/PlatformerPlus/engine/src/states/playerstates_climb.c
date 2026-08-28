@@ -32,7 +32,7 @@
 void climb_state(void) BANKED {
 	    //INITIALIZE VARS
     WORD temp_y = 0;
-    UBYTE tile_y = ((PLAYER.pos.y >> 4) + PLAYER.bounds.top + 1) >> 3;
+    UBYTE tile_y = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top + PX_TO_SUBPX(1));
     UBYTE old_x = 0;
     col = 0;
 
@@ -46,23 +46,23 @@ void climb_state(void) BANKED {
 		pl_vel_y = 0;
 	}
 
-    deltaY += pl_vel_y >> 8;
+    deltaY += LEGACY_VEL_TO_SUBPX(pl_vel_y);
 
     //FUNCTION Y COLLISION
     {
         deltaY = CLAMP(deltaY, -127, 127);
 
-        UBYTE tile_start = (((PLAYER.pos.x >> 4) + PLAYER.bounds.left)  >> 3);
-        UBYTE tile_end   = (((PLAYER.pos.x >> 4) + PLAYER.bounds.right) >> 3) + 1;
+        UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.left);
+        UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right) + 1;
         if (deltaY > 0) {
             //Moving Downward
             WORD new_y = PLAYER.pos.y + deltaY;
-            tile_y = ((new_y >> 4) + PLAYER.bounds.bottom) >> 3;
+            tile_y = SUBPX_TO_TILE(new_y + PLAYER.bounds.bottom);
             if (nocollide == 0){
                 //Check collisions from left to right with the bottom of the player
                 while (tile_start < tile_end) {
                     if (sram_map_data[VRAM_OFFSET(current_vine_tile_x, tile_y)] != 151 || tile_at(tile_start, tile_y) & COLLISION_TOP) {
-                        new_y = ((((tile_y) << 3) - PLAYER.bounds.bottom) << 4) - 1;
+                        new_y = TILE_TO_SUBPX(tile_y) - EXCLUSIVE_OFFSET(PLAYER.bounds.bottom);
                         actor_attached = FALSE; //Detach when MP moves through a solid tile.
                         //The distinction here is used so that we can check the velocity when the player hits the ground.
                         break;
@@ -76,10 +76,10 @@ void climb_state(void) BANKED {
         } else if (deltaY < 0) {
             //Moving Upward
             WORD new_y = PLAYER.pos.y + deltaY;
-            tile_y = (((new_y >> 4) + PLAYER.bounds.top) >> 3);
+            tile_y = (SUBPX_TO_TILE(new_y + PLAYER.bounds.top));
             while (tile_start < tile_end) {
                 if (sram_map_data[VRAM_OFFSET(current_vine_tile_x, tile_y)] != 151 || tile_at(tile_start, tile_y) & COLLISION_BOTTOM) {
-                    new_y = ((((UBYTE)(tile_y + 1) << 3) - PLAYER.bounds.top) << 4) + 1;
+                    new_y = TILE_TO_SUBPX(tile_y + 1) - PLAYER.bounds.top + 1;
                     actor_attached = FALSE;
 					game_on_player_metatile_collision(tile_start, tile_y, DIR_UP);
                     break;
@@ -89,7 +89,7 @@ void climb_state(void) BANKED {
                 tile_start++;
             }
             PLAYER.pos.y = new_y;
-        } else if (sram_map_data[VRAM_OFFSET(current_vine_tile_x, ((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3)] != 151 && sram_map_data[VRAM_OFFSET(current_vine_tile_x, (((PLAYER.pos.y >> 4) + PLAYER.bounds.top) >> 3))] != 151){
+        } else if (sram_map_data[VRAM_OFFSET(current_vine_tile_x, SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom))] != 151 && sram_map_data[VRAM_OFFSET(current_vine_tile_x, SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top))] != 151){
 			que_state = JUMP_INIT;
 		}
     }
@@ -117,7 +117,7 @@ void climb_state(void) BANKED {
     } else {
 		actor_set_anim_idle(&PLAYER);
 	}
-	PLAYER.pos.x = (current_vine_tile_x << 7) + ((PLAYER.dir == DIR_LEFT)? -64: 64);
+	PLAYER.pos.x = TILE_TO_SUBPX(current_vine_tile_x) + ((PLAYER.dir == DIR_LEFT) ? PX_TO_SUBPX(-4) : PX_TO_SUBPX(4));
 
     //STATE CHANGE: Above, basic_y_col can shift to FALL_STATE.--------------------------------------------------
 
@@ -155,7 +155,7 @@ void climb_state(void) BANKED {
         camera_deadzone_x -= 1;
     }
 
-	if (PLAYER.pos.y < 128 && specific_events[VINE_WARP_EVENT].script_addr != 0){
+	if (PLAYER.pos.y < PX_TO_SUBPX(8) && specific_events[VINE_WARP_EVENT].script_addr != 0){
 		script_execute(specific_events[VINE_WARP_EVENT].script_bank, specific_events[VINE_WARP_EVENT].script_addr, 0, 0);
 	}
 
