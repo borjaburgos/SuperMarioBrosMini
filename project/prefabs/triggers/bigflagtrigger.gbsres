@@ -276,9 +276,15 @@
       "id": "5dcf371c-e038-4a65-a200-cfc11488d45b"
     },
     {
-      "command": "EVENT_THREAD_STOP",
+      "command": "EVENT_GBVM_SCRIPT",
       "args": {
-        "variable": "25",
+        "script": "VM_JOIN VAR_FLAGTHREAD",
+        "references": [
+          {
+            "type": "variable",
+            "id": "25"
+          }
+        ],
         "__collapse": true
       },
       "id": "82540d42-dfd2-4550-aef8-536b83a34c0d",

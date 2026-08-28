@@ -296,9 +296,15 @@
       "children": {}
     },
     {
-      "command": "EVENT_THREAD_STOP",
+      "command": "EVENT_GBVM_SCRIPT",
       "args": {
-        "variable": "25",
+        "script": "VM_JOIN VAR_FLAGTHREAD",
+        "references": [
+          {
+            "type": "variable",
+            "id": "25"
+          }
+        ],
         "__collapse": true
       },
       "id": "571ed0fd-a3f2-4c12-ba20-2bdc8851f1eb",
