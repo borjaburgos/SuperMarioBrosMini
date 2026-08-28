@@ -201,6 +201,13 @@ void jump_state(void) BANKED {
             }
         }
 
+        // Preserve horizontal air control while the player is above the map,
+        // without looking up collision tiles using the encoded negative Y.
+        if (PLAYER_ABOVE_SCENE_TOP()) {
+            PLAYER.pos.x = new_x;
+            goto gotoYCol;
+        }
+
         //Step-Check for collisions one tile left or right for each avatar height tile
 
         tile_x = SUBPX_TO_TILE(new_x + PLAYER.bounds.right);
@@ -266,7 +273,16 @@ void jump_state(void) BANKED {
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right) + 1;
         if (deltaY > 0) {
             //Moving Downward
-            WORD new_y = PLAYER.pos.y + deltaY;
+            WORD new_y = (WORD)PLAYER.pos.y + deltaY;
+
+            // Continue the normal jump arc above the visible map. Collision
+            // checks resume on the frame the player crosses back into it.
+            if ((new_y + PLAYER.bounds.top) < 0) {
+                PLAYER.pos.y = (UWORD)new_y;
+                reset_collision_cache(DIR_UP);
+                reset_collision_cache(DIR_DOWN);
+                goto gotoActorColJump;
+            }
 
             tile_y = SUBPX_TO_TILE(new_y + PLAYER.bounds.bottom);
 
@@ -313,17 +329,14 @@ void jump_state(void) BANKED {
         } else if (deltaY < 0) {
             //Moving Upward
 			tile_start = SUBPX_TO_TILE(PLAYER.pos.x + ((PLAYER.bounds.left + PLAYER.bounds.right) >> 1));
-            WORD new_y = PLAYER.pos.y + deltaY;
-			WORD top_limit = MAX(0, -PLAYER.bounds.top);
+            WORD new_y = (WORD)PLAYER.pos.y + deltaY;
 
-			// Actor positions are unsigned; crossing the top would wrap below the level.
-			if (new_y < top_limit) {
-				new_y = top_limit;
-				pl_vel_y = 0;
-				ct_val = 0;
-				que_state = FALL_INIT;
+			// Keep the signed height encoded in the actor position so gravity can
+			// bring the player naturally back on screen without wrapping below.
+			if ((new_y + PLAYER.bounds.top) < 0) {
 				actor_attached = FALSE;
-				PLAYER.pos.y = new_y;
+				PLAYER.pos.y = (UWORD)new_y;
+				reset_collision_cache(DIR_UP);
 				reset_collision_cache(DIR_DOWN);
 				goto gotoActorColJump;
 			}
@@ -358,6 +371,9 @@ void jump_state(void) BANKED {
     {
         deltaX = 0;
         deltaY = 0;
+		if (PLAYER_ABOVE_SCENE_TOP()) {
+			goto gotoAnimationJump;
+		}
         actor_t *hit_actor = PLAYER.prev;
 		while (hit_actor) {
 			if (!CHK_FLAG(hit_actor->flags, ACTOR_FLAG_COLLISION) || (actor_attached && last_actor == hit_actor) || hit_actor->collision_group == 0) {
@@ -390,6 +406,7 @@ void jump_state(void) BANKED {
     }
 
     //ANIMATION---------------------------------------------------------------------------------------------------
+    gotoAnimationJump:
         //This animation is currently shared by jumping, dashing, and falling. Dashing doesn't need this complexity though.
     //Here velocity overrides direction. Whereas on the ground it is the reverse.
     if(plat_turn_control){
@@ -421,7 +438,9 @@ void jump_state(void) BANKED {
 
     gotoTriggerCol:
     //FUNCTION TRIGGERS
-    trigger_activate_at_intersection(&PLAYER.bounds, &PLAYER.pos, 0);
+    if (!PLAYER_ABOVE_SCENE_TOP()) {
+        trigger_activate_at_intersection(&PLAYER.bounds, &PLAYER.pos, 0);
+    }
 
     gotoCounters:
     //COUNTERS===============================================================

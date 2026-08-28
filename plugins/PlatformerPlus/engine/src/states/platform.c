@@ -331,7 +331,7 @@ void platform_update(void) BANKED {
 	if (script_memory[VAR_PLAYER_IFRAMES] > 0){
 		script_memory[VAR_PLAYER_IFRAMES]--;
 	}
-	if (script_memory[VAR_HASYOSHI] && que_attacking){
+	if (script_memory[VAR_HASYOSHI] && que_attacking && !PLAYER_ABOVE_SCENE_TOP()){
 		upoint16_t tongue_offset;
 		rect16_t yoshi_tongue_boundingbox;
 		tongue_offset.y = PLAYER.pos.y + ((crouched) ? PX_TO_SUBPX(2) : PX_TO_SUBPX(-4));
@@ -353,7 +353,9 @@ void platform_update(void) BANKED {
 			}
 		}
 	}
-	game_check_player_metatiles_entered();
+	if (!PLAYER_ABOVE_SCENE_TOP()) {
+		game_check_player_metatiles_entered();
+	}
 	if(script_memory[VAR_FRAMECOINS] && specific_events[COIN_COLLECTED_EVENT].script_addr != 0){
         script_execute(specific_events[COIN_COLLECTED_EVENT].script_bank, specific_events[COIN_COLLECTED_EVENT].script_addr, 0, 0);
     }
@@ -644,6 +646,13 @@ void fall_state(void) BANKED {
             }
         }
 
+        // Preserve horizontal air control while the player is above the map,
+        // without looking up collision tiles using the encoded negative Y.
+        if (PLAYER_ABOVE_SCENE_TOP()) {
+            PLAYER.pos.x = new_x;
+            goto gotoYColFall;
+        }
+
         //Step-Check for collisions one tile left or right for each avatar height tile
         if (new_x > PLAYER.pos.x) {
             tile_x = SUBPX_TO_TILE(new_x + PLAYER.bounds.right);
@@ -699,6 +708,7 @@ void fall_state(void) BANKED {
     }
 
     //Y-COLLISION
+    gotoYColFall:
     {
         deltaY = CLAMP(deltaY, -127, 127);
 
@@ -712,7 +722,16 @@ void fall_state(void) BANKED {
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right) + 1;
         if (deltaY > 0) {
             //Moving Downward
-            WORD new_y = PLAYER.pos.y + deltaY;
+            WORD new_y = (WORD)PLAYER.pos.y + deltaY;
+
+            // Continue falling above the visible map without reading wrapped
+            // tile rows. Normal collision resumes as soon as the player returns.
+            if ((new_y + PLAYER.bounds.top) < 0) {
+                PLAYER.pos.y = (UWORD)new_y;
+                reset_collision_cache(DIR_UP);
+                reset_collision_cache(DIR_DOWN);
+                goto gotoActorColFall;
+            }
             tile_y = SUBPX_TO_TILE(new_y + PLAYER.bounds.bottom);
 
             if (nocollide == 0){
@@ -742,7 +761,14 @@ void fall_state(void) BANKED {
 
         } else if (deltaY < 0) {
             //Moving Upward
-            WORD new_y = PLAYER.pos.y + deltaY;
+            WORD new_y = (WORD)PLAYER.pos.y + deltaY;
+
+            if ((new_y + PLAYER.bounds.top) < 0) {
+                PLAYER.pos.y = (UWORD)new_y;
+                reset_collision_cache(DIR_UP);
+                reset_collision_cache(DIR_DOWN);
+                goto gotoActorColFall;
+            }
 
             UBYTE tile_y = (SUBPX_TO_TILE(new_y + PLAYER.bounds.top));
             while (tile_start < tile_end) {
@@ -776,6 +802,9 @@ void fall_state(void) BANKED {
     {
         deltaX = 0;
         deltaY = 0;
+		if (PLAYER_ABOVE_SCENE_TOP()) {
+			goto gotoAnimationFall;
+		}
 		actor_t *hit_actor = PLAYER.prev;
 		while (hit_actor) {
 			if (!CHK_FLAG(hit_actor->flags, ACTOR_FLAG_COLLISION) || (actor_attached && last_actor == hit_actor) || hit_actor->collision_group == 0) {
@@ -808,6 +837,7 @@ void fall_state(void) BANKED {
     }
 
     //ANIMATION--------------------------------------------------------------------------------------------------
+    gotoAnimationFall:
     //This animation is currently shared by jumping, dashing, and falling. Dashing doesn't need this complexity though.
     //Here velocity overrides direction. Whereas on the ground it is the reverse.
     if(plat_turn_control){
@@ -833,7 +863,7 @@ void fall_state(void) BANKED {
     //Above: FALL -> GROUND in basic_y_col()
 
 	//FALL -> SWIM check
-	if (script_memory[VAR_CANSWIM] != 0 && PLAYER.pos.y > PX_TO_SUBPX(48)){
+	if (!PLAYER_ABOVE_SCENE_TOP() && script_memory[VAR_CANSWIM] != 0 && PLAYER.pos.y > PX_TO_SUBPX(48)){
 		que_state = SWIM_INIT;
 	}
 
@@ -854,7 +884,7 @@ void fall_state(void) BANKED {
     }
 
 	//Pit check
-	if (specific_events[FELL_IN_PIT_EVENT].script_addr != 0 && (SUBPX_TO_PX(PLAYER.pos.y)) > (scroll_y + 160)){
+	if (!PLAYER_ABOVE_SCENE_TOP() && specific_events[FELL_IN_PIT_EVENT].script_addr != 0 && (SUBPX_TO_PX(PLAYER.pos.y)) > (scroll_y + 160)){
 		script_execute(specific_events[FELL_IN_PIT_EVENT].script_bank, specific_events[FELL_IN_PIT_EVENT].script_addr, 0, 0);
 		que_state = BLANK_INIT;
 	}
@@ -883,7 +913,9 @@ void fall_state(void) BANKED {
     }
 
     //FUNCTION TRIGGERS
-    trigger_activate_at_intersection(&PLAYER.bounds, &PLAYER.pos, 0);
+    if (!PLAYER_ABOVE_SCENE_TOP()) {
+        trigger_activate_at_intersection(&PLAYER.bounds, &PLAYER.pos, 0);
+    }
 
     //COUNTERS===============================================================
 

@@ -11,6 +11,10 @@
 #define LEGACY_DELTA_TO_SUBPX(v) ((v) << 1)
 #endif
 
+// Actor positions are stored as unsigned values, but a player above the map is
+// represented using the equivalent signed, two's-complement Y coordinate.
+#define PLAYER_ABOVE_SCENE_TOP() ((((WORD)PLAYER.pos.y) + PLAYER.bounds.top) < 0)
+
 void platform_init(void) BANKED;
 void platform_update(void) BANKED;
 

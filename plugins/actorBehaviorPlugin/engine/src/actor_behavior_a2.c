@@ -311,7 +311,8 @@ void actor_behavior_update_a2(UBYTE i, actor_t * actor) BANKED {
 						}
 						break;
 					case 1: //Move left state
-						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
+						current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
+						if (current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
 						}
@@ -351,7 +352,8 @@ void actor_behavior_update_a2(UBYTE i, actor_t * actor) BANKED {
 						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ actor_states[i] = 1; }
 						break;
 					case 1: //Not falling state
-						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
+						current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
+						if (current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
 						}
