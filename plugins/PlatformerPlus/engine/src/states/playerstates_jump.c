@@ -314,6 +314,19 @@ void jump_state(void) BANKED {
             //Moving Upward
 			tile_start = SUBPX_TO_TILE(PLAYER.pos.x + ((PLAYER.bounds.left + PLAYER.bounds.right) >> 1));
             WORD new_y = PLAYER.pos.y + deltaY;
+			WORD top_limit = MAX(0, -PLAYER.bounds.top);
+
+			// Actor positions are unsigned; crossing the top would wrap below the level.
+			if (new_y < top_limit) {
+				new_y = top_limit;
+				pl_vel_y = 0;
+				ct_val = 0;
+				que_state = FALL_INIT;
+				actor_attached = FALSE;
+				PLAYER.pos.y = new_y;
+				reset_collision_cache(DIR_DOWN);
+				goto gotoActorColJump;
+			}
 
             UBYTE tile_y = (SUBPX_TO_TILE(new_y + PLAYER.bounds.top));
             if (tile_at(tile_start, tile_y) & COLLISION_BOTTOM) {
