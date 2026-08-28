@@ -220,7 +220,7 @@
               },
               "y": {
                 "type": "expression",
-                "value": "112"
+                "value": "64"
               },
               "moveType": "vertical",
               "useCollisions": true,
