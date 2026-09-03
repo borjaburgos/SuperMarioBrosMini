@@ -31,7 +31,10 @@
 
 #else
 
-#define METATILE_Y_OFFSET(y) (y << image_tile_width_bit)
+// Store 8px metatile rows at their actual width. Rounding the row stride up to
+// a power of two makes wide, 32-row scenes overflow into the SRAM collision
+// lookup table (World 16-1, 16-2-1, and 16-3 are all affected).
+#define METATILE_Y_OFFSET(y) ((UWORD)(y) * (UWORD)image_tile_width)
 #define METATILE_MAP_OFFSET(x, y)  (METATILE_Y_OFFSET(y) + x)
 #define MAX_MAP_DATA_SIZE 0x1F00
 #define COLLISION_DATA_SIZE 0x0100

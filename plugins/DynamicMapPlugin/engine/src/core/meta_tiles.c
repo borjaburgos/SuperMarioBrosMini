@@ -80,8 +80,8 @@ void metatile_reset(void) BANKED{
 
 void load_meta_tiles(void) BANKED{
     MemcpyBanked(&sram_collision_data, metatile_collision_ptr, COLLISION_DATA_SIZE, metatile_collision_bank);
-    image_tile_width_bit = 1;
 #if METATILE_SIZE == METATILE_SIZE_16
+    image_tile_width_bit = 1;
     UBYTE half_width = (image_tile_width >> 1);
     UBYTE half_height = (image_tile_height >> 1);
     UBYTE width = (half_width - 1);
@@ -92,10 +92,6 @@ void load_meta_tiles(void) BANKED{
         MemcpyBanked(sram_map_data + METATILE_MAP_OFFSET(0, y << 1), image_ptr + (UWORD)(y * half_width), half_width, image_bank);
     }
 #else
-    UBYTE width = (image_tile_width - 1);
-    while(width >>= 1){
-        image_tile_width_bit++;
-    }
     for (UBYTE y = 0; y < image_tile_height; y++) {
         MemcpyBanked(sram_map_data + METATILE_MAP_OFFSET(0, y), image_ptr + (UWORD)(y * image_tile_width), image_tile_width, image_bank);
     }
