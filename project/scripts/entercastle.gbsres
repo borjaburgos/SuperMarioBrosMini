@@ -182,8 +182,14 @@
     {
       "command": "EVENT_WAIT",
       "args": {
-        "time": 0.5,
-        "frames": 30,
+        "time": {
+          "type": "number",
+          "value": 0.5
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        },
         "__collapse": true
       },
       "id": "49e69ee6-f26b-4d25-8beb-ef5b2c96463a"
@@ -202,7 +208,8 @@
         },
         "moveType": "vertical",
         "useCollisions": false,
-        "__collapse": true
+        "__collapse": true,
+        "collideWith": []
       },
       "id": "48c19636-e4e6-4a5c-acef-88cd872d84c2"
     },
@@ -568,8 +575,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "135a1af1-e6f7-4460-9c6d-dc16ba4cc420"
@@ -581,8 +594,14 @@
     {
       "command": "EVENT_WAIT",
       "args": {
-        "time": 2,
-        "frames": 30,
+        "time": {
+          "type": "number",
+          "value": 2
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        },
         "__collapse": true
       },
       "id": "550a40bb-f142-40d3-9fc6-6347b9e0cef8"

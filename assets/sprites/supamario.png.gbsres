@@ -2713,7 +2713,7 @@
   "canvasWidth": 8,
   "canvasHeight": 24,
   "boundsX": 1,
-  "boundsY": 0,
+  "boundsY": -7,
   "boundsWidth": 6,
   "boundsHeight": 15,
   "animSpeed": 15,

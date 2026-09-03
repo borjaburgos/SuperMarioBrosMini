@@ -11,7 +11,7 @@ export const fields = [
     key: "sceneId",
     label: "Scene",
     type: "scene",
-	width: "100%",
+    width: "100%",
     defaultValue: "LAST_SCENE",
   },
   {
@@ -76,43 +76,87 @@ export const fields = [
       value: 0,
     },
   },
+  {
+    key: "commit",
+    label: "Commit render",
+    type: "checkbox",
+    defaultValue: true,
+  },
+  {
+    key: "relative_to_scroll",
+    label: "Destination relative to camera scroll",
+    description:
+      "When enabled, Destination X/Y are screen coordinates: (0,0) is the top-left tile currently visible and the camera's scroll position is added automatically. When disabled, they are absolute scene tile coordinates.",
+    type: "checkbox",
+    width: "100%",
+  },
 ];
 
 export const compile = (input, helpers) => {
-  const { options, _callNative, _stackPushConst, _stackPush, _stackPop, _addComment, _declareLocal, variableSetToScriptValue } = helpers;
-  
+  const { options, _callNative, _stackPushConst, _rpn, _stackPush, _stackPop, _addComment, _declareLocal, variableSetToScriptValue } = helpers;
+
   const { scenes } = options;
   const scene = scenes.find((s) => s.id === input.sceneId);
   if (!scene) {
     return;
   }
-  
-  const tmp0 = _declareLocal("tmp_source_x", 1, true);
-  const tmp1 = _declareLocal("tmp_source_y", 1, true);
-  const tmp2 = _declareLocal("tmp_dest_x", 1, true);
-  const tmp3 = _declareLocal("tmp_dest_y", 1, true);
-  const tmp4 = _declareLocal("tmp_w", 1, true);
-  const tmp5 = _declareLocal("tmp_h", 1, true);
-    
+
+  const tmp0 = _declareLocal("tmp0", 1, true);
+  const tmp1 = _declareLocal("tmp1", 1, true);
+  const tmp2 = _declareLocal("tmp2", 1, true);
+  const tmp3 = _declareLocal("tmp3", 1, true);
+
+  _addComment("Submap metatiles");
+
   variableSetToScriptValue(tmp0, input.source_x);
   variableSetToScriptValue(tmp1, input.source_y);
-  variableSetToScriptValue(tmp2, input.dest_x);
-  variableSetToScriptValue(tmp3, input.dest_y);
-  variableSetToScriptValue(tmp4, input.w);
-  variableSetToScriptValue(tmp5, input.h);
-    
-  _addComment("Submap metatiles");
-  
+   _rpn()
+          .ref(tmp1).int16(256).operator(".MUL")        // (source_y << 8) | source_x
+          .ref(tmp0)
+          .operator(".B_OR")
+          .refSet(tmp0)
+          .stop();
+
+
+
+
+  variableSetToScriptValue(tmp1, input.dest_x);
+  variableSetToScriptValue(tmp2, input.dest_y);
+
+   _rpn()
+          .ref(tmp2).int16(256).operator(".MUL")        // (dest_y << 8) | dest_x
+          .ref(tmp1)
+          .operator(".B_OR")
+          .refSet(tmp1)
+          .stop();
+
+  variableSetToScriptValue(tmp2, input.w);
+  variableSetToScriptValue(tmp3, input.h);
+
+  _rpn()
+          .ref(tmp3).int16(256).operator(".MUL")        // (h << 8) | w
+          .ref(tmp2)
+          .operator(".B_OR")
+          .refSet(tmp2)
+          .stop();
+
+
+
+
+  // Pushed first so it lands in the deepest argument slot and every existing
+  // argument index stays where it was.
+  _stackPushConst(input.relative_to_scroll ? 1 : 0);
+
   _stackPushConst(`_${scene.symbol}`);
-  _stackPushConst(`___bank_${scene.symbol}`); 
-  _stackPush(tmp5);
-  _stackPush(tmp4);
-  _stackPush(tmp3);
+  _stackPushConst(`___bank_${scene.symbol}`);
+  // Legacy submap events always rendered immediately and therefore have no
+  // stored commit value. Preserve that behaviour unless false is explicit.
+  _stackPushConst(input.commit !== false ? 1 : 0);
   _stackPush(tmp2);
   _stackPush(tmp1);
   _stackPush(tmp0);
-  		
+
   _callNative("vm_submap_metatiles");
-  _stackPop(8);  
-  
+  _stackPop(7);
+
 };

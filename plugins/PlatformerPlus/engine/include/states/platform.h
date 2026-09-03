@@ -3,11 +3,23 @@
 
 #include <gb/gb.h>
 
+// Platformer Plus velocities were authored for GB Studio's former 1/16 px
+// actor coordinates. GB Studio 4.3 stores actor positions at 1/32 px, while
+// retaining the same 8.8 velocity field values.
+#define LEGACY_VEL_TO_SUBPX(v) ((v) >> 7)
+#ifndef LEGACY_DELTA_TO_SUBPX
+#define LEGACY_DELTA_TO_SUBPX(v) ((v) << 1)
+#endif
+
+// Actor positions are stored as unsigned values, but a player above the map is
+// represented using the equivalent signed, two's-complement Y coordinate.
+#define PLAYER_ABOVE_SCENE_TOP() ((((WORD)PLAYER.pos.y) + PLAYER.bounds.top) < 0)
+
 void platform_init(void) BANKED;
 void platform_update(void) BANKED;
 
-void check_player_metatiles_entered(void) BANKED;
-void on_player_metatile_collision(UBYTE tile_x, UBYTE tile_y, UBYTE direction) BANKED;
+void game_check_player_metatiles_entered(void) BANKED;
+void game_on_player_metatile_collision(UBYTE tile_x, UBYTE tile_y, UBYTE direction) BANKED;
 void reset_collision_cache(UBYTE direction) BANKED;
 
 typedef struct script_state_t {
@@ -46,17 +58,17 @@ extern WORD plat_max_fall_vel;
 extern BYTE plat_camera_deadzone_x;
 extern UBYTE plat_camera_block;
 extern UBYTE plat_drop_through;
-extern UBYTE plat_mp_group;        
-extern UBYTE plat_solid_group;    
-extern WORD plat_jump_min; 
-extern UBYTE plat_hold_jump_max; 
+extern UBYTE plat_mp_group;
+extern UBYTE plat_solid_group;
+extern WORD plat_jump_min;
+extern UBYTE plat_hold_jump_max;
 extern WORD plat_jump_reduction;
 extern UBYTE plat_coyote_max;
-extern UBYTE plat_buffer_max;    
-extern UBYTE plat_float_input;   
-extern WORD plat_float_grav;   
-extern UBYTE plat_turn_control; 
-extern WORD plat_air_dec;    
+extern UBYTE plat_buffer_max;
+extern UBYTE plat_float_input;
+extern WORD plat_float_grav;
+extern UBYTE plat_turn_control;
+extern WORD plat_air_dec;
 extern WORD plat_turn_acc;
 extern UBYTE plat_run_boost;
 extern BYTE run_stage;

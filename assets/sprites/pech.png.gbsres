@@ -105,7 +105,7 @@
   "canvasWidth": 8,
   "canvasHeight": 24,
   "boundsX": 0,
-  "boundsY": 0,
+  "boundsY": -8,
   "boundsWidth": 8,
   "boundsHeight": 16,
   "animSpeed": 15,

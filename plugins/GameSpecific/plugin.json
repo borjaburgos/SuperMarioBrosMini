@@ -1,0 +1,10 @@
+{
+  "type": "enginePlugin",
+  "name": "Super Mario Bros Mini Engine Compatibility",
+  "author": "SuperMarioBrosMini contributors",
+  "description": "Project-specific GB Studio 4.3 engine compatibility patches.",
+  "license": "MIT",
+  "version": "4.3.2",
+  "gbsVersion": ">=4.3.0 <5.0.0",
+  "order": 10
+}

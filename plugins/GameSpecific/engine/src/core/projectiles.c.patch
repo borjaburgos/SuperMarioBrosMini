@@ -1,0 +1,22 @@
+--- src/core/projectiles.c
++++ src/core/projectiles.c
+@@ -99,19 +99,9 @@
+         // Move projectile
+         uint16_t pos;
+         pos = projectile->pos.x + projectile->delta_pos.x;
+-        if ((SUBPX_TO_TILE(pos) < min_x) || (SUBPX_TO_TILE(pos) >= max_x))
+-        {
+-            remove_projectile();
+-            continue;
+-        }
+         projectile->pos.x = pos;
+ 
+         pos = projectile->pos.y + projectile->delta_pos.y;
+-        if ((SUBPX_TO_TILE(pos) < min_y) || (SUBPX_TO_TILE(pos) >= max_y))
+-        {
+-            remove_projectile();
+-            continue;
+-        }
+         projectile->pos.y = pos;
+ 
+ #if PROJECTILES_COLLISION_SPREAD != EVERY_FRAME

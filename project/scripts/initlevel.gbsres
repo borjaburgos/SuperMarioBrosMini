@@ -5178,7 +5178,8 @@
               "moveType": "vertical",
               "useCollisions": false,
               "units": "pixels",
-              "__collapse": true
+              "__collapse": true,
+              "collideWith": []
             },
             "id": "67d78d7b-f3b5-4384-9e3d-d35b7c9d9a93"
           },
@@ -5245,15 +5246,22 @@
               "moveType": "vertical",
               "useCollisions": false,
               "units": "pixels",
-              "__collapse": true
+              "__collapse": true,
+              "collideWith": []
             },
             "id": "6bc3fbf4-4131-43a7-bc66-7a59e0f02ef5"
           },
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "db3ab28e-4d64-4b25-a934-43e679e898dd"
