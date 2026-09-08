@@ -70,8 +70,8 @@ void crouch_state(void) BANKED {
     //Transform velocity into positional data, to keep the precision of the platform's movement
     grounded = true;
     if (actor_attached){
-        //If the platform has been disabled, detach the player
-        if(CHK_FLAG(last_actor->flags, ACTOR_FLAG_DISABLED) == TRUE){
+        //Flags are bit masks, not Boolean values; inactive platforms also detach.
+        if (!CHK_FLAG(last_actor->flags, ACTOR_FLAG_ACTIVE) || CHK_FLAG(last_actor->flags, ACTOR_FLAG_DISABLED)) {
             que_state = FALL_INIT;
             actor_attached = FALSE;
         //If the player is off the platform to the right, detach from the platform
@@ -82,11 +82,12 @@ void crouch_state(void) BANKED {
         } else if (PLAYER.pos.x + EXCLUSIVE_OFFSET(PLAYER.bounds.right) < last_actor->pos.x + last_actor->bounds.left){
             que_state = FALL_INIT;
             actor_attached = FALSE;
-        } else{
-        //Otherwise, add any change in movement from platform
-            deltaX += (last_actor->pos.x - mp_last_x);
-            mp_last_x = last_actor->pos.x;
         }
+    }
+    if (actor_attached){
+        //Only inherit movement while still attached to a valid platform.
+        deltaX += (last_actor->pos.x - mp_last_x);
+        mp_last_x = last_actor->pos.x;
 
         //If we're on a platform, zero out any other motion from gravity or other sources
         pl_vel_y = 0;

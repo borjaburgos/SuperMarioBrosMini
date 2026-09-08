@@ -251,23 +251,26 @@ void actor_behavior_update_a2(UBYTE i, actor_t * actor) BANKED {
 				}
 				break;
 				case 16: //Elevator platform
+				// Screen-relative X can be negative despite unsigned world positions.
+				current_actor_x = ((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x;
 				switch(actor_states[i]){
 					case 0:
-						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_ACTIVATION_THRESHOLD){ actor_states[i] = 1; }
+						if (current_actor_x < BEHAVIOR_ACTIVATION_THRESHOLD){ actor_states[i] = 1; }
 						break;
 					case 1: //moving state
-						if ((((SUBPX_TO_PX(actor->pos.x)) + 8) - draw_scroll_x) < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
+						if (current_actor_x < BEHAVIOR_DEACTIVATION_LOWER_THRESHOLD){
 							actor_states[i] = 255;
 							break;
 						}
-						if (actor_vel_y[i] < 0 && actor->pos.y < 0) {
+						// Wrap in the same update that crosses the edge, before actor culling.
+						actor->pos.y += LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
+						if (actor_vel_y[i] < 0 && (WORD)actor->pos.y < 0) {
 							actor->pos.y += TILE_TO_SUBPX(image_tile_height);
-							actor_attached = FALSE;
+							if (actor_attached && last_actor == actor) actor_attached = FALSE;
 						} else if (actor_vel_y[i] > 0 && (SUBPX_TO_TILE(actor->pos.y)) > image_tile_height) {
 							actor->pos.y -= TILE_TO_SUBPX(image_tile_height);
-							actor_attached = FALSE;
+							if (actor_attached && last_actor == actor) actor_attached = FALSE;
 						}
-						actor->pos.y = actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
 						break;
 					case 255:
 						actor_counter_a[i] = 0;

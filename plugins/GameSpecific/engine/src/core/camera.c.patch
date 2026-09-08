@@ -26,7 +26,17 @@
          {
              new_cam_pos = target_max_pos;
              if ((camera_settings & CAMERA_LOCK_X_MIN_FLAG) && new_cam_pos < camera_clamp_x)
-@@ -61,7 +62,7 @@
+@@ -55,13 +56,16 @@
+ 
+     if (camera_settings & CAMERA_LOCK_Y_FLAG)
+     {
+-        UWORD target_pos = PLAYER.pos.y + CAMERA_FIXED_OFFSET_Y - PX_TO_SUBPX(camera_offset_y);
++        // Platformer Y above the scene is encoded as a signed negative position.
++        // Clamp before unsigned camera math so an offscreen jump cannot wrap down.
++        INT32 target_y = (INT32)(WORD)PLAYER.pos.y + CAMERA_FIXED_OFFSET_Y - PX_TO_SUBPX(camera_offset_y);
++        UWORD target_pos = (target_y < 0) ? 0 : (UWORD)target_y;
+         WORD tolerance = PX_TO_SUBPX(camera_deadzone_y);
+         UWORD target_min_pos = (tolerance > target_pos) ? 0 : target_pos - tolerance;
          UWORD target_max_pos = target_pos + tolerance;
          UWORD new_cam_pos = camera_y;
  
@@ -35,7 +45,7 @@
          {
              new_cam_pos = target_min_pos;
              if ((camera_settings & CAMERA_LOCK_Y_MAX_FLAG) && new_cam_pos > camera_clamp_y)
-@@ -69,7 +70,7 @@
+@@ -69,7 +73,7 @@
                  new_cam_pos = camera_clamp_y;
              }
          }

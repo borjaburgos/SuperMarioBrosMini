@@ -963,8 +963,8 @@ void swim_state(void) BANKED {
 	}
 
 	if (actor_attached){
-        //If the platform has been disabled, detach the player
-        if(CHK_FLAG(last_actor->flags, ACTOR_FLAG_DISABLED) == TRUE){
+        //Flags are bit masks, not Boolean values; inactive platforms also detach.
+        if (!CHK_FLAG(last_actor->flags, ACTOR_FLAG_ACTIVE) || CHK_FLAG(last_actor->flags, ACTOR_FLAG_DISABLED)) {
             actor_attached = FALSE;
         //If the player is off the platform to the right, detach from the platform
         } else if (PLAYER.pos.x + PLAYER.bounds.left > last_actor->pos.x + EXCLUSIVE_OFFSET(last_actor->bounds.right)) {
@@ -972,11 +972,12 @@ void swim_state(void) BANKED {
         //If the player is off the platform to the left, detach
         } else if (PLAYER.pos.x + EXCLUSIVE_OFFSET(PLAYER.bounds.right) < last_actor->pos.x + last_actor->bounds.left){
             actor_attached = FALSE;
-        } else{
-        //Otherwise, add any change in movement from platform
-            deltaX += (last_actor->pos.x - mp_last_x);
-            mp_last_x = last_actor->pos.x;
         }
+    }
+    if (actor_attached){
+        //Only inherit movement while still attached to a valid platform.
+        deltaX += (last_actor->pos.x - mp_last_x);
+        mp_last_x = last_actor->pos.x;
 
         //If we're on a platform, zero out any other motion from gravity or other sources
         pl_vel_y = 0;

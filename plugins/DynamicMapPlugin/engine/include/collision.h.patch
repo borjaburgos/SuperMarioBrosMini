@@ -2,7 +2,7 @@ Index: include/collision.h
 ===================================================================
 --- include/collision.h
 +++ include/collision.h
-@@ -4,24 +4,56 @@
+@@ -4,24 +4,59 @@
  #include <gbdk/platform.h>
  
  #include "math.h"
@@ -62,7 +62,7 @@ Index: include/collision.h
   * Check if point is within positioned bounding box.
   *
   * @param bb Pointer to bounding box
-@@ -61,10 +93,19 @@
+@@ -61,10 +96,19 @@
   * @param ty Top tile
 - * @return Tile value, 0 if no collisions, COLLISION_ALL if out of bounds
 + * @return Tile value, or 0 when empty or out of bounds
@@ -86,7 +86,7 @@ Index: include/collision.h
  }
  
  /**
-@@ -76,9 +117,9 @@
+@@ -76,9 +120,9 @@
   * @param ty_start Starting tile y-coordinate
   * @param ty_end Ending tile y-coordinate
   * @return First matching tile value found, or 0 if none matched, COLLISION_ALL if out of bounds
@@ -97,7 +97,7 @@ Index: include/collision.h
  /**
   * Test for a tile matching mask in a horizontal range from tx_start to tx_end at row ty.
   * Updates globals tile_hit_x and tile_hit_y which can be read afterwards to determine which tile matched
-@@ -88,7 +129,7 @@
+@@ -88,7 +132,7 @@
   * @param tx_start Starting tile x-coordinate
   * @param tx_end Ending tile x-coordinate
   * @return First matching tile value found, or 0 if none matched, COLLISION_ALL if out of bounds
