@@ -107,7 +107,8 @@ WORD plat_float_grav;       //Speed of fall descent while floating
 UBYTE plat_turn_control;    //Controls the amount of slippage when the player turns while running.
 WORD plat_air_dec;          // air deceleration rate
 WORD plat_turn_acc;         //Speed with which a character turns
-UBYTE plat_run_boost;        //Additional jump height based on player horizontal speed
+// GB Studio's built-in field of the same name is initialized with a word write.
+WORD plat_run_boost;         //Additional jump height based on player horizontal speed
 BYTE run_stage;             //Tracks the stage of running based on the run type
 
 UBYTE nocollide;            //Turns off vertical collisions, currently only for dropping through platforms

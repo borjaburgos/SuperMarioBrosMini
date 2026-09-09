@@ -67,14 +67,17 @@ const fields = [
 ];
 
 const compile = (input, helpers) => {
-  const { _addComment, _addNL, _setConstMemInt16, _setMemInt16ToVariable } =
+  const { _addComment, _addNL, _setConstMemInt16, _setMemInt16ToVariable,
+    _setConstMemUInt8, _setMemUInt8ToVariable } =
     helpers;
+  // Counters are bytes; movement amounts remain signed 16-bit values.
+  const byteField = ["dj_val", "nocollide", "plat_hold_jump_max"].includes(input.field);
   if (input.type === "variable") {
     _addComment("Platformer Plus Field Set To Variable");
-    _setMemInt16ToVariable(input.field, input.variable);
+    (byteField ? _setMemUInt8ToVariable : _setMemInt16ToVariable)(input.field, input.variable);
   } else {
     _addComment("Platformer Plus Field Set To Value");
-    _setConstMemInt16(input.field, input.value);
+    (byteField ? _setConstMemUInt8 : _setConstMemInt16)(input.field, input.value);
   }
   _addNL();
 };

@@ -312,7 +312,7 @@
                 {
                   "command": "EVENT_GBVM_SCRIPT",
                   "args": {
-                    "script": "VM_SET_CONST_INT16 _current_vine_tile_x, 4",
+                    "script": "VM_SET_CONST_UINT8 _current_vine_tile_x, 4",
                     "__comment": false,
                     "__collapse": true
                   },
@@ -397,7 +397,7 @@
                 {
                   "command": "EVENT_GBVM_SCRIPT",
                   "args": {
-                    "script": "VM_SET_CONST_INT16 _current_vine_tile_x, 4",
+                    "script": "VM_SET_CONST_UINT8 _current_vine_tile_x, 4",
                     "__comment": false,
                     "__collapse": true
                   },
@@ -450,7 +450,7 @@
                 {
                   "command": "EVENT_GBVM_SCRIPT",
                   "args": {
-                    "script": "VM_SET_CONST_INT16 _current_vine_tile_x, 4",
+                    "script": "VM_SET_CONST_UINT8 _current_vine_tile_x, 4",
                     "__comment": false,
                     "__collapse": true
                   },

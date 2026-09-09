@@ -237,6 +237,44 @@ class RuntimeTests(unittest.TestCase):
                         self.assertEqual(x, 64 * 32, "Inherited invalid platform X movement")
                         self.assertLess(y, 141 * 32, "Inherited invalid platform Y movement")
 
+    def test_world_1_enemy_stomp_does_not_corrupt_script_execution(self):
+        # Real controller input only: this route crashed at gameplay frame 349.
+        # Keep it separate from the short title/movement smoke test.
+        p = self.boot()
+        panics = []
+        updates = []
+        frame = -1
+
+        def panic(_):
+            panics.append((frame, p.memory[self.address("__current_bank")]))
+
+        def update(_):
+            updates.append(frame)
+
+        p.hook_register(*self.symbols["___HandleCrash"], panic, None)
+        # Scripts keep updating during the normal death animation, when physics pauses.
+        p.hook_register(*self.symbols["_script_runner_update"], update, None)
+        p.tick(600)
+        p.button("start")
+        p.tick(300)
+        p.button("start")
+        p.tick(300)
+        self.assertFalse(panics, "Crashed before gameplay")
+        p.button_press("right")
+        p.button_press("b")
+        stomped = False
+        for frame in range(600):
+            if frame % 60 == 0:
+                p.button_press("a")
+            elif frame % 60 == 30:
+                p.button_release("a")
+            p.tick(1)
+            self.assertFalse(panics, f"Kernel panic (gameplay frame, ROM bank): {panics}")
+            # Actor 6 is the Goomba whose stomp script corrupted the first VM context.
+            stomped |= p.memory[self.address("_actor_states") + 6] == 2
+        self.assertTrue(stomped, "Route never exercised the enemy stomp")
+        self.assertTrue(updates and updates[-1] >= 590, "Engine stopped updating after the stomp")
+
     def test_title_start_and_player_movement(self):
         p = self.boot()
         p.tick(600)

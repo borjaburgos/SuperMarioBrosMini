@@ -164,7 +164,7 @@
       "label": "Jump Boost from Run Speed",
       "group": "Platformer Plus",
       "type": "slider",
-      "cType": "UBYTE",
+      "cType": "WORD",
       "defaultValue": 0,
       "min": 0,
       "max": 255

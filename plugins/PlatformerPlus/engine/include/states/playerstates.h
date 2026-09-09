@@ -35,8 +35,9 @@ typedef enum {              //Datatype for tracking states
 	SWIM_END = 23
 }  pStates;
 
-extern pStates plat_state;
-extern pStates que_state;
+// Explicit byte storage is part of the GBVM event ABI, independent of enum size.
+extern UBYTE plat_state;
+extern UBYTE que_state;
 extern script_state_t state_events[24];
        
 extern UBYTE nocollide;            

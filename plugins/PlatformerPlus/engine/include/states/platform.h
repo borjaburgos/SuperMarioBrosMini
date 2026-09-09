@@ -70,7 +70,7 @@ extern WORD plat_float_grav;
 extern UBYTE plat_turn_control;
 extern WORD plat_air_dec;
 extern WORD plat_turn_acc;
-extern UBYTE plat_run_boost;
+extern WORD plat_run_boost;
 extern BYTE run_stage;
 
 extern UBYTE grounded;

@@ -30,8 +30,8 @@
 #define PLATFORM_CAMERA_DEADZONE_Y 16
 #endif
 
-pStates plat_state;    //Current platformer state
-pStates que_state;
+UBYTE plat_state;    //Current platformer state (GBVM reads/writes one byte)
+UBYTE que_state;
 
 WORD plat_test_var = 0;
 
