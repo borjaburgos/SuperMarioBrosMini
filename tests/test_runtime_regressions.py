@@ -275,6 +275,75 @@ class RuntimeTests(unittest.TestCase):
         self.assertTrue(stomped, "Route never exercised the enemy stomp")
         self.assertTrue(updates and updates[-1] >= 590, "Engine stopped updating after the stomp")
 
+    def test_world_16_giant_block_hits_stay_in_the_original_footprint(self):
+        # 16-2's opening row: giant brick, coin block, giant brick. Test both
+        # halves of the underside. The old compiler folded (v >> 1) << 1 to v,
+        # so a brick hit on row 25 created extra tiles on row 26 (and, for a
+        # right-half hit, replaced part of the neighboring coin block).
+        for x, powered_up in [(14, False), (15, False), (14, True), (15, True),
+                              (16, False), (17, False)]:
+            with self.subTest(x=x, powered_up=powered_up):
+                p = self.boot()
+                variables = self.address("_script_memory")
+                p.tick(600)
+                p.button("start")
+                p.tick(300)
+                # Select the actual menu's 16-2 destination; allow normal
+                # level initialization, including event handlers and graphics.
+                self.putword(p, variables + 58 * 2, 16)  # SelectedWorld
+                self.putword(p, variables + 60 * 2, 2)   # SelectedLevel
+                p.button("start")
+                p.tick(300)
+                self.assertEqual(p.memory[self.address("_image_tile_width")], 200)
+                self.assertEqual(p.memory[self.address("_image_tile_height")], 32)
+                self.assertEqual(self.word(p, variables + 8 * 2), 16)
+                self.assertEqual(self.word(p, variables + 9 * 2), 2)
+
+                player = self.address("_actors")
+                self.putword(p, player + 1, x * 256)
+                self.putword(p, player + 3, 29 * 256)
+                self.putword(p, variables + 43 * 2, 1)  # DisableTimer
+                self.putword(p, variables + 21 * 2, int(powered_up))
+                p.tick(8)
+                original = bytes(p.memory[0, 0xA000:0xB900])
+                left = x & ~1
+                footprint = {row * 200 + col for row in (24, 25)
+                             for col in (left, left + 1)}
+                expected = bytearray(original)
+                coin_block = left == 16
+                if coin_block:
+                    for row, tiles in [(24, (211, 212)), (25, (213, 214))]:
+                        for col, tile in zip((left, left + 1), tiles):
+                            expected[row * 200 + col] = tile
+                elif powered_up:
+                    for offset in footprint:
+                        expected[offset] = 0
+
+                # Actor 6 is this scene's giant block bump effect.
+                effect = player + ACTOR_SIZE * 6
+                self.assertEqual(p.memory[self.address("_actor_behavior_ids") + 6], 17)
+                touched = set()
+                saw_effect = False
+                p.button_press("a")
+                for frame in range(80):
+                    p.tick(1)
+                    if frame == 25:
+                        p.button_release("a")
+                    current = bytes(p.memory[0, 0xA000:0xB900])
+                    changed = {i for i, (a, b) in enumerate(zip(original, current)) if a != b}
+                    self.assertFalse(changed - footprint,
+                                     "Block hit wrote outside its original 2x2 footprint: "
+                                     + str([(i % 200, i // 200) for i in sorted(changed - footprint)]))
+                    touched.update(changed)
+                    if p.memory[effect] & ACTIVE:
+                        saw_effect = True
+                        self.assertEqual(self.word(p, effect + 1), left * 256)
+                        self.assertEqual(self.word(p, effect + 3), 25 * 256)
+                self.assertTrue(saw_effect, "Jump never triggered the giant block effect")
+                self.assertEqual(touched, footprint, "Not all four block tiles were updated")
+                self.assertEqual(current, bytes(expected))
+                self.assertFalse(p.memory[effect] & ACTIVE, "Bump effect was not cleaned up")
+
     def test_title_start_and_player_movement(self):
         p = self.boot()
         p.tick(600)

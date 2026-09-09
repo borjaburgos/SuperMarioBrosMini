@@ -22,7 +22,9 @@ SMBMINI_ROM=/absolute/path/to/build/rom/game.gb python -m unittest discover -s t
 Also set `SMBMINI_BUILD` to the compiler output root (containing `src/data` and
 `build/rom`) to compare generated VM writes with the C field sizes in the linker
 `.cdb` file. This audit works on both standard ROM and native Pocket builds;
-the PyBoy runtime tests require the standard Game Boy ROM.
+the PyBoy runtime tests require the standard Game Boy ROM. Use a clean build
+for this audit: cached engine objects can leave their field-size records out
+of the new `.cdb` file.
 
 ```sh
 SMBMINI_BUILD=/absolute/path/to/compiler-output python -m unittest discover -s tests -v
@@ -35,6 +37,14 @@ in ground/crouch/swim states, the title/demo-to-play transition, and an enemy st
 in World 1-1 that previously corrupted the script context and triggered a kernel
 panic. The stomp route uses only normal controller input and asserts both a stomp
 and continued script execution, including during the normal death animation.
+
+The World 16-2 giant-block test starts through the normal menu, positions Mario
+under each half of the opening brick/coin blocks, and jumps. It checks small-Mario
+bumps, powered-up brick destruction, and coin blocks: every intermediate map
+change must stay inside the original 2x2 footprint, the bump sprite must align,
+and the final tiles must match. It reproduces neighboring blocks being created
+in `644df40`. GB Studio 4.3.2 folds `(coordinate >> 1) << 1` to `coordinate`;
+the script uses `coordinate & 254` to preserve even-tile alignment instead.
 
 These are controlled regression probes, not full playthroughs. Some change the
 emulator's in-memory start scene or seed player/platform state using function

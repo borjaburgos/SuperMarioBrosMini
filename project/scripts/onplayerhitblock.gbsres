@@ -2,7 +2,7 @@
   "_resourceType": "script",
   "id": "010dfb2c-fbd5-47e5-8b29-80af76159f1f",
   "name": "OnPlayerHitBlock",
-  "description": "",
+  "description": "Giant blocks occupy aligned 2x2 map tiles. Use coordinate & 254 to find their top-left tile: GB Studio 4.3.2 incorrectly optimizes (coordinate >> 1) << 1 to coordinate, shifting odd-coordinate block hits into neighboring tiles.",
   "variables": {
     "V0": {
       "id": "V0",
@@ -5068,11 +5068,11 @@
                           "actorId": "2",
                           "x": {
                             "type": "expression",
-                            "value": "(($V1$ >> 1) << 1)"
+                            "value": "($V1$ & 254)"
                           },
                           "y": {
                             "type": "expression",
-                            "value": "(($V2$ >> 1) << 1) + 1"
+                            "value": "($V2$ & 254) + 1"
                           },
                           "__collapse": true
                         },
@@ -5380,11 +5380,11 @@
                           "actorId": "2",
                           "x": {
                             "type": "expression",
-                            "value": "(($V1$ >> 1) << 1)"
+                            "value": "($V1$ & 254)"
                           },
                           "y": {
                             "type": "expression",
-                            "value": "(($V2$ >> 1) << 1) + 1"
+                            "value": "($V2$ & 254) + 1"
                           },
                           "__collapse": true
                         },
@@ -5692,11 +5692,11 @@
                           "actorId": "2",
                           "x": {
                             "type": "expression",
-                            "value": "(($V1$ >> 1) << 1)"
+                            "value": "($V1$ & 254)"
                           },
                           "y": {
                             "type": "expression",
-                            "value": "(($V2$ >> 1) << 1) + 1"
+                            "value": "($V2$ & 254) + 1"
                           },
                           "__collapse": true
                         },
@@ -6004,11 +6004,11 @@
                           "actorId": "2",
                           "x": {
                             "type": "expression",
-                            "value": "(($V1$ >> 1) << 1)"
+                            "value": "($V1$ & 254)"
                           },
                           "y": {
                             "type": "expression",
-                            "value": "(($V2$ >> 1) << 1) + 1"
+                            "value": "($V2$ & 254) + 1"
                           },
                           "__collapse": true
                         },
@@ -6304,11 +6304,11 @@
                           "actorId": "2",
                           "x": {
                             "type": "expression",
-                            "value": "(($V1$ >> 1) << 1)"
+                            "value": "($V1$ & 254)"
                           },
                           "y": {
                             "type": "expression",
-                            "value": "(($V2$ >> 1) << 1) + 1"
+                            "value": "($V2$ & 254) + 1"
                           },
                           "__collapse": true
                         },
@@ -6361,11 +6361,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1)"
+                                  "value": "($V1$ & 254)"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1)"
+                                  "value": "($V2$ & 254)"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6380,11 +6380,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1) + 1"
+                                  "value": "($V1$ & 254) + 1"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1)"
+                                  "value": "($V2$ & 254)"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6399,11 +6399,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1)"
+                                  "value": "($V1$ & 254)"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1) + 1"
+                                  "value": "($V2$ & 254) + 1"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6418,11 +6418,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1) + 1"
+                                  "value": "($V1$ & 254) + 1"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1) + 1"
+                                  "value": "($V2$ & 254) + 1"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6545,11 +6545,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1)"
+                                  "value": "($V1$ & 254)"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1)"
+                                  "value": "($V2$ & 254)"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6564,11 +6564,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1) + 1"
+                                  "value": "($V1$ & 254) + 1"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1)"
+                                  "value": "($V2$ & 254)"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6583,11 +6583,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1)"
+                                  "value": "($V1$ & 254)"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1) + 1"
+                                  "value": "($V2$ & 254) + 1"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6602,11 +6602,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1) + 1"
+                                  "value": "($V1$ & 254) + 1"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1) + 1"
+                                  "value": "($V2$ & 254) + 1"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6651,11 +6651,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1)"
+                                  "value": "($V1$ & 254)"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1)"
+                                  "value": "($V2$ & 254)"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6670,11 +6670,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1) + 1"
+                                  "value": "($V1$ & 254) + 1"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1)"
+                                  "value": "($V2$ & 254)"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6689,11 +6689,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1)"
+                                  "value": "($V1$ & 254)"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1) + 1"
+                                  "value": "($V2$ & 254) + 1"
                                 },
                                 "metatile_id": {
                                   "type": "number",
@@ -6708,11 +6708,11 @@
                               "args": {
                                 "x": {
                                   "type": "expression",
-                                  "value": "(($V1$ >> 1) << 1) + 1"
+                                  "value": "($V1$ & 254) + 1"
                                 },
                                 "y": {
                                   "type": "expression",
-                                  "value": "(($V2$ >> 1) << 1) + 1"
+                                  "value": "($V2$ & 254) + 1"
                                 },
                                 "metatile_id": {
                                   "type": "number",
