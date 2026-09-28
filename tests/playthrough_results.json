@@ -197,6 +197,19 @@
       "frames": 2200
     },
     {
+      "world": 4,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        5,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2352
+    },
+    {
       "world": 5,
       "level": 1,
       "passed": true,
@@ -520,6 +533,32 @@
       "lost_life": false,
       "panics": [],
       "frames": 3756
+    },
+    {
+      "world": 12,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        12,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 4716
+    },
+    {
+      "world": 12,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        12,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 4341
     },
     {
       "world": 13,
