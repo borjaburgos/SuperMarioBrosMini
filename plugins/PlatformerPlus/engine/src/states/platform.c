@@ -523,7 +523,7 @@ void reset_collision_cache(UBYTE direction) BANKED {
 
 void fall_state(void) BANKED {
     //INITIALIZE VARS
-    WORD temp_y = 0;
+    UWORD temp_y = 0;
     UWORD p_half_width = (PLAYER.bounds.right - PLAYER.bounds.left) >> 1;
     UBYTE tile_x_mid = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.left + p_half_width);
     UBYTE tile_y = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top + PX_TO_SUBPX(1));
@@ -723,11 +723,11 @@ void fall_state(void) BANKED {
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right) + 1;
         if (deltaY > 0) {
             //Moving Downward
-            WORD new_y = (WORD)PLAYER.pos.y + deltaY;
+            UWORD new_y = PLAYER.pos.y + deltaY;
 
             // Continue falling above the visible map without reading wrapped
             // tile rows. Normal collision resumes as soon as the player returns.
-            if ((new_y + PLAYER.bounds.top) < 0) {
+            if (PLATFORM_Y_ABOVE_TOP(new_y + PLAYER.bounds.top)) {
                 PLAYER.pos.y = (UWORD)new_y;
                 reset_collision_cache(DIR_UP);
                 reset_collision_cache(DIR_DOWN);
@@ -762,9 +762,9 @@ void fall_state(void) BANKED {
 
         } else if (deltaY < 0) {
             //Moving Upward
-            WORD new_y = (WORD)PLAYER.pos.y + deltaY;
+            UWORD new_y = PLAYER.pos.y + deltaY;
 
-            if ((new_y + PLAYER.bounds.top) < 0) {
+            if (PLATFORM_Y_ABOVE_TOP(new_y + PLAYER.bounds.top)) {
                 PLAYER.pos.y = (UWORD)new_y;
                 reset_collision_cache(DIR_UP);
                 reset_collision_cache(DIR_DOWN);
@@ -935,7 +935,7 @@ void swim_state(void) BANKED {
 	//INITIALIZE VARS
     UBYTE tile_y = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top + PX_TO_SUBPX(1));
     col = 0;
-	WORD temp_y = PLAYER.pos.y;
+	UWORD temp_y = PLAYER.pos.y;
 
 	if (que_attacking != stat_attacking){
 		stat_attacking = que_attacking;

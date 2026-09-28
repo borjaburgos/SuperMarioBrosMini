@@ -31,7 +31,7 @@
 #endif
 void jump_state(void) BANKED {
     //INITIALIZE VARS
-    WORD temp_y = 0;
+    UWORD temp_y = 0;
     UBYTE tile_y = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top + PX_TO_SUBPX(1));
     UBYTE old_x = 0;
     col = 0;
@@ -273,11 +273,11 @@ void jump_state(void) BANKED {
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right) + 1;
         if (deltaY > 0) {
             //Moving Downward
-            WORD new_y = (WORD)PLAYER.pos.y + deltaY;
+            UWORD new_y = PLAYER.pos.y + deltaY;
 
             // Continue the normal jump arc above the visible map. Collision
             // checks resume on the frame the player crosses back into it.
-            if ((new_y + PLAYER.bounds.top) < 0) {
+            if (PLATFORM_Y_ABOVE_TOP(new_y + PLAYER.bounds.top)) {
                 PLAYER.pos.y = (UWORD)new_y;
                 reset_collision_cache(DIR_UP);
                 reset_collision_cache(DIR_DOWN);
@@ -329,11 +329,11 @@ void jump_state(void) BANKED {
         } else if (deltaY < 0) {
             //Moving Upward
 			tile_start = SUBPX_TO_TILE(PLAYER.pos.x + ((PLAYER.bounds.left + PLAYER.bounds.right) >> 1));
-            WORD new_y = (WORD)PLAYER.pos.y + deltaY;
+            UWORD new_y = PLAYER.pos.y + deltaY;
 
 			// Keep the signed height encoded in the actor position so gravity can
 			// bring the player naturally back on screen without wrapping below.
-			if ((new_y + PLAYER.bounds.top) < 0) {
+            if (PLATFORM_Y_ABOVE_TOP(new_y + PLAYER.bounds.top)) {
 				actor_attached = FALSE;
 				PLAYER.pos.y = (UWORD)new_y;
 				reset_collision_cache(DIR_UP);

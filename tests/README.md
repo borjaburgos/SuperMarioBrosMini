@@ -11,7 +11,9 @@ node --test tests/test_platformer_event_widths.cjs
 To also run the emulator checks, install PyBoy in a separate Python environment
 and point `SMBMINI_ROM` at a ROM compiled from this checkout using GB Studio
 4.3.2. Keep the corresponding linker `.map` beside the ROM with the same stem
-(for example, `game.gb` and `game.map`). Use the compiler's `build/rom` directory,
+(for example, `game.gb` and `game.map`). Keep `include/data/game_globals.i` in
+the compiler output too; menu tests resolve variables from that generated file.
+Use the compiler's `build/rom` directory,
 not just the exported ROM download. Leave the project's default start scene and
 position unchanged for the title/start test.
 
@@ -45,6 +47,12 @@ change must stay inside the original 2x2 footprint, the bump sprite must align,
 and the final tiles must match. It reproduces neighboring blocks being created
 in `644df40`. GB Studio 4.3.2 folds `(coordinate >> 1) << 1` to `coordinate`;
 the script uses `coordinate & 254` to preserve even-tile alignment instead.
+
+The tall-map check enters World 12-3 through the menu and checks Mario's initial
+ground contact, camera position, jump and landing below the 1024-pixel boundary.
+It fails on `7788559`, where an unconditional signed 16-bit cast misclassifies
+the bottom of this 1536-pixel map as a negative, above-screen position. The
+existing above-screen jump test protects the other side of that boundary.
 
 These are controlled regression probes, not full playthroughs. Some change the
 emulator's in-memory start scene or seed player/platform state using function

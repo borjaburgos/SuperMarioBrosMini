@@ -21,6 +21,9 @@ class RuntimeTests(unittest.TestCase):
         cls.emulator = PyBoy
         rom = Path(ROM_PATH)
         cls.rom = rom.read_bytes()
+        globals_file = rom.parents[2] / "include/data/game_globals.i"
+        cls.variables = {name: int(value) for name, value in re.findall(
+            r"^(VAR_\w+) = (\d+)", globals_file.read_text(), re.M)}
         cls.symbols = {}
         # .map retains banks above 0x3f, unlike the emitted .sym in some builds.
         for line in rom.with_suffix(".map").read_text().splitlines():
@@ -31,6 +34,39 @@ class RuntimeTests(unittest.TestCase):
 
     def address(self, symbol):
         return self.symbols[symbol][1]
+
+    def variable(self, p, name, value=None):
+        address = self.address("_script_memory") + 2 * self.variables["VAR_" + name]
+        if value is not None:
+            self.putword(p, address, value)
+        return self.word(p, address)
+
+    def select_level(self, world, level):
+        p = self.boot()
+        p.tick(600)
+        p.button("start")
+        p.tick(300)
+        self.variable(p, "SELECTEDWORLD", world)
+        self.variable(p, "SELECTEDLEVEL", level)
+        p.button("start")
+        p.tick(300)
+        return p
+
+    def test_tall_world_12_3_starts_at_bottom_and_supports_jumping(self):
+        p = self.select_level(12, 3)
+        player = self.address("_actors")
+        self.assertEqual(p.memory[self.address("_image_tile_height")], 192)
+        start_y = self.word(p, player + 3)
+        self.assertGreater(start_y, 1400 * 32)
+        self.assertLess(start_y, 1536 * 32, "Mario fell through the tall map")
+        self.assertGreater(self.word(p, self.address("_draw_scroll_y")), 1300)
+        p.button_press("a")
+        p.tick(20)
+        self.assertLess(self.word(p, player + 3), start_y - 8 * 32)
+        p.button_release("a")
+        p.tick(100)
+        self.assertEqual(self.word(p, player + 3), start_y)
+        self.assertEqual(self.variable(p, "LIVES"), 3)
 
     @staticmethod
     def word(p, address):

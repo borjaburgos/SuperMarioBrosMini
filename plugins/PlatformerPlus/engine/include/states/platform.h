@@ -2,6 +2,7 @@
 #define STATE_PLATFORM_H
 
 #include <gb/gb.h>
+#include "data_manager.h"
 
 // Platformer Plus velocities were authored for GB Studio's former 1/16 px
 // actor coordinates. GB Studio 4.3 stores actor positions at 1/32 px, while
@@ -11,9 +12,12 @@
 #define LEGACY_DELTA_TO_SUBPX(v) ((v) << 1)
 #endif
 
-// Actor positions are stored as unsigned values, but a player above the map is
-// represented using the equivalent signed, two's-complement Y coordinate.
-#define PLAYER_ABOVE_SCENE_TOP() ((((WORD)PLAYER.pos.y) + PLAYER.bounds.top) < 0)
+// Do not cast world Y directly to WORD: tall maps legitimately cross 0x8000
+// (1024 px in the 1/32-pixel coordinate system). Split the unused space between
+// the map bottom and wrapped negative Y instead. The tallest map is 192 tiles,
+// leaving 256 px of headroom on either side, more than a full spring jump.
+#define PLATFORM_Y_ABOVE_TOP(y) ((UWORD)(y) > (((UWORD)image_tile_height + ((256u - image_tile_height) >> 1)) << 8))
+#define PLAYER_ABOVE_SCENE_TOP() PLATFORM_Y_ABOVE_TOP(PLAYER.pos.y + PLAYER.bounds.top)
 
 void platform_init(void) BANKED;
 void platform_update(void) BANKED;
