@@ -72,6 +72,13 @@ The World 9-1 balance-platform fixture sends one member of the real pair below
 the map while Mario is attached either to it or to its still-visible partner.
 Only the departing platform's own rider should detach.
 
+The adjacent-pipe regression plays through the World 10-4 coin puzzle using
+controller input, steps from the rightmost pipe directly onto the middle pipe,
+and presses Down. The previous trigger's leave script must run before the new
+trigger's enter script, so cleanup cannot clear the new pipe's shared warp flag.
+The test checks the selected destination and maze progress after entering; beta
+5 instead leaves Mario crouching on a disabled pipe until he jumps off and back.
+
 These are controlled regression probes, not full playthroughs. Some change the
 emulator's in-memory start scene or seed player/platform state using function
 hooks; the ROM on disk and the project are never changed. Assertions wait for

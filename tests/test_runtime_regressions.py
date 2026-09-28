@@ -102,6 +102,52 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(self.variable(p, "MARIOSTATUS_0"), 2)
         self.assertEqual(self.variable(p, "HASYOSHI"), 1)
 
+    def test_adjacent_pipe_keeps_its_entry_trigger_enabled(self):
+        p = self.select_level(10, 4)
+        # Controller-only route through the coin puzzle and onto the rightmost
+        # of the three adjacent pipes in the second room.
+        route = [
+            ("right b", 68), ("right b a", 48), ("right", 4),
+            ("right a", 36), ("", 20), ("right a", 36), ("", 20),
+            ("right", 22), ("right a", 36), ("", 20), ("right", 38),
+            ("", 240), ("left a", 36), ("right", 8), ("down", 240),
+            ("right b a", 48), ("left b a", 32), ("right b a", 16),
+            ("left", 4), ("right b a", 16), ("right b", 24),
+            ("right b a", 48), ("right b", 8), ("right b a", 48),
+            ("right b a", 48), ("", 24), ("right b a", 48),
+            ("right up", 48), ("right b a", 48), ("right b", 24),
+            ("right b a", 48), ("down", 64), ("right b", 8),
+            ("right b a", 48), ("right", 4), ("right b a", 48),
+        ]
+        held = set()
+
+        def step(buttons, frames):
+            nonlocal held
+            keys = set(buttons.split())
+            for button in held - keys:
+                p.button_release(button)
+            for button in keys - held:
+                p.button_press(button)
+            held = keys
+            p.tick(frames)
+
+        for buttons, frames in route:
+            step(buttons, frames)
+        player = self.address("_actors")
+        self.assertEqual(self.word(p, player + 1), 664 * 32)
+        self.assertEqual(self.variable(p, "WARPPIPEENABLED"), 1)
+        step("left", 32)
+        step("", 12)  # Step directly from the right pipe onto the middle one.
+        self.assertEqual(self.word(p, player + 3), 80 * 32)
+        self.assertEqual(self.variable(p, "WARPFROMSUBLEVEL"), 2)
+        self.assertEqual(self.variable(p, "WARPPIPEENABLED"), 1)
+        step("down", 240)
+        self.assertLess(self.word(p, player + 1), 40 * 32)
+        self.assertEqual(self.variable(p, "LABYRINTHCOUNTER"), 1)
+        self.assertEqual(self.variable(p, "LIVES"), 3)
+        # Leaving the new pipe trigger entirely must still run its cleanup.
+        self.assertEqual(self.variable(p, "WARPPIPEENABLED"), 0)
+
     def test_piranha_proximity_is_horizontal_and_resumes_when_player_leaves(self):
         for x, y, hidden in [(368, 88, True), (360, 104, True),
                              (376, 104, True), (300, 88, False),

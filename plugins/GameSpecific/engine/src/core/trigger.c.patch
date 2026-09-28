@@ -1,0 +1,28 @@
+--- src/core/trigger.c
++++ src/core/trigger.c
+@@ -56,11 +56,8 @@
+         (hit_trigger == NO_TRIGGER_COLLISON || hit_trigger != last_trigger)) {
+         UBYTE trigger_script_called = FALSE;
+ 
+-        if (hit_trigger != NO_TRIGGER_COLLISON && triggers[hit_trigger].script_flags & TRIGGER_HAS_ENTER_SCRIPT) {
+-            script_execute(triggers[hit_trigger].script.bank, triggers[hit_trigger].script.ptr, 0, 1, 1);
+-            trigger_script_called = TRUE;
+-        }
+-
++        // Queue the old trigger's cleanup before the new trigger's setup.
++        // Adjacent pipes share warp variables; cleanup must not disable the new pipe.
+         if (triggers[last_trigger].script_flags & TRIGGER_HAS_LEAVE_SCRIPT) {
+             script_execute(
+                 triggers[last_trigger].script.bank,
+@@ -68,6 +65,11 @@
+             trigger_script_called = TRUE;
+         }
+ 
++        if (hit_trigger != NO_TRIGGER_COLLISON && triggers[hit_trigger].script_flags & TRIGGER_HAS_ENTER_SCRIPT) {
++            script_execute(triggers[hit_trigger].script.bank, triggers[hit_trigger].script.ptr, 0, 1, 1);
++            trigger_script_called = TRUE;
++        }
++
+         last_trigger = hit_trigger;
+ 
+         return trigger_script_called;
