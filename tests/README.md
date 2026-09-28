@@ -79,6 +79,13 @@ trigger's enter script, so cleanup cannot clear the new pipe's shared warp flag.
 The test checks the selected destination and maze progress after entering; beta
 5 instead leaves Mario crouching on a disabled pipe until he jumps off and back.
 
+The World 15-1 tower route reaches the right-hand side of the second tower and
+returns toward the upper passage at x=952. Beta 6 permanently advances the camera
+to x=969, blocking that return even though the passage is required to climb out.
+World 15-1 now scrolls horizontally in both directions. The regression replays
+the controller-only route, returns through that passage, and jumps onto the upper
+floor; another check retains the ordinary one-way camera settings in World 1-1.
+
 These are controlled regression probes, not full playthroughs. Some change the
 emulator's in-memory start scene or seed player/platform state using function
 hooks; the ROM on disk and the project are never changed. Assertions wait for

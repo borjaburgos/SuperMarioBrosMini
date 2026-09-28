@@ -1,6 +1,7 @@
 """ROM-level probes for the GB Studio 4.3.2 port; see tests/README.md."""
 
 import io
+import json
 import os
 import re
 import unittest
@@ -147,6 +148,40 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(self.variable(p, "LIVES"), 3)
         # Leaving the new pipe trigger entirely must still run its cleanup.
         self.assertEqual(self.variable(p, "WARPPIPEENABLED"), 0)
+
+    def test_world_15_1_tower_allows_return_to_its_left_passage(self):
+        p = self.select_level(15, 1)
+        route = json.loads((Path(__file__).parent / "fixtures" /
+                            "world_15_1_tower_return.json").read_text())
+        held = set()
+        for buttons, frames in route:
+            keys = set(buttons.split())
+            for button in held - keys:
+                p.button_release(button)
+            for button in keys - held:
+                p.button_press(button)
+            held = keys
+            p.tick(frames)
+        player = self.address("_actors")
+        self.assertEqual(self.variable(p, "CURRENTWORLD"), 15)
+        self.assertEqual(self.variable(p, "LIVES"), 3)
+        self.assertNotEqual(
+            (p.memory[self.address("_music_current_track_bank")],
+             self.word(p, self.address("_music_current_track"))),
+            self.symbols["_song_super_mario_bros_defea_Dat"],
+            "A death animation must not count as returning through the tower")
+        # The upper passage is at x=952. Beta 6 pins Mario at x=969 because
+        # walking to the tower's right side permanently advances the camera.
+        self.assertEqual(self.word(p, player + 3), 56 * 32,
+                         "Mario must climb through the passage onto the upper floor")
+        self.assertLess(self.word(p, player + 1), 984 * 32)
+        self.assertGreater(self.word(p, player + 1), 940 * 32)
+        self.assertLess(self.word(p, self.address("_draw_scroll_x")), 920)
+
+    def test_standard_level_camera_still_blocks_backtracking(self):
+        p = self.select_level(1, 1)
+        self.assertEqual(p.memory[self.address("_scroll_lock")], 1)
+        self.assertEqual(p.memory[self.address("_plat_camera_block")], 3)
 
     def test_piranha_proximity_is_horizontal_and_resumes_when_player_leaves(self):
         for x, y, hidden in [(368, 88, True), (360, 104, True),

@@ -122,6 +122,14 @@
       "id": "13b42ec4-503b-44fd-8309-7f4859c78f83"
     },
     {
+      "command": "EVENT_GBVM_SCRIPT",
+      "args": {
+        "script": "VM_SET_CONST_UINT8 _scroll_lock, 3",
+        "__label": "Allow backtracking through the tower passages"
+      },
+      "id": "26657a96-f397-476d-ac29-3fc60fc5ff80"
+    },
+    {
       "command": "EVENT_SET_VALUE",
       "args": {
         "variable": "64",
