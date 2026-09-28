@@ -640,6 +640,19 @@
     },
     {
       "world": 13,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        13,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2661
+    },
+    {
+      "world": 13,
       "level": 4,
       "passed": true,
       "completion_observed": true,
@@ -663,6 +676,19 @@
       "lost_life": false,
       "panics": [],
       "frames": 2028
+    },
+    {
+      "world": 14,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        14,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 5698
     },
     {
       "world": 14,
