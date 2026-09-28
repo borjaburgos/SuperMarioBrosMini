@@ -157,7 +157,11 @@ void actor_behavior_update_b(UBYTE i, actor_t * actor) BANKED {
 				actor->pos.y =  actor->pos.y + LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
 				if ((SUBPX_TO_TILE(actor->pos.y)) > image_tile_height) {
 					actor_states[i] = 255;
-					actor_attached = FALSE;
+					// Its partner may still be carrying Mario when this platform
+					// leaves the bottom of the map. Detach only this one's rider.
+					if (actor_attached && last_actor == actor) {
+						actor_attached = FALSE;
+					}
 				}
 				break;
 			case 255:

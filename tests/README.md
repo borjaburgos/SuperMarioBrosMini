@@ -68,6 +68,10 @@ living boss should play the defeat effect; both cases must still collapse the
 bridge and let Mario reach the exit. The sound hook reads the documented local
 4.3.2 compiler's banked-call stack layout, not the audio output device.
 
+The World 9-1 balance-platform fixture sends one member of the real pair below
+the map while Mario is attached either to it or to its still-visible partner.
+Only the departing platform's own rider should detach.
+
 These are controlled regression probes, not full playthroughs. Some change the
 emulator's in-memory start scene or seed player/platform state using function
 hooks; the ROM on disk and the project are never changed. Assertions wait for

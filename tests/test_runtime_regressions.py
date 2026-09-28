@@ -159,6 +159,45 @@ class RuntimeTests(unittest.TestCase):
                 self.assertGreater(len(calls), 10, "Axe/bridge sequence never ran")
                 self.assertGreater(self.word(p, player + 1), 1200 * 32)
 
+    def test_falling_balance_platform_detaches_only_its_own_rider(self):
+        for own_rider in (False, True):
+            with self.subTest(own_rider=own_rider):
+                p = self.select_level(9, 1)
+                player = self.address("_actors")
+                self.putword(p, player + 1, 240 * 32)
+                self.putword(p, player + 3, 100 * 32)
+                p.tick(12)  # Activate the real first balance-platform pair.
+                ids = [i for i in range(1, 25)
+                       if p.memory[self.address("_actor_behavior_ids") + i] == 20]
+                self.assertEqual(len(ids), 2)
+                seeded, results = [], []
+                moving = player + ACTOR_SIZE * ids[0]
+                other = player + ACTOR_SIZE * ids[1]
+
+                def seed(_):
+                    p.memory[self.address("_que_state")] = 19
+                    if seeded:
+                        return
+                    seeded.append(True)
+                    self.assertTrue(p.memory[moving] & ACTIVE)
+                    self.putword(p, moving + 1, 250 * 32)
+                    self.putword(p, moving + 3, 153 * 32)
+                    for i in ids:
+                        p.memory[self.address("_actor_states") + i] = 4
+                    p.memory[self.address("_actor_attached")] = 1
+                    self.putword(p, self.address("_last_actor"), moving if own_rider else other)
+
+                def capture(_):
+                    if seeded and not results:
+                        results.append((p.memory[self.address("_actor_attached")],
+                                        p.memory[self.address("_actor_states") + ids[0]]))
+
+                p.hook_register(*self.symbols["_platform_update"], seed, None)
+                p.hook_register(*self.symbols["_camera_update"], capture, None)
+                p.tick(12)
+                self.assertTrue(results, "Platform update did not run")
+                self.assertEqual(results[0], (int(not own_rider), 255))
+
     @staticmethod
     def word(p, address):
         return p.memory[address] | p.memory[address + 1] << 8
