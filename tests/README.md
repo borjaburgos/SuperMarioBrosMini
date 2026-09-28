@@ -100,3 +100,31 @@ elevator visibility, and invalid-platform tests also reproduce the failures in
 the pre-fix ROM (built after correcting its malformed collision patch). The stomp
 test reproduces the panic in commit `aa5d8c9` at gameplay frame 349, with ROM bank
 `0xC9`. The memory-width audit rejects that build's oversized state/bounce writes.
+
+## Recorded level routes
+
+`fixtures/level_routes.json` contains the 49 completion routes verified on
+`compat-4.3.2-beta.7`. `playthrough_results.json` records the replay results.
+These are controller-only gameplay routes, found with save-state-assisted
+exploration and replayed continuously from each selected level's start. Menu
+level selection is the only memory write; gameplay does not use invincibility,
+position changes, patched physics, or forced completion flags.
+
+```sh
+python tests/replay_levels.py /absolute/path/to/build/rom/game.gb tests/fixtures/level_routes.json --allow-different-rom --output replay-results.json
+```
+
+Use `--level 10-4 --visible` to watch a single route. Omit
+`--allow-different-rom` when using the exact recorded build to enforce its
+SHA-256. As with the regression tests, keep the `.map` and generated
+`include/data/game_globals.i` alongside the compiler output.
+
+A pass requires a level-completion flag followed by a different world/level,
+with no life decrement or kernel panic during the route. A warp-zone shortcut
+alone is not counted. This is not an uninterrupted campaign, an exhaustive
+check of every secret or character, or a substitute for Pocket hardware tests.
+
+As of this checkpoint, these 15 levels still need verified completion routes:
+4-4, 7-4, 8-4, 9-2, 12-1, 12-2, 12-3, 12-4, 13-3, 14-2, 15-1, 15-3,
+15-4, 16-2, and 16-4. Initial input-only play attempts have been made in all 64
+levels. An incomplete route is not by itself evidence of a game defect.
