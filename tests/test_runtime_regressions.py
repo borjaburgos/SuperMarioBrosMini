@@ -102,6 +102,35 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(self.variable(p, "MARIOSTATUS_0"), 2)
         self.assertEqual(self.variable(p, "HASYOSHI"), 1)
 
+    def test_piranha_proximity_is_horizontal_and_resumes_when_player_leaves(self):
+        for x, y, hidden in [(368, 88, True), (360, 104, True),
+                             (376, 104, True), (300, 88, False),
+                             (330, 104, False), (400, 88, False)]:
+            with self.subTest(x=x, y=y):
+                p = self.select_level(2, 1)
+                player = self.address("_actors")
+                position = [x, y]
+
+                def hold(_):
+                    self.putword(p, player + 1, position[0] * 32)
+                    self.putword(p, player + 3, position[1] * 32)
+                    p.memory[self.address("_que_state")] = 19
+
+                p.hook_register(*self.symbols["_platform_update"], hold, None)
+                plant_index = 10  # Real first pipe plant in 2-1.
+                plant = player + ACTOR_SIZE * plant_index
+                states = []
+                for _ in range(112):
+                    p.tick(1)
+                    states.append(p.memory[self.address("_actor_states") + plant_index])
+                self.assertEqual(p.memory[self.address("_actor_behavior_ids") + plant_index], 7)
+                self.assertEqual(2 not in states, hidden)
+                if hidden:
+                    self.assertEqual(self.word(p, plant + 3), 104 * 32)
+                    position[0] = 330
+                    p.tick(60)
+                    self.assertEqual(p.memory[self.address("_actor_states") + plant_index], 2)
+
     @staticmethod
     def word(p, address):
         return p.memory[address] | p.memory[address + 1] << 8

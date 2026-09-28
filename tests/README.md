@@ -58,6 +58,10 @@ Fresh-game tests seed leftover power-ups and score/life counters at the menu,
 then press Start in normal, B Quest and Random modes. A separate pipe-transition
 test verifies that Fire Mario/Yoshi are preserved within an existing game.
 
+The piranha fixture runs the real first pipe plant in World 2-1 with Mario held
+on the pipe, beside it on either side, and far away at two different heights.
+It also checks that a hidden plant resumes its cycle when Mario walks away.
+
 These are controlled regression probes, not full playthroughs. Some change the
 emulator's in-memory start scene or seed player/platform state using function
 hooks; the ROM on disk and the project are never changed. Assertions wait for

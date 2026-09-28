@@ -341,7 +341,11 @@ void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 							actor->pos.y += LEGACY_DELTA_TO_SUBPX(16);
 							actor_vel_y[i]--;
 						}
-						else if (((SUBPX_TO_TILE(actor->pos.y)) - 2) != SUBPX_TO_TILE(PLAYER.pos.y)){ //dont pop out if player is on top
+						// Stay hidden while Mario is on or beside this pipe. Height
+						// alone also suppressed distant plants on the same tile row.
+						else if ((PLAYER.pos.x > actor->pos.x
+							? PLAYER.pos.x - actor->pos.x
+							: actor->pos.x - PLAYER.pos.x) >= PX_TO_SUBPX(16)){
 							actor_counter_a[i]--;
 							if (actor_counter_a[i] <= 0){
 								actor_counter_a[i] = 120;
