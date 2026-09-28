@@ -111,7 +111,7 @@ test reproduces the panic in commit `aa5d8c9` at gameplay frame 349, with ROM ba
 
 ## Recorded level routes
 
-`fixtures/level_routes.json` contains the 61 completion routes verified on
+`fixtures/level_routes.json` contains completion routes for all 64 levels, verified on
 `compat-4.3.2-beta.8`. `playthrough_results.json` records the replay results.
 These are controller-only gameplay routes, found with save-state-assisted
 exploration and replayed continuously from each selected level's start. Menu
@@ -132,6 +132,7 @@ with no life decrement or kernel panic during the route. A warp-zone shortcut
 alone is not counted. This is not an uninterrupted campaign, an exhaustive
 check of every secret or character, or a substitute for Pocket hardware tests.
 
-As of this checkpoint, these three levels still need verified completion routes:
-12-4, 16-2, and 16-4. Initial input-only play attempts have been made in all 64
-levels. An incomplete route is not by itself evidence of a game defect.
+The final routes include the World 12-4 three-axe maze, World 16-2's giant/small
+pipe sections, and World 16-4's final boss and ending. Every level has a verified
+completion route; this establishes that each can be completed on this build,
+not that every possible interaction or route is free of defects.
