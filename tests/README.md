@@ -62,6 +62,12 @@ The piranha fixture runs the real first pipe plant in World 2-1 with Mario held
 on the pipe, beside it on either side, and far away at two different heights.
 It also checks that a hidden plant resumes its cycle when Mario walks away.
 
+The axe test seeds Bowser alive or already defeated in World 1-4, moves Mario
+onto the real axe trigger, and observes the requested sound effects. Only the
+living boss should play the defeat effect; both cases must still collapse the
+bridge and let Mario reach the exit. The sound hook reads the documented local
+4.3.2 compiler's banked-call stack layout, not the audio output device.
+
 These are controlled regression probes, not full playthroughs. Some change the
 emulator's in-memory start scene or seed player/platform state using function
 hooks; the ROM on disk and the project are never changed. Assertions wait for

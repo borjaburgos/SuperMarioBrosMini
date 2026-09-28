@@ -176,56 +176,80 @@
             "id": "bee2d02a-e937-4c54-a33f-4400268377bb"
           },
           {
-            "command": "EVENT_ACTOR_SET_STATE",
+            "command": "EVENT_IF",
             "args": {
-              "actorId": "f725a04c-73bb-43c4-90a1-c80f10404960",
-              "spriteStateId": "Death",
-              "loopAnim": true,
-              "__collapse": false
-            },
-            "id": "a25ff700-a816-4eb7-8939-416e72b40271"
-          },
-          {
-            "command": "EVENT_SET_ACTOR_STATE",
-            "args": {
-              "actorId": "f725a04c-73bb-43c4-90a1-c80f10404960",
-              "stateId": {
-                "type": "number",
-                "value": 3
+              "condition": {
+                "type": "gt",
+                "valueA": {
+                  "type": "variable",
+                  "value": "41"
+                },
+                "valueB": {
+                  "type": "number",
+                  "value": 0
+                }
               },
-              "__collapse": false
+              "__label": "Only defeat a living Bowser",
+              "__collapseElse": true
             },
-            "id": "e1609a82-dd5a-424a-84f0-c8caa69312cf"
-          },
-          {
-            "command": "EVENT_SOUND_PLAY_EFFECT",
-            "args": {
-              "type": "42d760ec-ccd0-4f3f-a2e7-a6c9b3b176a4",
-              "priority": "medium",
-              "pitch": 4,
-              "frequency": 200,
-              "duration": 0.5,
-              "wait": true,
-              "effect": 0,
-              "__collapse": true
+            "children": {
+              "true": [
+                {
+                  "command": "EVENT_ACTOR_SET_STATE",
+                  "args": {
+                    "actorId": "f725a04c-73bb-43c4-90a1-c80f10404960",
+                    "spriteStateId": "Death",
+                    "loopAnim": true,
+                    "__collapse": false
+                  },
+                  "id": "a25ff700-a816-4eb7-8939-416e72b40271"
+                },
+                {
+                  "command": "EVENT_SET_ACTOR_STATE",
+                  "args": {
+                    "actorId": "f725a04c-73bb-43c4-90a1-c80f10404960",
+                    "stateId": {
+                      "type": "number",
+                      "value": 3
+                    },
+                    "__collapse": false
+                  },
+                  "id": "e1609a82-dd5a-424a-84f0-c8caa69312cf"
+                },
+                {
+                  "command": "EVENT_SOUND_PLAY_EFFECT",
+                  "args": {
+                    "type": "42d760ec-ccd0-4f3f-a2e7-a6c9b3b176a4",
+                    "priority": "medium",
+                    "pitch": 4,
+                    "frequency": 200,
+                    "duration": 0.5,
+                    "wait": true,
+                    "effect": 0,
+                    "__collapse": true
+                  },
+                  "id": "9f9a968c-f14e-4b4e-ba08-0d75fda62991"
+                },
+                {
+                  "command": "EVENT_WAIT",
+                  "args": {
+                    "time": {
+                      "type": "number",
+                      "value": 0.5
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
+                    "units": "frames",
+                    "__collapse": true
+                  },
+                  "id": "89f3f236-bd88-4ce4-8d9c-dcf27536680f"
+                }
+              ],
+              "false": []
             },
-            "id": "9f9a968c-f14e-4b4e-ba08-0d75fda62991"
-          },
-          {
-            "command": "EVENT_WAIT",
-            "args": {
-              "time": {
-                "type": "number",
-                "value": 0.5
-              },
-              "frames": {
-                "type": "number",
-                "value": 30
-              },
-              "units": "frames",
-              "__collapse": true
-            },
-            "id": "89f3f236-bd88-4ce4-8d9c-dcf27536680f"
+            "id": "149a7daf-8870-42d1-a4c0-7319ce5a9d60"
           },
           {
             "command": "EVENT_ACTOR_SET_MOVEMENT_SPEED",

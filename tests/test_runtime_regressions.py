@@ -131,6 +131,34 @@ class RuntimeTests(unittest.TestCase):
                     p.tick(60)
                     self.assertEqual(p.memory[self.address("_actor_states") + plant_index], 2)
 
+    def test_axe_does_not_defeat_bowser_twice(self):
+        for hp in (0, 16):
+            with self.subTest(bowser_hp=hp):
+                p = self.select_level(1, 4)
+                player = self.address("_actors")
+                self.variable(p, "BOWSER_HP", hp)
+                if hp == 0:
+                    # Bowser already knocked out by fireballs, below the map.
+                    p.memory[self.address("_actor_behavior_ids") + 10] = 15
+                    p.memory[self.address("_actor_states") + 10] = 255
+                    self.putword(p, player + ACTOR_SIZE * 10 + 3, 180 * 32)
+                calls = []
+
+                def sound(_):
+                    # GB Studio 4.3.2 OLDCALL banked ABI at function entry:
+                    # saved return/context = 6 bytes, THIS = 2, then bank/pointer.
+                    sp = p.register_file.SP
+                    calls.append((p.memory[sp + 8], self.word(p, sp + 9)))
+
+                p.hook_register(*self.symbols["_vm_sfx_play"], sound, None)
+                self.putword(p, player + 1, 141 * 256)
+                self.putword(p, player + 3, 11 * 256)
+                p.tick(300)  # Let the real axe trigger and bridge sequence run.
+                bowser_sound = self.symbols["_sound_smb_bowser_defeated_v"]
+                self.assertEqual(calls.count(bowser_sound), int(hp > 0))
+                self.assertGreater(len(calls), 10, "Axe/bridge sequence never ran")
+                self.assertGreater(self.word(p, player + 1), 1200 * 32)
+
     @staticmethod
     def word(p, address):
         return p.memory[address] | p.memory[address + 1] << 8
