@@ -1,5 +1,5 @@
 {
-  "rom_sha256": "d08eac510abd0a706a1500396f1d2c45a3d0fc219891d097b4bf63f171051f05",
+  "rom_sha256": "8d695254cbe99fe4c8c48a326087da782b6d0a940e1077209feceac88bbdc3fa",
   "results": [
     {
       "world": 1,
@@ -351,6 +351,19 @@
       "lost_life": false,
       "panics": [],
       "frames": 2360
+    },
+    {
+      "world": 7,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        8,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2322
     },
     {
       "world": 8,

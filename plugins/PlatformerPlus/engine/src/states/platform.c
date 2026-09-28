@@ -884,8 +884,10 @@ void fall_state(void) BANKED {
         }
     }
 
-	//Pit check
-	if (!PLAYER_ABOVE_SCENE_TOP() && specific_events[FELL_IN_PIT_EVENT].script_addr != 0 && (SUBPX_TO_PX(PLAYER.pos.y)) > (scroll_y + 160)){
+	// The pit comparison uses the actor origin, so its wrap guard must too.
+	// Small Mario's +1 px top bound can already be on-screen while his origin
+	// is still slightly negative; interpreting that origin as unsigned kills him.
+	if (!PLATFORM_Y_ABOVE_TOP(PLAYER.pos.y) && specific_events[FELL_IN_PIT_EVENT].script_addr != 0 && (SUBPX_TO_PX(PLAYER.pos.y)) > (scroll_y + 160)){
 		script_execute(specific_events[FELL_IN_PIT_EVENT].script_bank, specific_events[FELL_IN_PIT_EVENT].script_addr, 0, 0);
 		que_state = BLANK_INIT;
 	}

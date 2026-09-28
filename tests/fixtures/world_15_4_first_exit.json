@@ -1,0 +1,12 @@
+[
+  ["", 960], ["right b", 104], ["left", 4], ["a", 12],
+  ["left a", 12], ["", 12], ["a", 16], ["right", 4],
+  ["left", 16], ["a", 16], ["right", 4], ["left", 16],
+  ["right a", 24], ["right", 4], ["left", 8], ["left b a", 32],
+  ["left", 4], ["left b a", 32], ["left", 4], ["a", 16],
+  ["left b", 32], ["a", 16], ["right b a", 16], ["left", 4],
+  ["right b a", 16], ["right", 4], ["right b", 8], ["right b", 8],
+  ["right b a", 16], ["right b a", 16], ["left", 4],
+  ["right b a", 16], ["right b", 8], ["a", 16], ["left", 8],
+  ["left b", 24], ["left b a", 32]
+]

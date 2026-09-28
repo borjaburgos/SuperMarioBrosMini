@@ -69,6 +69,65 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(self.word(p, player + 3), start_y)
         self.assertEqual(self.variable(p, "LIVES"), 3)
 
+    def test_world_15_4_exit_jump_returns_from_above_screen_without_dying(self):
+        p = self.select_level(15, 4)
+        route = json.loads((Path(__file__).parent / "fixtures" /
+                            "world_15_4_first_exit.json").read_text())
+        held = set()
+        for buttons, frames in route:
+            keys = set(buttons.split())
+            for button in held - keys:
+                p.button_release(button)
+            for button in keys - held:
+                p.button_press(button)
+            held = keys
+            p.tick(frames)
+            self.assertEqual(self.variable(p, "LIVES"), 3)
+        self.assertEqual(self.variable(p, "BOWSER_COUNTER"), 1,
+                         "Controller route did not reach the room exit")
+        for button in held:
+            p.button_release(button)
+        player = self.address("_actors")
+        bank, pointer = self.symbols["_scene_15_4_2"]
+        destination = bytes([bank, pointer & 255, pointer >> 8])
+        scene = self.address("_current_scene")
+        above_screen = False
+        reached_destination = False
+        for _ in range(720):
+            p.tick(1)
+            above_screen |= self.word(p, player + 3) > 1900 * 32
+            self.assertEqual(self.variable(p, "LIVES"), 3)
+            self.assertNotEqual(
+                (p.memory[self.address("_music_current_track_bank")],
+                 self.word(p, self.address("_music_current_track"))),
+                self.symbols["_song_super_mario_bros_defea_Dat"],
+                "The scripted exit jump was mistaken for a pit fall")
+            if bytes(p.memory[scene:scene + 3]) == destination:
+                reached_destination = True
+                break
+        self.assertTrue(above_screen, "Exit animation did not jump above the map")
+        self.assertTrue(reached_destination, "World 15-4 did not reach its next room")
+
+    def test_falling_below_the_screen_still_loses_a_life(self):
+        p = self.select_level(1, 1)
+        player = self.address("_actors")
+        # Seed a real below-screen fall, outside all actor/tile collisions.
+        self.putword(p, player + 1, 560 * 32)
+        self.putword(p, player + 3, 168 * 32)
+        p.memory[self.address("_que_state")] = 1  # FALL_STATE
+        self.putword(p, self.address("_pl_vel_y"), 512)
+        defeated = False
+        for _ in range(360):
+            p.tick(1)
+            defeated |= (
+                p.memory[self.address("_music_current_track_bank")],
+                self.word(p, self.address("_music_current_track"))
+            ) == self.symbols["_song_super_mario_bros_defea_Dat"]
+            if self.variable(p, "LIVES") < 3:
+                break
+        self.assertTrue(defeated, "Real pit fall did not start the death sequence")
+        self.assertEqual(self.variable(p, "LIVES"), 2)
+
     def test_new_game_resets_powerups_and_demo_counters_in_every_mode(self):
         for mode in (0, 1, 2):
             with self.subTest(mode=mode):

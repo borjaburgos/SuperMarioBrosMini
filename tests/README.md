@@ -86,6 +86,14 @@ World 15-1 now scrolls horizontally in both directions. The regression replays
 the controller-only route, returns through that passage, and jumps onto the upper
 floor; another check retains the ordinary one-way camera settings in World 1-1.
 
+The World 15-4 exit fixture climbs the first Donkey Kong room with controller
+input and waits for its automatic victory jump and next-room transition. Beta 7
+kills Mario as his origin returns through -0.5 px: his positive top collision
+bound is already on-screen, but the pit check interprets the still-wrapped origin
+as 2047.5 px below the map. The pit check now tests the same coordinate in both
+its wrap guard and distance comparison. The fixture fails on beta 7 and passes
+on beta 8; a separate below-screen fall still starts death and deducts one life.
+
 These are controlled regression probes, not full playthroughs. Some change the
 emulator's in-memory start scene or seed player/platform state using function
 hooks; the ROM on disk and the project are never changed. Assertions wait for
@@ -103,8 +111,8 @@ test reproduces the panic in commit `aa5d8c9` at gameplay frame 349, with ROM ba
 
 ## Recorded level routes
 
-`fixtures/level_routes.json` contains the 52 completion routes verified on
-`compat-4.3.2-beta.7`. `playthrough_results.json` records the replay results.
+`fixtures/level_routes.json` contains the 53 completion routes verified on
+`compat-4.3.2-beta.8`. `playthrough_results.json` records the replay results.
 These are controller-only gameplay routes, found with save-state-assisted
 exploration and replayed continuously from each selected level's start. Menu
 level selection is the only memory write; gameplay does not use invincibility,
@@ -124,7 +132,7 @@ with no life decrement or kernel panic during the route. A warp-zone shortcut
 alone is not counted. This is not an uninterrupted campaign, an exhaustive
 check of every secret or character, or a substitute for Pocket hardware tests.
 
-As of this checkpoint, these 12 levels still need verified completion routes:
-7-4, 8-4, 9-2, 12-3, 12-4, 13-3, 14-2, 15-1, 15-3, 15-4, 16-2, and
+As of this checkpoint, these 11 levels still need verified completion routes:
+8-4, 9-2, 12-3, 12-4, 13-3, 14-2, 15-1, 15-3, 15-4, 16-2, and
 16-4. Initial input-only play attempts have been made in all 64
 levels. An incomplete route is not by itself evidence of a game defect.
