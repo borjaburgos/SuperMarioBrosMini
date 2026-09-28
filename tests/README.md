@@ -54,6 +54,10 @@ It fails on `7788559`, where an unconditional signed 16-bit cast misclassifies
 the bottom of this 1536-pixel map as a negative, above-screen position. The
 existing above-screen jump test protects the other side of that boundary.
 
+Fresh-game tests seed leftover power-ups and score/life counters at the menu,
+then press Start in normal, B Quest and Random modes. A separate pipe-transition
+test verifies that Fire Mario/Yoshi are preserved within an existing game.
+
 These are controlled regression probes, not full playthroughs. Some change the
 emulator's in-memory start scene or seed player/platform state using function
 hooks; the ROM on disk and the project are never changed. Assertions wait for

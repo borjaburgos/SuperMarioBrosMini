@@ -68,6 +68,40 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(self.word(p, player + 3), start_y)
         self.assertEqual(self.variable(p, "LIVES"), 3)
 
+    def test_new_game_resets_powerups_and_demo_counters_in_every_mode(self):
+        for mode in (0, 1, 2):
+            with self.subTest(mode=mode):
+                p = self.boot()
+                p.tick(600)
+                p.button("start")
+                p.tick(300)
+                self.variable(p, "MAINMENUSELECTION", mode)
+                # State left behind by demo play or a completed/abandoned run.
+                for name, value in [("MARIOSTATUS_0", 2), ("HASYOSHI", 1),
+                                    ("LIVES", 7), ("COINS", 37),
+                                    ("SCORELOWER", 999), ("SCOREUPPER", 1)]:
+                    self.variable(p, name, value)
+                p.button("start")
+                p.tick(300)
+                for name in ("MARIOSTATUS_0", "HASYOSHI", "COINS",
+                             "SCORELOWER", "SCOREUPPER"):
+                    self.assertEqual(self.variable(p, name), 0, name)
+                self.assertEqual(self.variable(p, "LIVES"), 3)
+
+    def test_pipe_transition_preserves_current_game_powerups(self):
+        p = self.select_level(1, 1)
+        self.variable(p, "MARIOSTATUS_0", 2)
+        self.variable(p, "HASYOSHI", 1)
+        player = self.address("_actors")
+        self.putword(p, player + 1, 472 * 32)
+        self.putword(p, player + 3, 88 * 32)
+        p.button_press("down")
+        p.tick(240)
+        self.assertEqual(self.variable(p, "CURRENTSUBLEVEL"), 3)
+        self.assertEqual(p.memory[self.address("_image_tile_width")], 20)
+        self.assertEqual(self.variable(p, "MARIOSTATUS_0"), 2)
+        self.assertEqual(self.variable(p, "HASYOSHI"), 1)
+
     @staticmethod
     def word(p, address):
         return p.memory[address] | p.memory[address + 1] << 8
