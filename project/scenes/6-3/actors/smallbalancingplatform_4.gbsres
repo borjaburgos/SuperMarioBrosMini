@@ -39,10 +39,22 @@
       "command": "EVENT_ACTOR_SET_COLLISION_BOX",
       "args": {
         "actorId": "$self$",
-        "x": -4,
-        "y": 0,
-        "width": 16,
-        "height": 8,
+        "x": {
+          "type": "number",
+          "value": -4
+        },
+        "y": {
+          "type": "number",
+          "value": 0
+        },
+        "width": {
+          "type": "number",
+          "value": 16
+        },
+        "height": {
+          "type": "number",
+          "value": 8
+        },
         "__collapse": true
       },
       "id": "65dd71e6-4b32-4608-90ec-c5aa05907716"

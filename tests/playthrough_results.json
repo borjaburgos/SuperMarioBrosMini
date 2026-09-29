@@ -1,0 +1,837 @@
+{
+  "rom_sha256": "8d695254cbe99fe4c8c48a326087da782b6d0a940e1077209feceac88bbdc3fa",
+  "results": [
+    {
+      "world": 1,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        1,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2612
+    },
+    {
+      "world": 1,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        1,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3676
+    },
+    {
+      "world": 1,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        1,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2288
+    },
+    {
+      "world": 1,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        2,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 1728
+    },
+    {
+      "world": 2,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        2,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2640
+    },
+    {
+      "world": 2,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        2,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3640
+    },
+    {
+      "world": 2,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        2,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2360
+    },
+    {
+      "world": 2,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        3,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2520
+    },
+    {
+      "world": 3,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        3,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2728
+    },
+    {
+      "world": 3,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        3,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2552
+    },
+    {
+      "world": 3,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        3,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 1984
+    },
+    {
+      "world": 3,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        4,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 1816
+    },
+    {
+      "world": 4,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        4,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2608
+    },
+    {
+      "world": 4,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        4,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3308
+    },
+    {
+      "world": 4,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        4,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2200
+    },
+    {
+      "world": 4,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        5,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2352
+    },
+    {
+      "world": 5,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        5,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2608
+    },
+    {
+      "world": 5,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        5,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2448
+    },
+    {
+      "world": 5,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        5,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2216
+    },
+    {
+      "world": 5,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        6,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 1656
+    },
+    {
+      "world": 6,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        6,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2400
+    },
+    {
+      "world": 6,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        6,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3376
+    },
+    {
+      "world": 6,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        6,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2112
+    },
+    {
+      "world": 6,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        7,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 1728
+    },
+    {
+      "world": 7,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        7,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2520
+    },
+    {
+      "world": 7,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        7,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3812
+    },
+    {
+      "world": 7,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        7,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2360
+    },
+    {
+      "world": 7,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        8,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2322
+    },
+    {
+      "world": 8,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        8,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 4776
+    },
+    {
+      "world": 8,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        8,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2672
+    },
+    {
+      "world": 8,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        8,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2668
+    },
+    {
+      "world": 8,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        1,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 4850
+    },
+    {
+      "world": 9,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        9,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2766
+    },
+    {
+      "world": 9,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        9,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 5389
+    },
+    {
+      "world": 9,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        9,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2536
+    },
+    {
+      "world": 9,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        10,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2456
+    },
+    {
+      "world": 10,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        10,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2376
+    },
+    {
+      "world": 10,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        10,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2404
+    },
+    {
+      "world": 10,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        10,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 1768
+    },
+    {
+      "world": 10,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        11,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 5000
+    },
+    {
+      "world": 11,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        11,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2612
+    },
+    {
+      "world": 11,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        11,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3500
+    },
+    {
+      "world": 11,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        11,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3476
+    },
+    {
+      "world": 11,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        12,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3756
+    },
+    {
+      "world": 12,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        12,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 4716
+    },
+    {
+      "world": 12,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        12,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 4341
+    },
+    {
+      "world": 12,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        12,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 5383
+    },
+    {
+      "world": 12,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        13,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 4290
+    },
+    {
+      "world": 13,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        13,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2824
+    },
+    {
+      "world": 13,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        13,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3520
+    },
+    {
+      "world": 13,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        13,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2661
+    },
+    {
+      "world": 13,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        14,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2696
+    },
+    {
+      "world": 14,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        14,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2028
+    },
+    {
+      "world": 14,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        14,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 5698
+    },
+    {
+      "world": 14,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        14,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2256
+    },
+    {
+      "world": 14,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        15,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 4568
+    },
+    {
+      "world": 15,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        15,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3624
+    },
+    {
+      "world": 15,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        15,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3004
+    },
+    {
+      "world": 15,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        15,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 4273
+    },
+    {
+      "world": 15,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        16,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 5481
+    },
+    {
+      "world": 16,
+      "level": 1,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        16,
+        2
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2772
+    },
+    {
+      "world": 16,
+      "level": 2,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        16,
+        3
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 3766
+    },
+    {
+      "world": 16,
+      "level": 3,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        16,
+        4
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 2260
+    },
+    {
+      "world": 16,
+      "level": 4,
+      "passed": true,
+      "completion_observed": true,
+      "destination": [
+        1,
+        1
+      ],
+      "lost_life": false,
+      "panics": [],
+      "frames": 7150
+    }
+  ]
+}

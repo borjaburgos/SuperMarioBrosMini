@@ -37,12 +37,12 @@
   "defaultFontId": "4bd653f0-e08d-424e-9e5b-c1f3aaa21e47",
   "defaultCharacterEncoding": "",
   "defaultPlayerSprites": {
-    "TOPDOWN": "581d34d0-9591-4e6e-a609-1d94f203b0cd",
-    "PLATFORM": "581d34d0-9591-4e6e-a609-1d94f203b0cd",
-    "ADVENTURE": "581d34d0-9591-4e6e-a609-1d94f203b0cd",
-    "SHMUP": "581d34d0-9591-4e6e-a609-1d94f203b0cd",
-    "POINTNCLICK": "581d34d0-9591-4e6e-a609-1d94f203b0cd",
-    "LOGO": "581d34d0-9591-4e6e-a609-1d94f203b0cd"
+    "TOPDOWN": "82297e17-ae19-4d6c-84f3-47e5fe14a6ad",
+    "PLATFORM": "82297e17-ae19-4d6c-84f3-47e5fe14a6ad",
+    "ADVENTURE": "82297e17-ae19-4d6c-84f3-47e5fe14a6ad",
+    "SHMUP": "82297e17-ae19-4d6c-84f3-47e5fe14a6ad",
+    "POINTNCLICK": "82297e17-ae19-4d6c-84f3-47e5fe14a6ad",
+    "LOGO": "82297e17-ae19-4d6c-84f3-47e5fe14a6ad"
   },
   "musicDriver": "huge",
   "cartType": "mbc5",
@@ -85,7 +85,7 @@
   ],
   "colorMode": "mixed",
   "generateDebugFilesEnabled": true,
-  "compilerPreset": 3000,
+  "compilerPreset": 1000,
   "scriptEventPresets": {
     "EVENT_LAUNCH_PROJECTILE": {
       "2c756fb6-506b-44a9-b297-cb27352c9179": {
@@ -333,5 +333,6 @@
     }
   },
   "scriptEventDefaultPresets": {},
-  "runSceneSelectionOnly": false
+  "runSceneSelectionOnly": false,
+  "autoTileFlipEnabled": false
 }

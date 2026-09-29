@@ -209,8 +209,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.5,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.5
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "units": "frames",
                     "__collapse": true
                   },
@@ -309,8 +315,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.5,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.5
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "units": "frames",
                     "__collapse": true
                   },
@@ -451,7 +463,7 @@
                 {
                   "command": "EVENT_GBVM_SCRIPT",
                   "args": {
-                    "script": "VM_SET_CONST_INT16 _enemy_bounce, 1\nVM_SET_CONST_INT16 _que_state, 12",
+                    "script": "VM_SET_CONST_UINT8 _enemy_bounce, 1\nVM_SET_CONST_UINT8 _que_state, 12",
                     "__comment": false,
                     "__collapse": true
                   },
@@ -623,8 +635,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.5,
-                          "frames": 30,
+                          "time": {
+                            "type": "number",
+                            "value": 0.5
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          },
                           "units": "frames",
                           "__collapse": true
                         },
@@ -723,8 +741,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.5,
-                          "frames": 30,
+                          "time": {
+                            "type": "number",
+                            "value": 0.5
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          },
                           "units": "frames",
                           "__collapse": true
                         },
@@ -1070,8 +1094,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "units": "frames",
               "__collapse": true
             },
@@ -1170,8 +1200,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "units": "frames",
               "__collapse": true
             },
@@ -1429,8 +1465,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "units": "frames",
               "__collapse": true
             },
@@ -1529,8 +1571,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "units": "frames",
               "__collapse": true
             },

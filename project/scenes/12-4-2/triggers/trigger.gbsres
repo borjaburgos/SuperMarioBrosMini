@@ -164,8 +164,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 4,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 4
+              },
               "units": "frames",
               "__collapse": true
             },
@@ -232,8 +238,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.5,
-                    "frames": 4,
+                    "time": {
+                      "type": "number",
+                      "value": 0.5
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 4
+                    },
                     "units": "frames"
                   },
                   "id": "285e39ea-405a-45f0-adf7-82692cd2ba38",
@@ -285,8 +297,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "units": "frames",
               "__collapse": true
             },
@@ -356,8 +374,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 7,
-                          "frames": 30
+                          "time": {
+                            "type": "number",
+                            "value": 7
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          }
                         },
                         "id": "9095baca-ee43-4588-a240-4e1ac7ab636c",
                         "children": {}
@@ -430,8 +454,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 4,
-                    "frames": 30
+                    "time": {
+                      "type": "number",
+                      "value": 4
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    }
                   },
                   "id": "ed4c4871-c8ee-49c9-98ac-9066d6f09512",
                   "children": {}

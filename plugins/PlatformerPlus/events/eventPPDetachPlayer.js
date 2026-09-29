@@ -16,10 +16,10 @@ const fields = [
 
 
 const compile = (input, helpers) => {
-  const { _addComment, _addNL, _setConstMemInt16, _setMemInt16ToVariable } =
+  const { _addComment, _addNL, _setConstMemUInt8 } =
     helpers;
-    _addComment("Set Platformer Plus State");
-    _setConstMemInt16(input.field, input.state);
+    _addComment("Detach Player from Platform");
+    _setConstMemUInt8(input.field, input.state);
 
   _addNL();
 };

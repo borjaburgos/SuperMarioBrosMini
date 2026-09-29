@@ -88,7 +88,8 @@
               },
               "moveType": "horizontal",
               "useCollisions": false,
-              "units": "pixels"
+              "units": "pixels",
+              "collideWith": []
             },
             "id": "b45d0e3b-342d-4639-b397-66f83063be9b"
           },
@@ -108,8 +109,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              }
             },
             "id": "6e2c7194-3492-475f-bc0b-3b8a621928c0"
           },

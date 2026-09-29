@@ -15,9 +15,9 @@ UBYTE vm_camera_move_to_player(void * THIS, UBYTE start, UWORD * stack_frame) OL
 	stack_frame;
     // Disable camera lock
     camera_settings &= ~(CAMERA_LOCK_FLAG);
-	
-	WORD target_x = PLAYER.pos.x + 128;
-	WORD target_y = PLAYER.pos.y + 128;
+
+	UWORD target_x = PLAYER.pos.x + PX_TO_SUBPX(8);
+	UWORD target_y = PLAYER.pos.y + PX_TO_SUBPX(8);
 
     // Actor reached destination
     if ((camera_x == target_x) && (camera_y == target_y)) {
@@ -40,7 +40,7 @@ UBYTE vm_camera_move_to_player(void * THIS, UBYTE start, UWORD * stack_frame) OL
         if (camera_x >= target_x) {
             camera_x = target_x;
             x_dest = TRUE;
-        }        
+        }
     }
 
     if (camera_y > target_y) {
@@ -52,7 +52,7 @@ UBYTE vm_camera_move_to_player(void * THIS, UBYTE start, UWORD * stack_frame) OL
 				camera_settings |= CAMERA_LOCK_FLAG;
                 return TRUE;
             }
-        }        
+        }
     } else if (camera_y < target_y) {
         // Move down
         camera_y += 32;
@@ -62,7 +62,7 @@ UBYTE vm_camera_move_to_player(void * THIS, UBYTE start, UWORD * stack_frame) OL
 				camera_settings |= CAMERA_LOCK_FLAG;
                 return TRUE;
             }
-        }      
+        }
     }
     ((SCRIPT_CTX *)THIS)->waitable = TRUE;
 	return FALSE;

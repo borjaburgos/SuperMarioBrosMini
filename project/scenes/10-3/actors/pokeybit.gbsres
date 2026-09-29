@@ -67,7 +67,7 @@
   "updateScript": [],
   "hit1Script": [
     {
-      "command": "FO_EVENT_LAUNCH_LOADED_PROJECTILE",
+      "command": "EVENT_LAUNCH_PROJECTILE_SLOT",
       "args": {
         "spriteSheetId": "8dbb443a-eb83-48bb-86c9-ffd9012f45c7",
         "slot": 4,

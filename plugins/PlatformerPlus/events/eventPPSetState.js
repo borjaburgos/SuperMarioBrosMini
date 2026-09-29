@@ -15,13 +15,14 @@ const fields = [
 ];
 
 const compile = (input, helpers) => {
-  const { _addComment, _addNL, _declareLocal, variableSetToScriptValue, _setMemInt16ToVariable } =
+  const { _addComment, _addNL, _declareLocal, variableSetToScriptValue, _setMemUInt8ToVariable } =
     helpers;
 	
 	const tmp_0 = _declareLocal("tmp_0", 1, true);
 	variableSetToScriptValue(tmp_0, input.state);
     _addComment("Set Platformer Plus State");
-    _setMemInt16ToVariable("que_state", tmp_0);
+    // que_state is one byte; a word write corrupts the adjacent script context.
+    _setMemUInt8ToVariable("que_state", tmp_0);
 
   _addNL();
 };
