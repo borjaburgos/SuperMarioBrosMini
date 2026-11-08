@@ -131,8 +131,8 @@ void crouch_state(void) BANKED {
     {
         deltaX = PLATFORM_CLAMP_DELTA(deltaX);
         old_x = PLAYER.pos.x;
-        UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
-        UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom) + 1;
+        UBYTE tile_start = PLATFORM_COLLISION_TOP_TILE(PLAYER.pos.y + PLAYER.bounds.top);
+        UBYTE tile_end   = PLATFORM_COLLISION_END_TILE(PLAYER.pos.y + PLAYER.bounds.bottom);
         UWORD new_x = PLAYER.pos.x + deltaX;
 
         UBYTE tile_x = 0;

@@ -23,6 +23,12 @@
 // leaving 256 px of headroom on either side, more than a full spring jump.
 #define PLATFORM_Y_ABOVE_TOP(y) ((UWORD)(y) > (((UWORD)image_tile_height + ((256u - image_tile_height) >> 1)) << 8))
 #define PLAYER_ABOVE_SCENE_TOP() PLATFORM_Y_ABOVE_TOP(PLAYER.pos.y + PLAYER.bounds.top)
+#define PLAYER_FULLY_ABOVE_SCENE_TOP() PLATFORM_Y_ABOVE_TOP(PLAYER.pos.y + PLAYER.bounds.bottom)
+
+// A partially visible player may have a wrapped-negative head and visible feet.
+// Clip horizontal collision ranges to row zero; an entirely negative range is empty.
+#define PLATFORM_COLLISION_TOP_TILE(y) (PLATFORM_Y_ABOVE_TOP(y) ? 0 : SUBPX_TO_TILE(y))
+#define PLATFORM_COLLISION_END_TILE(y) (PLATFORM_Y_ABOVE_TOP(y) ? 0 : SUBPX_TO_TILE(y) + 1)
 
 void platform_init(void) BANKED;
 void platform_update(void) BANKED;
