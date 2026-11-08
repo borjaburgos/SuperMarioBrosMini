@@ -24,6 +24,11 @@
 #include "data_manager.h"
 #include "data/game_globals.h"
 
+// Near ROM pointers are valid only in the executing bank. Keep these tables
+// beside their consumer when the actor behaviors are split across banks.
+static const BYTE firebar_incx_lookup[] = { 0, 3, 6, 7, 8, 7, 6, 3, 0, -3, -6, -7, -8, -7, -6, -3 };
+static const BYTE firebar_incy_lookup[] = { -8, -7, -6, -3, 0, 3, 6, 7, 8, 7, 6, 3, 0, -3, -6, -7 };
+
 void actor_behavior_update_a1(UBYTE i, actor_t * actor) BANKED {
 	switch (current_behavior) {
 				case 0:

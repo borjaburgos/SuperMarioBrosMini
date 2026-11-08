@@ -24,6 +24,9 @@
 #include "data_manager.h"
 #include "data/game_globals.h"
 
+// This is read through a near pointer, so it must share the spring's bank.
+static const BYTE spring_bb_top_lookup[] = { -8, -4, 0, -4, -8 };
+
 void actor_behavior_update_a2(UBYTE i, actor_t * actor) BANKED {
 	switch (current_behavior) {
 				case 10://Bouncing entity

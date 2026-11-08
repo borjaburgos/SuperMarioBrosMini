@@ -39,9 +39,6 @@ WORD col_tx;
 WORD col_ty;
 WORD current_actor_x;
 upoint16_t tmp_point;
-const BYTE firebar_incx_lookup[] = { 0, 3, 6, 7, 8, 7, 6, 3, 0, -3, -6, -7, -8, -7, -6, -3 };
-const BYTE firebar_incy_lookup[] = { -8, -7, -6, -3, 0, 3, 6, 7, 8, 7, 6, 3, 0, -3, -6, -7 };
-const BYTE spring_bb_top_lookup[] = { -8, -4, 0, -4, -8 };
 
 void actor_behavior_init(void) BANKED {
     memset(actor_behavior_ids, 0, sizeof(actor_behavior_ids));
