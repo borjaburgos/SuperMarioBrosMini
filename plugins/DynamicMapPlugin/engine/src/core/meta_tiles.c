@@ -79,8 +79,13 @@ void metatile_reset(void) BANKED{
 }
 
 void load_meta_tiles(void) BANKED{
-    MemcpyBanked(&sram_collision_data, metatile_collision_ptr, COLLISION_DATA_SIZE, metatile_collision_bank);
 #if METATILE_SIZE == METATILE_SIZE_16
+    // Reject unsupported dimensions before copying either map or collisions.
+    // The exporter checks too; this also protects dynamically supplied data.
+    if (!image_tile_width || !image_tile_height || (image_tile_width & 1) || (image_tile_height & 1)) {
+        metatile_reset();
+        return;
+    }
     image_tile_width_bit = 1;
     UBYTE half_width = (image_tile_width >> 1);
     UBYTE half_height = (image_tile_height >> 1);
@@ -88,6 +93,19 @@ void load_meta_tiles(void) BANKED{
     while(width >>= 1){
         image_tile_width_bit++;
     }
+    if ((((UWORD)(half_height - 1) << image_tile_width_bit) + half_width) > MAX_MAP_DATA_SIZE) {
+        metatile_reset();
+        return;
+    }
+#else
+    if (!image_tile_width || !image_tile_height ||
+        ((UWORD)image_tile_width * image_tile_height) > MAX_MAP_DATA_SIZE) {
+        metatile_reset();
+        return;
+    }
+#endif
+    MemcpyBanked(&sram_collision_data, metatile_collision_ptr, COLLISION_DATA_SIZE, metatile_collision_bank);
+#if METATILE_SIZE == METATILE_SIZE_16
     for (UBYTE y = 0; y < half_height; y++) {
         MemcpyBanked(sram_map_data + METATILE_MAP_OFFSET(0, y << 1), image_ptr + (UWORD)(y * half_width), half_width, image_bank);
     }
