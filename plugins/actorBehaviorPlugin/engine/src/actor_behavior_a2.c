@@ -267,7 +267,9 @@ void actor_behavior_update_a2(UBYTE i, actor_t * actor) BANKED {
 						}
 						// Wrap in the same update that crosses the edge, before actor culling.
 						actor->pos.y += LEGACY_DELTA_TO_SUBPX(actor_vel_y[i]);
-						if (actor_vel_y[i] < 0 && (WORD)actor->pos.y < 0) {
+						// Valid tall-map positions can cross the signed 1024 px boundary.
+						// Only the unused wrapped-negative range is above the map.
+						if (actor_vel_y[i] < 0 && PLATFORM_Y_ABOVE_TOP(actor->pos.y)) {
 							actor->pos.y += TILE_TO_SUBPX(image_tile_height);
 							if (actor_attached && last_actor == actor) actor_attached = FALSE;
 						} else if (actor_vel_y[i] > 0 && (SUBPX_TO_TILE(actor->pos.y)) > image_tile_height) {
