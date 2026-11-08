@@ -96,3 +96,26 @@ for (const sprite of [false, true]) {
     });
   }
 }
+
+const copyColors = loadCompiler('eventCopyScenePaletteColors.js');
+
+for (const commit of [true, false, undefined]) {
+  test(`copy scene palette commit=${String(commit)} honors the default checked option`, () => {
+    const stack = [];
+    const calls = [];
+    const input = { sceneId: 'source' };
+    if (commit !== undefined) input.commit = commit;
+    copyColors(input, {
+      options: { scenes: [{ id: 'source', symbol: 'source_palette_scene' }] },
+      _addComment() {},
+      _stackPushConst(value) { stack.push(value); },
+      _stackPop(count) { assert.equal(count, 3); stack.splice(-count); },
+      _callNative(name) { calls.push({ name, arguments: stack.slice() }); },
+    });
+    assert.deepEqual(calls, [{
+      name: 'copy_scene_palette_colors',
+      arguments: [commit === false ? 0 : 1, '_source_palette_scene', '___bank_source_palette_scene'],
+    }]);
+    assert.equal(stack.length, 0);
+  });
+}
