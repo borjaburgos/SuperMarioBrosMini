@@ -1,0 +1,159 @@
+{
+  "world": 1,
+  "level": 1,
+  "description": "Normal controller route onto the final staircase, then wait for the natural countdown to reach 1. Jump after this prefix to reproduce the near-top timeout death loop.",
+  "route": [
+    [
+      "right b a",
+      96
+    ],
+    [
+      "",
+      24
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right up",
+      48
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right up",
+      48
+    ],
+    [
+      "right b a",
+      192
+    ],
+    [
+      "right up",
+      48
+    ],
+    [
+      "right b a",
+      96
+    ],
+    [
+      "",
+      24
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right b",
+      24
+    ],
+    [
+      "left b a",
+      32
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right up",
+      48
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right b",
+      24
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right up",
+      48
+    ],
+    [
+      "right b a",
+      96
+    ],
+    [
+      "right b",
+      8
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right b",
+      8
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right up",
+      48
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right b",
+      8
+    ],
+    [
+      "right b a",
+      96
+    ],
+    [
+      "right b",
+      8
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right up",
+      48
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right b",
+      24
+    ],
+    [
+      "right b a",
+      48
+    ],
+    [
+      "right b",
+      8
+    ],
+    [
+      "right b a",
+      36
+    ],
+    [
+      "left",
+      12
+    ],
+    [
+      "",
+      7788
+    ]
+  ]
+}
