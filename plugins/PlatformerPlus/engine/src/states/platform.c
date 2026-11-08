@@ -618,7 +618,7 @@ void fall_state(void) BANKED {
     //X-COLLISION
     gotoXCol:
     {
-        deltaX = CLAMP(deltaX, -127, 127);
+        deltaX = PLATFORM_CLAMP_DELTA(deltaX);
         UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom) + 1;
         UWORD new_x = PLAYER.pos.x + deltaX;
@@ -711,7 +711,7 @@ void fall_state(void) BANKED {
     //Y-COLLISION
     gotoYColFall:
     {
-        deltaY = CLAMP(deltaY, -127, 127);
+        deltaY = PLATFORM_CLAMP_DELTA(deltaY);
 
         //New Y Slopes 1
         UBYTE prev_grounded = grounded;
@@ -1038,7 +1038,7 @@ void swim_state(void) BANKED {
     //X-COLLISION
     gotoXCol:
     {
-        deltaX = CLAMP(deltaX, -127, 127);
+        deltaX = PLATFORM_CLAMP_DELTA(deltaX);
         UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom) + 1;
         UWORD new_x = PLAYER.pos.x + deltaX;
@@ -1143,7 +1143,7 @@ void swim_state(void) BANKED {
 
     //Y-COLLISION
     {
-        deltaY = CLAMP(deltaY, -127, 127);
+        deltaY = PLATFORM_CLAMP_DELTA(deltaY);
 
         //New Y Slopes 1
         UBYTE prev_grounded = grounded;

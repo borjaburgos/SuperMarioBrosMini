@@ -184,7 +184,7 @@ void ground_state(void) BANKED {
 
     //FUNCTION X COLLISION
     {
-        deltaX = CLAMP(deltaX, -127, 127);
+        deltaX = PLATFORM_CLAMP_DELTA(deltaX);
         old_x = PLAYER.pos.x;
         UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom) + 1;
@@ -270,7 +270,7 @@ void ground_state(void) BANKED {
 
     //FUNCTION Y COLLISION
     {
-        deltaY = CLAMP(deltaY, -127, 127);
+        deltaY = PLATFORM_CLAMP_DELTA(deltaY);
 
         UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.left - ((pl_vel_x > plat_walk_vel) ? PX_TO_SUBPX(3) : 0)); //extend check by 3 pixels if running to be able to run over 1 tile gaps
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right + ((pl_vel_x < -plat_walk_vel) ? PX_TO_SUBPX(3) : 0)) + 1;

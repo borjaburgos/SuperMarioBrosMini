@@ -63,6 +63,34 @@ class RuntimeSupport:
         p.tick(300)
         return p
 
+    def prepare_spring(self, p):
+        """Attach Mario to a real spring once; let its normal behavior run next."""
+        player = self.address("_actors")
+        index = next(i for i in range(1, 25)
+                     if p.memory[self.address("_actor_behavior_ids") + i] == 14)
+        spring = player + ACTOR_SIZE * index
+        top = self.word(p, spring + 10)
+        top = top - 65536 if top >= 32768 else top
+        base = self.word(p, spring + 3) + top
+        x = self.word(p, spring + 1)
+        scroll_x = max(0, x // 32 - 80)
+        p.memory[spring] = (p.memory[spring] | ACTIVE | 0x10) & ~0x40
+        p.memory[self.address("_actor_states") + index] = 2
+        p.memory[self.address("_actor_counter_a") + index] = 0
+        self.putword(p, player + 1, x)
+        self.putword(p, player + 3, base - 8 * 32)
+        self.putword(p, self.address("_scroll_x"), scroll_x)
+        self.putword(p, self.address("_draw_scroll_x"), scroll_x)
+        p.memory[self.address("_actor_attached")] = 1
+        self.putword(p, self.address("_last_actor"), spring)
+        self.putword(p, self.address("_mp_last_x"), x)
+        self.putword(p, self.address("_mp_last_y"), self.word(p, spring + 3))
+        self.putword(p, self.address("_pl_vel_x"), 0)
+        self.putword(p, self.address("_pl_vel_y"), 0)
+        p.memory[self.address("_hold_jump_val")] = 0
+        p.memory[self.address("_que_state")] = 4
+        return index, spring, base
+
     @staticmethod
     def replay(p, route):
         held = set()

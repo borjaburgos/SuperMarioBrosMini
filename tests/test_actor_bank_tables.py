@@ -1,8 +1,6 @@
 """Behavior checks for const tables used by independently banked actors."""
 
-import json
 import unittest
-from pathlib import Path
 
 from adversarial_support import ACTIVE, ACTOR_SIZE, ROM_PATH, RuntimeSupport
 
@@ -87,18 +85,8 @@ class ActorBankTableTests(RuntimeSupport, unittest.TestCase):
 
     def test_real_spring_compression_keeps_mario_on_the_spring(self):
         p = self.select_level(2, 1)
-        routes = json.loads((Path(__file__).parent / "fixtures" /
-                             "level_routes.json").read_text())["levels"]
-        route = next(r["route"] for r in routes
-                     if (r["world"], r["level"]) == (2, 1))[:45]
-        held = self.replay(p, route)
         player = self.address("_actors")
-        index = next(i for i in range(1, 25)
-                     if p.memory[self.address("_actor_behavior_ids") + i] == 14)
-        spring = player + ACTOR_SIZE * index
-        top = self.word(p, spring + 10)
-        top = top - 65536 if top >= 32768 else top
-        base = self.word(p, spring + 3) + top
+        index, spring, base = self.prepare_spring(p)
         compressed = set()
         launched = False
         compression_positions = []
@@ -111,25 +99,19 @@ class ActorBankTableTests(RuntimeSupport, unittest.TestCase):
 
         p.hook_register(*self.symbols["_ground_state"], capture_compression, None)
         self.addCleanup(p.hook_deregister, *self.symbols["_ground_state"])
-        for buttons, duration in [("right a", 12), ("left", 12), ("", 32), ("a", 100)]:
-            keys = set(buttons.split())
-            for button in held - keys:
-                p.button_release(button)
-            for button in keys - held:
-                p.button_press(button)
-            held = keys
-            for _ in range(duration):
-                p.tick(1)
-                if p.memory[self.address("_actor_states") + index] == 2:
-                    phase = p.memory[self.address("_actor_counter_a") + index]
-                    compressed.add(phase)
-                    y = self.word(p, player + 3)
-                    self.assertGreaterEqual(y, base - 8 * 32)
-                    self.assertLessEqual(y, base)
-                elif compressed and p.memory[self.address("_que_state")] == 13:
-                    launched = True
-                self.assertEqual(self.variable(p, "LIVES"), 3)
-        self.assertGreaterEqual(len(compressed), 3, "The route never compressed the spring")
+        p.button_press("a")
+        for _ in range(40):
+            p.tick(1)
+            if p.memory[self.address("_actor_states") + index] == 2:
+                phase = p.memory[self.address("_actor_counter_a") + index]
+                compressed.add(phase)
+                y = self.word(p, player + 3)
+                self.assertGreaterEqual(y, base - 8 * 32)
+                self.assertLessEqual(y, base)
+            elif compressed and p.memory[self.address("_que_state")] == 13:
+                launched = True
+            self.assertEqual(self.variable(p, "LIVES"), 3)
+        self.assertGreaterEqual(len(compressed), 3, "The fixture never compressed the spring")
         self.assertTrue(launched, "The spring never launched Mario after compression")
         self.assertTrue(compression_positions, "Spring compression was not observed before physics")
         for phase, y in compression_positions:

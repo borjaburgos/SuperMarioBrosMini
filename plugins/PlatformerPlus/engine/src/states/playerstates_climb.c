@@ -50,7 +50,7 @@ void climb_state(void) BANKED {
 
     //FUNCTION Y COLLISION
     {
-        deltaY = CLAMP(deltaY, -127, 127);
+        deltaY = PLATFORM_CLAMP_DELTA(deltaY);
 
         UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.left);
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right) + 1;

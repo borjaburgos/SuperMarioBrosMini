@@ -129,7 +129,7 @@ void crouch_state(void) BANKED {
 
     //FUNCTION X COLLISION
     {
-        deltaX = CLAMP(deltaX, -127, 127);
+        deltaX = PLATFORM_CLAMP_DELTA(deltaX);
         old_x = PLAYER.pos.x;
         UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom) + 1;
@@ -200,7 +200,7 @@ void crouch_state(void) BANKED {
 
     //FUNCTION Y COLLISION
     {
-        deltaY = CLAMP(deltaY, -127, 127);
+        deltaY = PLATFORM_CLAMP_DELTA(deltaY);
 
         UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.left);
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right) + 1;

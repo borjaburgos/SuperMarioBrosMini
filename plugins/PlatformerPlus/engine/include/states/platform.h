@@ -12,6 +12,11 @@
 #define LEGACY_DELTA_TO_SUBPX(v) ((v) << 1)
 #endif
 
+// Retain the former 127/16 px movement limit in 1/32 px coordinates. Keeping
+// each step below an 8 px tile also prevents skipping a thin wall or ceiling.
+#define PLATFORM_MAX_DELTA_SUBPX LEGACY_DELTA_TO_SUBPX(127)
+#define PLATFORM_CLAMP_DELTA(v) CLAMP((v), -PLATFORM_MAX_DELTA_SUBPX, PLATFORM_MAX_DELTA_SUBPX)
+
 // Do not cast world Y directly to WORD: tall maps legitimately cross 0x8000
 // (1024 px in the 1/32-pixel coordinate system). Split the unused space between
 // the map bottom and wrapped negative Y instead. The tallest map is 192 tiles,
