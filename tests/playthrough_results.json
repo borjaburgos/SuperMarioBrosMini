@@ -1,5 +1,5 @@
 {
-  "rom_sha256": "8d695254cbe99fe4c8c48a326087da782b6d0a940e1077209feceac88bbdc3fa",
+  "rom_sha256": "f6a28ccb5eb9fe744940b606d0a74207d12b317c806db2e4a8da3c3315136a65",
   "results": [
     {
       "world": 1,
@@ -64,7 +64,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 2640
+      "frames": 2696
     },
     {
       "world": 2,
@@ -116,7 +116,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 2728
+      "frames": 2772
     },
     {
       "world": 3,
@@ -155,7 +155,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 1816
+      "frames": 3404
     },
     {
       "world": 4,
@@ -181,7 +181,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 3308
+      "frames": 3420
     },
     {
       "world": 4,
@@ -259,7 +259,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 1656
+      "frames": 1640
     },
     {
       "world": 6,
@@ -272,7 +272,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 2400
+      "frames": 2452
     },
     {
       "world": 6,
@@ -285,7 +285,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 3376
+      "frames": 3524
     },
     {
       "world": 6,
@@ -298,7 +298,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 2112
+      "frames": 3120
     },
     {
       "world": 6,
@@ -311,7 +311,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 1728
+      "frames": 1836
     },
     {
       "world": 7,
@@ -389,7 +389,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 2672
+      "frames": 2676
     },
     {
       "world": 8,
@@ -415,7 +415,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 4850
+      "frames": 4970
     },
     {
       "world": 9,
@@ -441,7 +441,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 5389
+      "frames": 5391
     },
     {
       "world": 9,
@@ -454,7 +454,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 2536
+      "frames": 2572
     },
     {
       "world": 9,
@@ -597,7 +597,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 4341
+      "frames": 4373
     },
     {
       "world": 12,
@@ -610,7 +610,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 5383
+      "frames": 6884
     },
     {
       "world": 12,
@@ -649,7 +649,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 3520
+      "frames": 5804
     },
     {
       "world": 13,
@@ -662,7 +662,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 2661
+      "frames": 2693
     },
     {
       "world": 13,
@@ -688,7 +688,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 2028
+      "frames": 2080
     },
     {
       "world": 14,
@@ -701,7 +701,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 5698
+      "frames": 5718
     },
     {
       "world": 14,
@@ -779,7 +779,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 5481
+      "frames": 5489
     },
     {
       "world": 16,
@@ -831,7 +831,7 @@
       ],
       "lost_life": false,
       "panics": [],
-      "frames": 7150
+      "frames": 8250
     }
   ]
 }
