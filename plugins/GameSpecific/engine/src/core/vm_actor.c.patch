@@ -1,0 +1,146 @@
+--- src/core/vm_actor.c
++++ src/core/vm_actor.c
+@@ -649,13 +649,14 @@
+         actor_set_anim_idle(actor);
+         return;
+     } else if (params->X < actor->pos.x) {
+-        // Moving left
+-        actor->pos.x -= actor->move_speed;
++        // Moving left; bound the step before unsigned arithmetic.
++        UWORD step = MIN(actor->move_speed, (UWORD)(actor->pos.x - params->X));
++        actor->pos.x -= step;
+ 
+         // Check for actor collision
+         actor_t *hit_actor;
+         if (test_actors && (hit_actor = actor_overlapping_bb(&actor->bounds, &actor->pos, actor))) {
+-            actor->pos.x += actor->move_speed;
++            actor->pos.x += step;
+             params->Y = actor->pos.y;
+             actor_set_anim_idle(actor);
+             return;
+@@ -669,13 +670,14 @@
+             return;
+         }
+     } else {
+-        // Moving right
+-        actor->pos.x += actor->move_speed;
++        // Moving right; bound the step before unsigned arithmetic.
++        UWORD step = MIN(actor->move_speed, (UWORD)(params->X - actor->pos.x));
++        actor->pos.x += step;
+ 
+         // Check for actor collision
+         actor_t *hit_actor;
+         if (test_actors && (hit_actor = actor_overlapping_bb(&actor->bounds, &actor->pos, actor))) {
+-            actor->pos.x -= actor->move_speed;
++            actor->pos.x -= step;
+             params->Y = actor->pos.y;
+             actor_set_anim_idle(actor);
+             return;
+@@ -716,13 +718,14 @@
+         actor_set_anim_idle(actor);
+         return;
+     } else if (params->Y < actor->pos.y) {
+-        // Moving upwards
+-        actor->pos.y -= actor->move_speed;
++        // Moving upwards; bound the step before unsigned arithmetic.
++        UWORD step = MIN(actor->move_speed, (UWORD)(actor->pos.y - params->Y));
++        actor->pos.y -= step;
+ 
+         // Check for actor collision
+         actor_t *hit_actor;
+         if (test_actors && (hit_actor = actor_overlapping_bb(&actor->bounds, &actor->pos, actor))) {
+-            actor->pos.y += actor->move_speed;
++            actor->pos.y += step;
+             params->X = actor->pos.x;
+             actor_set_anim_idle(actor);
+             return;
+@@ -735,13 +738,14 @@
+             return;
+         }
+     } else {
+-        // Moving downwards
+-        actor->pos.y += actor->move_speed;
++        // Moving downwards; bound the step before unsigned arithmetic.
++        UWORD step = MIN(actor->move_speed, (UWORD)(params->Y - actor->pos.y));
++        actor->pos.y += step;
+ 
+         // Check for actor collision
+         actor_t *hit_actor;
+         if (test_actors && (hit_actor = actor_overlapping_bb(&actor->bounds, &actor->pos, actor))) {
+-            actor->pos.y -= actor->move_speed;
++            actor->pos.y -= step;
+             params->X = actor->pos.x;
+             actor_set_anim_idle(actor);
+             return;
+@@ -780,13 +784,14 @@
+ 
+     if (!reached_x) {
+         if (params->X < actor->pos.x) {
+-            // Moving left
+-            actor->pos.x -= actor->move_speed;
++            // Moving left; bound the step before unsigned arithmetic.
++            UWORD step = MIN(actor->move_speed, (UWORD)(actor->pos.x - params->X));
++            actor->pos.x -= step;
+ 
+             // Check for actor collision
+             actor_t *hit_actor;
+             if (test_actors && (hit_actor = actor_overlapping_bb(&actor->bounds, &actor->pos, actor))) {
+-                actor->pos.x += actor->move_speed;
++                actor->pos.x += step;
+                 params->Y = actor->pos.y;
+                 reached_x = TRUE;
+             }
+@@ -798,13 +803,14 @@
+                 reached_x = TRUE;
+             }
+         } else {
+-            // Moving right
+-            actor->pos.x += actor->move_speed;
++            // Moving right; bound the step before unsigned arithmetic.
++            UWORD step = MIN(actor->move_speed, (UWORD)(params->X - actor->pos.x));
++            actor->pos.x += step;
+ 
+             // Check for actor collision
+             actor_t *hit_actor;
+             if (test_actors && (hit_actor = actor_overlapping_bb(&actor->bounds, &actor->pos, actor))) {
+-                actor->pos.x -= actor->move_speed;
++                actor->pos.x -= step;
+                 params->Y = actor->pos.y;
+                 reached_x = TRUE;
+             }
+@@ -820,13 +826,14 @@
+ 
+     if (!reached_y) {
+         if (params->Y < actor->pos.y) {
+-            // Moving upwards
+-            actor->pos.y -= actor->move_speed;
++            // Moving upwards; bound the step before unsigned arithmetic.
++            UWORD step = MIN(actor->move_speed, (UWORD)(actor->pos.y - params->Y));
++            actor->pos.y -= step;
+ 
+             // Check for actor collision
+             actor_t *hit_actor;
+             if (test_actors && (hit_actor = actor_overlapping_bb(&actor->bounds, &actor->pos, actor))) {
+-                actor->pos.y += actor->move_speed;
++                actor->pos.y += step;
+                 params->X = actor->pos.x;
+                 reached_y = TRUE;
+             }
+@@ -837,13 +844,14 @@
+                 reached_y = TRUE;
+             }
+         } else {
+-            // Moving downwards
+-            actor->pos.y += actor->move_speed;
++            // Moving downwards; bound the step before unsigned arithmetic.
++            UWORD step = MIN(actor->move_speed, (UWORD)(params->Y - actor->pos.y));
++            actor->pos.y += step;
+ 
+             // Check for actor collision
+             actor_t *hit_actor;
+             if (test_actors && (hit_actor = actor_overlapping_bb(&actor->bounds, &actor->pos, actor))) {
+-                actor->pos.y -= actor->move_speed;
++                actor->pos.y -= step;
+                 params->X = actor->pos.x;
+                 reached_y = TRUE;
+             }

@@ -13,6 +13,12 @@ from pathlib import Path
 
 
 class Replay:
+    """One controller-only route from a fresh emulator boot.
+
+    PyBoy save states do not reset all host-side input/timing state. Reusing
+    one instance can therefore make a route depend on the preceding replay.
+    """
+
     def __init__(self, rom, visible=False):
         from pyboy import PyBoy
 
@@ -37,6 +43,7 @@ class Replay:
         saved = io.BytesIO()
         self.p.save_state(saved)
         self.menu = saved.getvalue()
+        self._has_run = False
 
     def variable(self, name, value=None):
         address = self.symbols["_script_memory"][1] + 2 * self.variables["VAR_" + name]
@@ -45,6 +52,9 @@ class Replay:
         return self.p.memory[address] | self.p.memory[address + 1] << 8
 
     def run(self, record):
+        if self._has_run:
+            raise RuntimeError("Replay instances are single-use; create a fresh Replay for each route")
+        self._has_run = True
         world, level = record["world"], record["level"]
         self.p.load_state(io.BytesIO(self.menu))
         self.panics.clear()
@@ -104,15 +114,15 @@ def main():
               or f'{r["world"]}-{r["level"]}' == args.level]
     if not routes:
         parser.error("No matching recorded levels")
-    emulator = Replay(args.rom, args.visible)
     results = []
-    try:
-        for record in routes:
+    for record in routes:
+        emulator = Replay(args.rom, args.visible)
+        try:
             result = emulator.run(record)
-            results.append(result)
-            print(json.dumps(result), flush=True)
-    finally:
-        emulator.close()
+        finally:
+            emulator.close()
+        results.append(result)
+        print(json.dumps(result), flush=True)
     if args.output:
         args.output.write_text(json.dumps({"rom_sha256": digest, "results": results}, indent=2) + "\n")
     return int(any(not result["passed"] for result in results))

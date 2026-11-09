@@ -41,8 +41,5 @@ extern WORD col_tx;
 extern WORD col_ty;
 extern upoint16_t tmp_point;
 
-extern const BYTE firebar_incx_lookup[];
-extern const BYTE firebar_incy_lookup[];
-extern const BYTE spring_bb_top_lookup[];
 
 #endif

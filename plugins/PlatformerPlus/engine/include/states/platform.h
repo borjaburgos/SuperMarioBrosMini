@@ -12,12 +12,23 @@
 #define LEGACY_DELTA_TO_SUBPX(v) ((v) << 1)
 #endif
 
+// Retain the former 127/16 px movement limit in 1/32 px coordinates. Keeping
+// each step below an 8 px tile also prevents skipping a thin wall or ceiling.
+#define PLATFORM_MAX_DELTA_SUBPX LEGACY_DELTA_TO_SUBPX(127)
+#define PLATFORM_CLAMP_DELTA(v) CLAMP((v), -PLATFORM_MAX_DELTA_SUBPX, PLATFORM_MAX_DELTA_SUBPX)
+
 // Do not cast world Y directly to WORD: tall maps legitimately cross 0x8000
 // (1024 px in the 1/32-pixel coordinate system). Split the unused space between
 // the map bottom and wrapped negative Y instead. The tallest map is 192 tiles,
 // leaving 256 px of headroom on either side, more than a full spring jump.
 #define PLATFORM_Y_ABOVE_TOP(y) ((UWORD)(y) > (((UWORD)image_tile_height + ((256u - image_tile_height) >> 1)) << 8))
 #define PLAYER_ABOVE_SCENE_TOP() PLATFORM_Y_ABOVE_TOP(PLAYER.pos.y + PLAYER.bounds.top)
+#define PLAYER_FULLY_ABOVE_SCENE_TOP() PLATFORM_Y_ABOVE_TOP(PLAYER.pos.y + PLAYER.bounds.bottom)
+
+// A partially visible player may have a wrapped-negative head and visible feet.
+// Clip horizontal collision ranges to row zero; an entirely negative range is empty.
+#define PLATFORM_COLLISION_TOP_TILE(y) (PLATFORM_Y_ABOVE_TOP(y) ? 0 : SUBPX_TO_TILE(y))
+#define PLATFORM_COLLISION_END_TILE(y) (PLATFORM_Y_ABOVE_TOP(y) ? 0 : SUBPX_TO_TILE(y) + 1)
 
 void platform_init(void) BANKED;
 void platform_update(void) BANKED;

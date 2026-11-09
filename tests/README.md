@@ -6,6 +6,8 @@ Run the patch-metadata and project-script memory-width checks with Python 3
 ```sh
 python -m unittest discover -s tests -v
 node --test tests/test_platformer_event_widths.cjs
+node --test tests/test_metatile_capacity.cjs
+node --test tests/test_palette_events.cjs
 ```
 
 To also run the emulator checks, install PyBoy in a separate Python environment
@@ -109,14 +111,59 @@ the pre-fix ROM (built after correcting its malformed collision patch). The stom
 test reproduces the panic in commit `aa5d8c9` at gameplay frame 349, with ROM bank
 `0xC9`. The memory-width audit rejects that build's oversized state/bounce writes.
 
+## Adversarial-review regressions
+
+The beta 16 suite also covers these eight fixes:
+
+- Scripted X/Y/diagonal movement limits its final step to the remaining distance,
+  including collision rollback. A controller-only timeout on World 1-1's final
+  staircase and seeded unsigned-Y boundaries check that Mario's death animation
+  finishes and deducts a life instead of wrapping indefinitely.
+- Independently banked firebar/spring behavior uses constants from the correct
+  ROM bank. Probes check all 16 firebar rays, reject damage at the old wrong-bank
+  location, and verify every observed spring-compression position.
+- Partially above-map players retain floor and wall collision. Small/Big Mario
+  land on the real top-row terrain from both air states, visible bodies respect
+  walls on either side, and fully off-screen players ignore off-screen enemies.
+- Metatile maps cannot overflow their reserved SRAM. Native loader probes accept
+  208x38 tiles but reject 208x39/40 without changing map, collision, or WRAM bytes.
+  Node checks cover build-time scene/background metadata, shared nested scripts,
+  static/atlas exclusions, and 8px/16px limits including padded 16px row strides.
+- Spring/high-speed player movement retains the authored legacy movement range
+  after subpixel conversion. The real World 2-1 spring must deliver its six-pixel
+  boost rather than clipping it to roughly four pixels.
+- Elevators in tall maps cross Y=1024 without a false wrap or rider detachment.
+  World 12-3 probes also retain real top/bottom wrapping and detach only the
+  wrapping platform's own rider.
+- Palette getters preserve custom-event output references. The Node native-call
+  and memory model tests all 16 direct/indirect output combinations for both
+  background and sprite palettes, including the unused fourth sprite output.
+- Copy-scene-palette events honor checked, unchecked, and omitted/default Commit
+  values. Native probes check immediate versus deferred hardware updates on
+  both CGB and DMG; immediate DMG commits must update BGP as well as shadow data.
+
+With `SMBMINI_ROM` and `SMBMINI_BUILD` both set, the expected totals are 44 Python
+tests and 47 Node tests. Missing runtime/build inputs intentionally skip the
+corresponding Python checks. The native fixtures exercise the compiled routines;
+only the continuous controller routes establish complete level traversal.
+
 ## Recorded level routes
 
 `fixtures/level_routes.json` contains completion routes for all 64 levels, verified on
-`compat-4.3.2-beta.8`. `playthrough_results.json` records the replay results.
+`compat-4.3.2-beta.16`. `playthrough_results.json` records the replay results.
+Routes affected by restored spring/stomp physics and bank-correct behavior have
+been re-recorded and replayed from each level's start on that build.
 These are controller-only gameplay routes, found with save-state-assisted
 exploration and replayed continuously from each selected level's start. Menu
 level selection is the only memory write; gameplay does not use invincibility,
 position changes, patched physics, or forced completion flags.
+
+Each level now starts in a fresh emulator instance. Restoring a saved menu in a
+reused PyBoy instance does not reset every host-side input/timing detail and made
+some prior batch results depend on preceding routes. `Replay` rejects reuse, and
+two harness tests protect fresh construction and cleanup. The DMG palette probe
+also selects the DMG boot ROM explicitly and verifies the game's hardware flag;
+PyBoy otherwise auto-selects CGB boot behavior from this cartridge's header.
 
 ```sh
 python tests/replay_levels.py /absolute/path/to/build/rom/game.gb tests/fixtures/level_routes.json --allow-different-rom --output replay-results.json

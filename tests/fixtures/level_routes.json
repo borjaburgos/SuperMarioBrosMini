@@ -1,5 +1,5 @@
 {
-  "rom_sha256": "8d695254cbe99fe4c8c48a326087da782b6d0a940e1077209feceac88bbdc3fa",
+  "rom_sha256": "f6a28ccb5eb9fe744940b606d0a74207d12b317c806db2e4a8da3c3315136a65",
   "levels": [
     {
       "world": 1,
@@ -919,11 +919,7 @@
       "route": [
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -931,11 +927,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right up",
@@ -959,11 +951,15 @@
         ],
         [
           "right b a",
-          48
+          96
+        ],
+        [
+          "",
+          4
         ],
         [
           "right b a",
-          48
+          24
         ],
         [
           "right b",
@@ -987,15 +983,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "right b",
@@ -1027,11 +1015,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "",
@@ -1119,1903 +1103,683 @@
         ],
         [
           "b a",
-          40
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          720
-        ]
-      ]
-    },
-    {
-      "world": 2,
-      "level": 2,
-      "route": [
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "left",
-          8
-        ],
-        [
-          "a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "left",
-          8
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "a",
-          16
-        ],
-        [
-          "",
-          4
-        ],
-        [
-          "a",
-          16
-        ],
-        [
-          "left",
-          8
-        ],
-        [
-          "left",
-          8
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "a",
-          16
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "",
-          240
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          224
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "a",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ]
-      ]
-    },
-    {
-      "world": 2,
-      "level": 3,
-      "route": [
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          720
-        ]
-      ]
-    },
-    {
-      "world": 2,
-      "level": 4,
-      "route": [
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right down",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "left b a",
-          32
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right down",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "left b a",
-          32
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "a",
-          60
-        ]
-      ]
-    },
-    {
-      "world": 3,
-      "level": 1,
-      "route": [
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right down",
-          48
-        ],
-        [
-          "right down",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          720
-        ]
-      ]
-    },
-    {
-      "world": 3,
-      "level": 2,
-      "route": [
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "left b a",
-          32
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "left b a",
-          32
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "left b a",
-          32
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          720
-        ]
-      ]
-    },
-    {
-      "world": 3,
-      "level": 3,
-      "route": [
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right down",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right down",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          720
-        ]
-      ]
-    },
-    {
-      "world": 3,
-      "level": 4,
-      "route": [
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "b a",
-          40
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "left b a",
-          32
-        ],
-        [
-          "right down",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          240
-        ],
-        [
-          "",
           80
         ],
         [
+          "right up",
+          44
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "left b",
+          24
+        ],
+        [
+          "right up",
+          4
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          720
+        ]
+      ]
+    },
+    {
+      "world": 2,
+      "level": 2,
+      "route": [
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "left",
+          8
+        ],
+        [
+          "a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "left",
+          8
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "a",
+          16
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "a",
+          16
+        ],
+        [
+          "left",
+          8
+        ],
+        [
+          "left",
+          8
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "a",
+          16
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "",
+          240
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          224
+        ],
+        [
           "",
           60
         ],
@@ -3030,6 +1794,1274 @@
         [
           "a",
           60
+        ],
+        [
+          "",
+          60
+        ],
+        [
+          "",
+          60
+        ],
+        [
+          "",
+          60
+        ]
+      ]
+    },
+    {
+      "world": 2,
+      "level": 3,
+      "route": [
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          720
+        ]
+      ]
+    },
+    {
+      "world": 2,
+      "level": 4,
+      "route": [
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right down",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "left b a",
+          32
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right down",
+          48
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "left b a",
+          32
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          60
+        ],
+        [
+          "",
+          60
+        ],
+        [
+          "",
+          60
+        ],
+        [
+          "a",
+          60
+        ]
+      ]
+    },
+    {
+      "world": 3,
+      "level": 1,
+      "route": [
+        [
+          "right b a",
+          144
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          16
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          96
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "left b",
+          32
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          192
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right down",
+          96
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          96
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          92
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "a",
+          4
+        ],
+        [
+          "right up",
+          4
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          720
+        ]
+      ]
+    },
+    {
+      "world": 3,
+      "level": 2,
+      "route": [
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "left b a",
+          32
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "left b a",
+          32
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "left b a",
+          32
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          720
+        ]
+      ]
+    },
+    {
+      "world": 3,
+      "level": 3,
+      "route": [
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right down",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right down",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          720
+        ]
+      ]
+    },
+    {
+      "world": 3,
+      "level": 4,
+      "route": [
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          96
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b a",
+          32
+        ],
+        [
+          "right b",
+          16
+        ],
+        [
+          "right b a",
+          96
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          20
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b a",
+          24
+        ],
+        [
+          "right b",
+          4
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right up",
+          16
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right up",
+          44
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b a",
+          8
+        ],
+        [
+          "right up",
+          36
+        ],
+        [
+          "right b a",
+          96
+        ],
+        [
+          "right up",
+          48
+        ],
+        [
+          "left b a",
+          32
+        ],
+        [
+          "right down",
+          48
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "",
+          500
+        ],
+        [
+          "a",
+          36
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b",
+          4
+        ],
+        [
+          "",
+          192
+        ],
+        [
+          "right b",
+          12
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "a",
+          24
+        ],
+        [
+          "left",
+          24
+        ],
+        [
+          "right",
+          240
+        ],
+        [
+          "",
+          960
+        ],
+        [
+          "a",
+          4
         ]
       ]
     },
@@ -3313,11 +3345,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right up",
@@ -3345,11 +3373,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -3429,7 +3453,15 @@
         ],
         [
           "right up",
-          48
+          16
+        ],
+        [
+          "",
+          112
+        ],
+        [
+          "right up",
+          32
         ],
         [
           "",
@@ -3441,23 +3473,11 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "right b",
-          24
-        ],
-        [
-          "right b",
-          8
+          32
         ],
         [
           "right up",
@@ -3493,11 +3513,7 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "right b a",
@@ -3509,11 +3525,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "left b a",
@@ -3525,11 +3537,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "left b a",
@@ -3569,19 +3577,7 @@
         ],
         [
           "",
-          224
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          404
         ],
         [
           "a",
@@ -3589,15 +3585,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ]
       ]
     },
@@ -4701,31 +4689,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          336
         ],
         [
           "right b",
@@ -4737,115 +4701,99 @@
         ],
         [
           "right b",
-          24
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b a",
-          16
+          20
         ],
         [
           "",
-          24
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right up",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          4
         ],
         [
           "a",
-          60
+          32
+        ],
+        [
+          "right b",
+          4
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right up",
+          32
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right up",
+          16
+        ],
+        [
+          "right b a",
+          96
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          96
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right b a",
+          48
+        ],
+        [
+          "right up",
+          96
+        ],
+        [
+          "right b a",
+          240
+        ],
+        [
+          "",
+          180
+        ],
+        [
+          "a",
+          4
         ]
       ]
     },
@@ -4855,11 +4803,7 @@
       "route": [
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "",
@@ -4883,15 +4827,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "right b",
@@ -4915,11 +4851,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -4935,11 +4867,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -4955,15 +4883,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "right b",
@@ -4979,15 +4899,19 @@
         ],
         [
           "right b a",
+          136
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "a",
           48
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          8
         ],
         [
           "right b",
@@ -5003,11 +4927,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right up",
@@ -5023,11 +4943,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "right b",
@@ -5035,11 +4951,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5061,11 +4973,7 @@
       "route": [
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5073,11 +4981,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5101,11 +5005,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5141,19 +5041,11 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5217,7 +5109,15 @@
         ],
         [
           "right b a",
-          48
+          24
+        ],
+        [
+          "",
+          148
+        ],
+        [
+          "right b a",
+          24
         ],
         [
           "right up",
@@ -5241,11 +5141,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5277,11 +5173,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5305,11 +5197,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "left b a",
@@ -5321,11 +5209,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5389,11 +5273,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5443,19 +5323,19 @@
         ],
         [
           "right b a",
-          48
+          184
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "left b a",
+          16
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          8
         ],
         [
           "right up",
@@ -5475,7 +5355,15 @@
         ],
         [
           "right b a",
-          16
+          12
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b a",
+          28
         ],
         [
           "right b",
@@ -5483,15 +5371,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "right b",
@@ -5499,11 +5379,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -5559,11 +5435,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "",
@@ -5571,7 +5443,11 @@
         ],
         [
           "right b",
-          8
+          16
+        ],
+        [
+          "right b a",
+          96
         ],
         [
           "right b",
@@ -5582,16 +5458,12 @@
           48
         ],
         [
-          "right b a",
-          48
+          "",
+          720
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b a",
-          48
+          240
         ],
         [
           "",
@@ -5625,31 +5497,19 @@
         ],
         [
           "right up",
-          48
+          32
+        ],
+        [
+          "",
+          60
+        ],
+        [
+          "right up",
+          16
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          288
         ],
         [
           "right b",
@@ -5661,7 +5521,15 @@
         ],
         [
           "right b",
-          24
+          20
+        ],
+        [
+          "",
+          48
+        ],
+        [
+          "right b",
+          4
         ],
         [
           "right b a",
@@ -5673,15 +5541,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "right b",
@@ -5725,47 +5585,11 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b a",
-          48
+          352
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ],
         [
           "a",
@@ -7641,11 +7465,7 @@
       "route": [
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -7677,27 +7497,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          288
         ],
         [
           "right up",
@@ -7721,11 +7521,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -7733,11 +7529,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right up",
@@ -7761,7 +7553,15 @@
         ],
         [
           "right b a",
-          48
+          32
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b a",
+          16
         ],
         [
           "right up",
@@ -7801,11 +7601,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -7821,15 +7617,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "right b",
@@ -7837,11 +7625,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "right b",
@@ -7853,19 +7637,11 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "",
@@ -8097,11 +7873,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -8109,19 +7881,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          192
         ],
         [
           "right b",
@@ -8129,11 +7889,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "",
@@ -8193,11 +7949,7 @@
         ],
         [
           "down",
-          120
-        ],
-        [
-          "down",
-          64
+          184
         ],
         [
           "right b a",
@@ -8225,11 +7977,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          16
+          64
         ],
         [
           "right b",
@@ -8273,15 +8021,7 @@
         ],
         [
           "left",
-          8
-        ],
-        [
-          "left",
-          8
-        ],
-        [
-          "left",
-          8
+          24
         ],
         [
           "down",
@@ -8373,71 +8113,31 @@
         ],
         [
           "right",
-          24
-        ],
-        [
-          "right",
-          24
+          48
         ],
         [
           "right a",
           16
         ],
         [
-          "right",
-          24
+          "",
+          84
         ],
         [
           "right",
-          24
+          188
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b a",
+          8
         ],
         [
           "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
+          148
         ],
         [
           "right a",
@@ -8469,59 +8169,15 @@
         ],
         [
           "right",
+          124
+        ],
+        [
+          "",
           24
         ],
         [
           "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
+          212
         ],
         [
           "right a",
@@ -8565,19 +8221,11 @@
         ],
         [
           "right a",
-          16
-        ],
-        [
-          "right a",
-          16
+          32
         ],
         [
           "right",
-          24
-        ],
-        [
-          "right",
-          4
+          28
         ],
         [
           "b a",
@@ -8585,11 +8233,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right up",
@@ -8621,11 +8265,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "down",
@@ -8645,23 +8285,7 @@
         ],
         [
           "",
-          240
-        ],
-        [
-          "",
-          80
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          500
         ],
         [
           "a",
@@ -9201,7 +8825,7 @@
         ],
         [
           "right",
-          36
+          38
         ],
         [
           "",
@@ -9487,11 +9111,7 @@
       "route": [
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "",
@@ -9499,11 +9119,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -9527,11 +9143,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -9547,15 +9159,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "right b",
@@ -9563,11 +9167,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -9599,15 +9199,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "right b",
@@ -9643,11 +9235,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right up",
@@ -9663,15 +9251,23 @@
         ],
         [
           "right b",
-          8
+          4
+        ],
+        [
+          "",
+          4
         ],
         [
           "right b a",
-          48
+          32
+        ],
+        [
+          "right b",
+          4
         ],
         [
           "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -14045,15 +13641,11 @@
       "route": [
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "",
-          24
+          56
         ],
         [
           "right down",
@@ -14065,11 +13657,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "right b",
@@ -14129,19 +13717,11 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          48
+          64
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          24
+          32
         ],
         [
           "right b a",
@@ -14193,11 +13773,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "",
@@ -14253,11 +13829,7 @@
         ],
         [
           "down",
-          64
-        ],
-        [
-          "down",
-          64
+          128
         ],
         [
           "right b a",
@@ -15097,19 +14669,7 @@
         ],
         [
           "",
-          224
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          404
         ],
         [
           "a",
@@ -15117,15 +14677,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ],
         [
           "a",
@@ -15133,11 +14685,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
+          120
         ]
       ]
     },
@@ -15218,20 +14766,20 @@
           240
         ],
         [
-          "right b a",
-          16
+          "",
+          1
         ],
         [
-          "left a",
+          "a",
           48
         ],
         [
-          "right b a",
-          48
+          "right up a",
+          64
         ],
         [
           "right b",
-          8
+          4
         ],
         [
           "left b a",
@@ -15246,68 +14794,92 @@
           48
         ],
         [
-          "",
-          24
-        ],
-        [
-          "left a",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "left a",
-          48
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "",
-          240
-        ],
-        [
-          "right b a",
+          "left",
           16
         ],
         [
-          "right b a",
-          16
+          "right",
+          12
         ],
         [
-          "right b",
+          "",
           8
         ],
         [
-          "right b",
-          8
-        ],
-        [
-          "left b a",
+          "left",
           32
         ],
         [
-          "right b",
-          8
+          "right",
+          12
         ],
         [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
+          "right",
           16
         ],
         [
-          "left b a",
+          "",
+          12
+        ],
+        [
+          "a",
+          24
+        ],
+        [
+          "",
+          16
+        ],
+        [
+          "up a",
           32
         ],
         [
-          "right b",
+          "up",
+          720
+        ],
+        [
+          "left",
+          24
+        ],
+        [
+          "right",
+          12
+        ],
+        [
+          "",
           8
+        ],
+        [
+          "a",
+          20
+        ],
+        [
+          "right up a",
+          24
+        ],
+        [
+          "up",
+          160
+        ],
+        [
+          "down",
+          24
+        ],
+        [
+          "left b a",
+          10
+        ],
+        [
+          "right b a",
+          24
+        ],
+        [
+          "left",
+          12
+        ],
+        [
+          "",
+          12
         ],
         [
           "left b a",
@@ -15348,6 +14920,14 @@
         [
           "",
           12
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "",
+          16
         ],
         [
           "a",
@@ -15391,11 +14971,7 @@
         ],
         [
           "left b a",
-          32
-        ],
-        [
-          "",
-          12
+          20
         ],
         [
           "right",
@@ -15404,6 +14980,14 @@
         [
           "",
           12
+        ],
+        [
+          "left",
+          8
+        ],
+        [
+          "",
+          8
         ],
         [
           "a",
@@ -15428,6 +15012,10 @@
         [
           "up",
           160
+        ],
+        [
+          "up",
+          120
         ],
         [
           "left a",
@@ -15534,7 +15122,7 @@
           32
         ],
         [
-          "left",
+          "right b",
           4
         ],
         [
@@ -15546,36 +15134,28 @@
           8
         ],
         [
-          "right b a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
           "right b",
-          8
+          12
         ],
         [
-          "left",
-          8
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "left",
-          4
-        ],
-        [
-          "left",
-          16
+          "left b",
+          6
         ],
         [
           "left b a",
           32
+        ],
+        [
+          "right",
+          8
+        ],
+        [
+          "left b a",
+          16
+        ],
+        [
+          "right",
+          8
         ],
         [
           "left",
@@ -15590,12 +15170,52 @@
           4
         ],
         [
+          "left b a",
+          32
+        ],
+        [
+          "right",
+          4
+        ],
+        [
           "a",
           16
         ],
         [
           "right b",
           8
+        ],
+        [
+          "left",
+          12
+        ],
+        [
+          "a",
+          16
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "a",
+          16
+        ],
+        [
+          "left a",
+          12
+        ],
+        [
+          "right",
+          8
+        ],
+        [
+          "",
+          8
+        ],
+        [
+          "left",
+          12
         ],
         [
           "a",
@@ -15618,20 +15238,20 @@
           16
         ],
         [
+          "right b",
+          4
+        ],
+        [
+          "right b a",
+          32
+        ],
+        [
           "",
           256
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          120
         ],
         [
           "a",
@@ -15639,15 +15259,11 @@
         ],
         [
           "",
-          60
+          180
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
+          600
         ]
       ]
     },
@@ -16529,11 +16145,15 @@
         ],
         [
           "",
-          240
+          448
+        ],
+        [
+          "left b",
+          4
         ],
         [
           "",
-          240
+          32
         ],
         [
           "right b a",
@@ -16577,11 +16197,15 @@
         ],
         [
           "",
-          240
+          340
+        ],
+        [
+          "left b a",
+          24
         ],
         [
           "",
-          240
+          144
         ],
         [
           "right b a",
@@ -16589,11 +16213,7 @@
         ],
         [
           "",
-          24
-        ],
-        [
-          "",
-          24
+          48
         ],
         [
           "b a",
@@ -16605,23 +16225,23 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
-          8
+          4
+        ],
+        [
+          "",
+          88
+        ],
+        [
+          "right b",
+          4
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "left b a",
@@ -16637,7 +16257,19 @@
         ],
         [
           "right b a",
+          12
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "left b a",
           16
+        ],
+        [
+          "right b a",
+          4
         ],
         [
           "b a",
@@ -16669,15 +16301,27 @@
         ],
         [
           "right b",
-          8
+          40
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "left b a",
+          32
         ],
         [
           "right b",
-          8
+          4
         ],
         [
-          "right b",
-          24
+          "",
+          4
         ],
         [
           "right b a",
@@ -16685,31 +16329,19 @@
         ],
         [
           "right b",
-          24
+          20
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "right b",
-          24
-        ],
-        [
-          "right b",
-          24
+          48
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "left b",
@@ -16717,11 +16349,27 @@
         ],
         [
           "right b a",
-          48
+          32
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "left b",
+          24
         ],
         [
           "right b a",
-          16
+          4
+        ],
+        [
+          "",
+          128
+        ],
+        [
+          "right b a",
+          28
         ],
         [
           "",
@@ -16749,51 +16397,47 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b a",
-          48
+          80
         ],
         [
           "",
+          420
+        ],
+        [
+          "a",
+          60
+        ],
+        [
+          "",
+          180
+        ],
+        [
+          "a",
+          60
+        ],
+        [
+          "right b",
           240
         ],
         [
           "",
-          60
+          656
+        ],
+        [
+          "right b a",
+          8
         ],
         [
           "",
-          60
+          68
+        ],
+        [
+          "right b",
+          240
         ],
         [
           "",
-          60
-        ],
-        [
-          "a",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "a",
-          60
+          720
         ]
       ]
     },
@@ -16803,15 +16447,7 @@
       "route": [
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b a",
-          48
+          80
         ],
         [
           "right b",
@@ -16819,15 +16455,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          80
         ],
         [
           "b a",
@@ -16835,23 +16463,19 @@
         ],
         [
           "right b a",
-          48
+          64
         ],
         [
-          "right b a",
+          "right b",
           16
         ],
         [
-          "right b",
-          8
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
           "right b a",
           48
+        ],
+        [
+          "",
+          32
         ],
         [
           "right b a",
@@ -16863,11 +16487,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          16
+          64
         ],
         [
           "right b",
@@ -16875,11 +16495,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          16
+          64
         ],
         [
           "right b",
@@ -16887,15 +16503,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b a",
-          48
+          80
         ],
         [
           "right b",
@@ -16915,15 +16523,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b a",
-          48
+          80
         ],
         [
           "right b",
@@ -16931,19 +16531,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          160
         ],
         [
           "right up",
@@ -16951,15 +16539,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          144
         ],
         [
           "left",
@@ -16967,35 +16547,7 @@
         ],
         [
           "",
-          24
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "",
-          24
-        ],
-        [
-          "",
-          1
-        ],
-        [
-          "",
-          24
+          169
         ],
         [
           "right a",
@@ -17003,11 +16555,7 @@
         ],
         [
           "",
-          24
-        ],
-        [
-          "",
-          180
+          204
         ],
         [
           "right b a",
@@ -17031,19 +16579,7 @@
         ],
         [
           "",
-          224
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          404
         ],
         [
           "a",
@@ -17051,15 +16587,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ],
         [
           "a",
@@ -17067,15 +16595,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ]
       ]
     },
@@ -17403,19 +16923,7 @@
       "route": [
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          192
         ],
         [
           "left b a",
@@ -17427,71 +16935,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          816
         ],
         [
           "right b",
@@ -17499,15 +16943,15 @@
         ],
         [
           "",
-          24
+          28
         ],
         [
-          "right b a",
+          "right b",
           48
         ],
         [
           "right b a",
-          48
+          96
         ],
         [
           "",
@@ -17519,15 +16963,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ],
         [
           "a",
@@ -17535,15 +16971,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ],
         [
           "a",
@@ -17593,11 +17021,7 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "b a",
@@ -17705,11 +17129,7 @@
         ],
         [
           "right b",
-          24
-        ],
-        [
-          "right b",
-          24
+          48
         ],
         [
           "right b a",
@@ -17741,7 +17161,19 @@
         ],
         [
           "right b a",
-          48
+          28
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "right b",
+          16
+        ],
+        [
+          "right b a",
+          20
         ],
         [
           "right b",
@@ -17801,11 +17233,7 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "right b a",
@@ -17885,11 +17313,7 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "down",
@@ -17905,11 +17329,7 @@
         ],
         [
           "",
-          24
-        ],
-        [
-          "",
-          24
+          48
         ],
         [
           "b a",
@@ -17921,11 +17341,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "right a b",
@@ -17965,11 +17381,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right b",
@@ -17981,23 +17393,11 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
           16
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          1
+          33
         ],
         [
           "left b",
@@ -18029,11 +17429,7 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "right b a",
@@ -18041,11 +17437,7 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "right b a",
@@ -18077,15 +17469,7 @@
         ],
         [
           "right b",
-          24
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b",
-          24
+          72
         ],
         [
           "right up",
@@ -18093,11 +17477,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "right b",
@@ -18109,11 +17489,7 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "right b a",
@@ -18133,11 +17509,7 @@
         ],
         [
           "right b",
-          24
-        ],
-        [
-          "right b",
-          8
+          32
         ],
         [
           "left b a",
@@ -18185,19 +17557,7 @@
         ],
         [
           "",
-          224
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          404
         ],
         [
           "a",
@@ -18205,11 +17565,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
+          120
         ]
       ]
     },
@@ -20085,19 +19441,11 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
-        ],
-        [
-          "right b a",
           16
         ],
         [
           "right b a",
-          16
+          32
         ],
         [
           "left",
@@ -20137,11 +19485,7 @@
         ],
         [
           "right b a",
-          16
-        ],
-        [
-          "right b a",
-          16
+          32
         ],
         [
           "right",
@@ -20205,11 +19549,7 @@
         ],
         [
           "right",
-          4
-        ],
-        [
-          "right",
-          1
+          5
         ],
         [
           "left b",
@@ -20245,11 +19585,7 @@
         ],
         [
           "left",
-          4
-        ],
-        [
-          "left",
-          8
+          12
         ],
         [
           "right a",
@@ -20282,6 +19618,10 @@
         [
           "right b",
           8
+        ],
+        [
+          "",
+          4
         ],
         [
           "a",
@@ -20452,6 +19792,10 @@
           8
         ],
         [
+          "",
+          4
+        ],
+        [
           "left b a",
           32
         ],
@@ -20477,15 +19821,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ],
         [
           "a",
@@ -20493,15 +19829,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ],
         [
           "a",
@@ -20509,15 +19837,7 @@
         ],
         [
           "",
-          60
-        ],
-        [
-          "",
-          60
-        ],
-        [
-          "",
-          60
+          180
         ],
         [
           "a",
@@ -21421,7 +20741,19 @@
         ],
         [
           "right up",
-          48
+          16
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "left b a",
+          16
+        ],
+        [
+          "right up",
+          32
         ],
         [
           "right b a",
@@ -21433,19 +20765,19 @@
         ],
         [
           "right b a",
-          48
+          20
+        ],
+        [
+          "",
+          4
         ],
         [
           "right b a",
+          100
+        ],
+        [
+          "right b",
           48
-        ],
-        [
-          "right b",
-          24
-        ],
-        [
-          "right b",
-          24
         ],
         [
           "right b a",
@@ -21461,7 +20793,15 @@
         ],
         [
           "right up",
-          48
+          40
+        ],
+        [
+          "",
+          44
+        ],
+        [
+          "right up",
+          8
         ],
         [
           "right b a",
@@ -21513,11 +20853,7 @@
         ],
         [
           "right b",
-          8
-        ],
-        [
-          "right b",
-          8
+          16
         ],
         [
           "right b a",
@@ -21541,11 +20877,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right up",
@@ -21573,99 +20905,43 @@
         ],
         [
           "right b a",
+          64
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right a",
+          16
+        ],
+        [
+          "right",
           48
         ],
         [
-          "right b a",
-          16
-        ],
-        [
-          "right",
-          4
-        ],
-        [
           "right a",
           16
         ],
         [
           "right",
-          4
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right a",
-          16
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
+          192
         ],
         [
           "left",
-          8
-        ],
-        [
-          "right",
           24
         ],
         [
           "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
+          144
         ],
         [
           "right a",
@@ -21697,59 +20973,15 @@
         ],
         [
           "right",
+          124
+        ],
+        [
+          "",
           24
         ],
         [
           "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
+          212
         ],
         [
           "right a",
@@ -21789,15 +21021,7 @@
         ],
         [
           "right",
-          24
-        ],
-        [
-          "right",
-          24
-        ],
-        [
-          "right",
-          24
+          72
         ],
         [
           "right a",
@@ -21809,11 +21033,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          48
+          96
         ],
         [
           "right up",
@@ -21821,11 +21041,7 @@
         ],
         [
           "right b a",
-          48
-        ],
-        [
-          "right b a",
-          16
+          64
         ],
         [
           "right up",
@@ -21845,11 +21061,7 @@
         ],
         [
           "",
-          208
-        ],
-        [
-          "",
-          100
+          308
         ],
         [
           "a",
@@ -21857,23 +21069,7 @@
         ],
         [
           "",
-          160
-        ],
-        [
-          "",
-          128
-        ],
-        [
-          "",
-          1
-        ],
-        [
-          "",
-          148
-        ],
-        [
-          "",
-          32
+          469
         ],
         [
           "right b a",
@@ -21925,11 +21121,7 @@
         ],
         [
           "a",
-          1
-        ],
-        [
-          "a",
-          32
+          33
         ],
         [
           "",
@@ -21997,23 +21189,11 @@
         ],
         [
           "left b a",
-          48
-        ],
-        [
-          "left b a",
-          32
+          80
         ],
         [
           "right b a",
-          40
-        ],
-        [
-          "right b a",
-          16
-        ],
-        [
-          "right b a",
-          48
+          104
         ],
         [
           "left b",
@@ -22029,11 +21209,7 @@
         ],
         [
           "left b",
-          16
-        ],
-        [
-          "left b",
-          12
+          28
         ],
         [
           "right b a",
@@ -22065,11 +21241,7 @@
         ],
         [
           "left b a",
-          24
-        ],
-        [
-          "left b a",
-          4
+          28
         ],
         [
           "right b",
@@ -22081,11 +21253,7 @@
         ],
         [
           "left b",
-          12
-        ],
-        [
-          "left b",
-          24
+          36
         ],
         [
           "right b a",
@@ -22093,7 +21261,335 @@
         ],
         [
           "",
-          720
+          460
+        ],
+        [
+          "right",
+          12
+        ],
+        [
+          "right b",
+          16
+        ],
+        [
+          "left",
+          12
+        ],
+        [
+          "b a",
+          40
+        ],
+        [
+          "right b",
+          4
+        ],
+        [
+          "right b a",
+          28
+        ],
+        [
+          "left b",
+          8
+        ],
+        [
+          "left",
+          32
+        ],
+        [
+          "right b a",
+          16
+        ],
+        [
+          "",
+          32
+        ],
+        [
+          "left b a",
+          12
+        ],
+        [
+          "left b",
+          12
+        ],
+        [
+          "",
+          8
+        ],
+        [
+          "left",
+          32
+        ],
+        [
+          "a",
+          8
+        ],
+        [
+          "",
+          16
+        ],
+        [
+          "b a",
+          32
+        ],
+        [
+          "",
+          8
+        ],
+        [
+          "a",
+          12
+        ],
+        [
+          "left b",
+          12
+        ],
+        [
+          "b a",
+          8
+        ],
+        [
+          "b",
+          12
+        ],
+        [
+          "left",
+          24
+        ],
+        [
+          "left b",
+          16
+        ],
+        [
+          "b a",
+          32
+        ],
+        [
+          "left",
+          4
+        ],
+        [
+          "right b a",
+          24
+        ],
+        [
+          "left b a",
+          32
+        ],
+        [
+          "a",
+          12
+        ],
+        [
+          "left b",
+          28
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right b a",
+          12
+        ],
+        [
+          "right",
+          12
+        ],
+        [
+          "left b a",
+          32
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "left b a",
+          4
+        ],
+        [
+          "a",
+          32
+        ],
+        [
+          "left",
+          8
+        ],
+        [
+          "right b a",
+          8
+        ],
+        [
+          "a",
+          8
+        ],
+        [
+          "right b",
+          24
+        ],
+        [
+          "left",
+          32
+        ],
+        [
+          "",
+          12
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "b a",
+          8
+        ],
+        [
+          "a",
+          12
+        ],
+        [
+          "",
+          24
+        ],
+        [
+          "right b",
+          16
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "left b a",
+          16
+        ],
+        [
+          "left b",
+          16
+        ],
+        [
+          "right b a",
+          4
+        ],
+        [
+          "right b",
+          16
+        ],
+        [
+          "a",
+          16
+        ],
+        [
+          "b a",
+          24
+        ],
+        [
+          "",
+          4
+        ],
+        [
+          "b a",
+          4
+        ],
+        [
+          "right b",
+          16
+        ],
+        [
+          "left",
+          4
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "left b a",
+          8
+        ],
+        [
+          "right",
+          16
+        ],
+        [
+          "b a",
+          16
+        ],
+        [
+          "right b",
+          32
+        ],
+        [
+          "",
+          16
+        ],
+        [
+          "left",
+          8
+        ],
+        [
+          "left b",
+          12
+        ],
+        [
+          "right",
+          24
+        ],
+        [
+          "left b a",
+          24
+        ],
+        [
+          "",
+          52
+        ],
+        [
+          "right",
+          4
+        ],
+        [
+          "right b a",
+          32
+        ],
+        [
+          "left b",
+          8
+        ],
+        [
+          "left b a",
+          4
+        ],
+        [
+          "",
+          12
+        ],
+        [
+          "right b",
+          8
+        ],
+        [
+          "b a",
+          8
+        ],
+        [
+          "",
+          12
+        ],
+        [
+          "left b a",
+          24
+        ],
+        [
+          "",
+          180
         ],
         [
           "a",
@@ -22101,19 +21597,23 @@
         ],
         [
           "",
-          720
+          180
         ],
         [
-          "",
+          "a",
           60
         ],
         [
           "",
+          180
+        ],
+        [
+          "a",
           60
         ],
         [
           "",
-          60
+          180
         ],
         [
           "a",

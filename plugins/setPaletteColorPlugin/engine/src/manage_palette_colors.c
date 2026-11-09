@@ -147,10 +147,15 @@ void copy_scene_palette_colors(SCRIPT_CTX * THIS)OLDCALL BANKED {
     MemcpyBanked(&scn, scene_ptr, sizeof(scn), scene_bank);
     load_bkg_palette(scn.palette.ptr, scn.palette.bank);
 
+    if (is_commit) {
 #ifdef CGB
-        if (is_commit && _is_CGB) {
+        if (_is_CGB) {
             set_bkg_palette(0, 8, (void *)(BkgPalette));
-        }
+        } else
 #endif
+        {
+            BGP_REG = DMG_palette[0];
+        }
+    }
 
 }

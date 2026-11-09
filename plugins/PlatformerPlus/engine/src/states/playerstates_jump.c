@@ -169,10 +169,10 @@ void jump_state(void) BANKED {
 
     gotoXCol:
     {
-        deltaX = CLAMP(deltaX, -127, 127);
+        deltaX = PLATFORM_CLAMP_DELTA(deltaX);
         old_x = PLAYER.pos.x;
-        UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
-        UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom) + 1;
+        UBYTE tile_start = PLATFORM_COLLISION_TOP_TILE(PLAYER.pos.y + PLAYER.bounds.top);
+        UBYTE tile_end   = PLATFORM_COLLISION_END_TILE(PLAYER.pos.y + PLAYER.bounds.bottom);
 
 
         UWORD new_x = PLAYER.pos.x + deltaX;
@@ -203,7 +203,7 @@ void jump_state(void) BANKED {
 
         // Preserve horizontal air control while the player is above the map,
         // without looking up collision tiles using the encoded negative Y.
-        if (PLAYER_ABOVE_SCENE_TOP()) {
+        if (PLAYER_FULLY_ABOVE_SCENE_TOP()) {
             PLAYER.pos.x = new_x;
             goto gotoYCol;
         }
@@ -236,7 +236,7 @@ void jump_state(void) BANKED {
             tile_start++;
         }
 
-		tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
+		tile_start = PLATFORM_COLLISION_TOP_TILE(PLAYER.pos.y + PLAYER.bounds.top);
         tile_x = SUBPX_TO_TILE(new_x + PLAYER.bounds.left);
 
 		if (pl_vel_x < 0) {
@@ -267,7 +267,7 @@ void jump_state(void) BANKED {
     gotoYCol:
     {
         //FUNCTION Y COLLISION
-        deltaY = CLAMP(deltaY, -127, 127);
+        deltaY = PLATFORM_CLAMP_DELTA(deltaY);
 
         UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.left);
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right) + 1;
@@ -275,9 +275,9 @@ void jump_state(void) BANKED {
             //Moving Downward
             UWORD new_y = PLAYER.pos.y + deltaY;
 
-            // Continue the normal jump arc above the visible map. Collision
-            // checks resume on the frame the player crosses back into it.
-            if (PLATFORM_Y_ABOVE_TOP(new_y + PLAYER.bounds.top)) {
+            // Restore floor collision when the feet enter the map, rather than
+            // waiting for the head and missing floors in the first map row.
+            if (PLATFORM_Y_ABOVE_TOP(new_y + PLAYER.bounds.bottom)) {
                 PLAYER.pos.y = (UWORD)new_y;
                 reset_collision_cache(DIR_UP);
                 reset_collision_cache(DIR_DOWN);

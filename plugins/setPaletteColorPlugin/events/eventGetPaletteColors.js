@@ -159,7 +159,7 @@ export const compile = (input, helpers) => {
 
   const color2Alias = getVariableAlias(input.color2);
   let color2Dest = color2Alias;
-  if (_isIndirectVariable(input.color1)) {
+  if (_isIndirectVariable(input.color2)) {
     const color2_result = _declareLocal("color2_result", 1, true);
     color2Dest = color2_result;
   }

@@ -618,9 +618,9 @@ void fall_state(void) BANKED {
     //X-COLLISION
     gotoXCol:
     {
-        deltaX = CLAMP(deltaX, -127, 127);
-        UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
-        UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom) + 1;
+        deltaX = PLATFORM_CLAMP_DELTA(deltaX);
+        UBYTE tile_start = PLATFORM_COLLISION_TOP_TILE(PLAYER.pos.y + PLAYER.bounds.top);
+        UBYTE tile_end   = PLATFORM_COLLISION_END_TILE(PLAYER.pos.y + PLAYER.bounds.bottom);
         UWORD new_x = PLAYER.pos.x + deltaX;
 
         UBYTE tile_x = 0;
@@ -649,7 +649,7 @@ void fall_state(void) BANKED {
 
         // Preserve horizontal air control while the player is above the map,
         // without looking up collision tiles using the encoded negative Y.
-        if (PLAYER_ABOVE_SCENE_TOP()) {
+        if (PLAYER_FULLY_ABOVE_SCENE_TOP()) {
             PLAYER.pos.x = new_x;
             goto gotoYColFall;
         }
@@ -711,7 +711,7 @@ void fall_state(void) BANKED {
     //Y-COLLISION
     gotoYColFall:
     {
-        deltaY = CLAMP(deltaY, -127, 127);
+        deltaY = PLATFORM_CLAMP_DELTA(deltaY);
 
         //New Y Slopes 1
         UBYTE prev_grounded = grounded;
@@ -725,9 +725,9 @@ void fall_state(void) BANKED {
             //Moving Downward
             UWORD new_y = PLAYER.pos.y + deltaY;
 
-            // Continue falling above the visible map without reading wrapped
-            // tile rows. Normal collision resumes as soon as the player returns.
-            if (PLATFORM_Y_ABOVE_TOP(new_y + PLAYER.bounds.top)) {
+            // Landing begins when the feet enter the map, even if Mario's head
+            // is still above it. Do not pass through a floor in the first row.
+            if (PLATFORM_Y_ABOVE_TOP(new_y + PLAYER.bounds.bottom)) {
                 PLAYER.pos.y = (UWORD)new_y;
                 reset_collision_cache(DIR_UP);
                 reset_collision_cache(DIR_DOWN);
@@ -1038,7 +1038,7 @@ void swim_state(void) BANKED {
     //X-COLLISION
     gotoXCol:
     {
-        deltaX = CLAMP(deltaX, -127, 127);
+        deltaX = PLATFORM_CLAMP_DELTA(deltaX);
         UBYTE tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
         UBYTE tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom) + 1;
         UWORD new_x = PLAYER.pos.x + deltaX;
@@ -1143,7 +1143,7 @@ void swim_state(void) BANKED {
 
     //Y-COLLISION
     {
-        deltaY = CLAMP(deltaY, -127, 127);
+        deltaY = PLATFORM_CLAMP_DELTA(deltaY);
 
         //New Y Slopes 1
         UBYTE prev_grounded = grounded;
